@@ -14,6 +14,8 @@ node:
 	java CheckNode
 list:
 	javac CustomException.java
+	javac ListNodeInterface.java
+	javac ListNode.java
 	javac LinkedListInterface.java
 	javac LinkedList.java
 	javac CheckLL.java
