@@ -1,7 +1,6 @@
 import java.lang.*;
 
 
-//HOW TO DETECT IF THE IMPLEMENTS STATEMENT IS WORKING?
 public class Stack<E> implements StackInterface<E> {
     private int MAX_ELEMENTS = 0;
     private int numElements = 0;

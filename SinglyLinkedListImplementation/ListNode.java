@@ -9,14 +9,14 @@ public class ListNode<E> implements ListNodeInterface<E> {
     public ListNode(E data) {this(data,null);}
 
     public ListNode(E data, ListNode<E> node) {
-    	element = data;
+    	this.element = data;
     	next = node;//as both are only pointers	or better term is refrences
     }
-    
+
     public ListNode<E> getNext() throws CustomException{
-    	if(next == null){
-    		throw new CustomException("There is no next node! You have reached a null refrence.");
-    	}
+    	// if(this.next == null){
+    	// 	throw new CustomException("There is no next node! You have reached a null refrence.");
+    	// }
     	return next;
     }
     public E getElement(){
@@ -26,7 +26,8 @@ public class ListNode<E> implements ListNodeInterface<E> {
     	this.next = ln;
     	return;
     }
-
-    
+    public void setElement(E data){
+        this.element = data;
+        return;
+    }
 }
-
