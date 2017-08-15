@@ -6,8 +6,8 @@ public interface LinkedListInterface<E>{
 	public E getFirst() throws CustomException;
 	//below mehtod return the acutal val of the req element
 	public boolean contains(E item);
-	public ListNode<E> getElementRef(E item);//might throw null or
+	public ListNode<E> getElementRef(E item); //might throw null or
 	public void addFirst(E item);
 	public E removeFirst() throws CustomException;
-	public void print() ;
+	public void print();
 }
