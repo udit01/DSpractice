@@ -67,7 +67,7 @@ public class ArrayDequeue implements DequeInterface {
 
 
 
-  public Object removeFirst(){
+  public Object removeFirst() throws EmptyDequeException{
     // throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     if (num_elements == 0) {
       throw new EmptyDequeException("You cannot removeFirst() because Deque is empty.");
@@ -81,7 +81,7 @@ public class ArrayDequeue implements DequeInterface {
   }
 
 
-  public Object removeLast(){
+  public Object removeLast() throws EmptyDequeException{
     // throw new  java.lang.UnsupportedOperationException("Not implemented yet.");
     if (num_elements == 0) {
       throw new EmptyDequeException("You cannot removeLast() because Deque is empty.");
@@ -91,17 +91,17 @@ public class ArrayDequeue implements DequeInterface {
   }
 
 
-  public Object first(){
+  public Object first() throws EmptyDequeException{
+    // throw new  java.lang.UnsupportedOperationException("Not implemented yet.");
     if (num_elements == 0) {
       throw new EmptyDequeException("You cannot call first() because Deque is empty.");
     }
     return this.a[0];
-    // throw new  java.lang.UnsupportedOperationException("Not implemented yet.");
   }
 
 
 
-  public Object last(){
+  public Object last() throws EmptyDequeException{
     // throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     if (num_elements == 0) {
       throw new EmptyDequeException("You cannot call last() because Deque is empty.");
