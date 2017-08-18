@@ -11,5 +11,6 @@ public interface LinkedListInterface<E>{
 	public E removeFirst() throws CustomException;
 	public void addAfter(ListNode<E> ln  , E elem);//verify that ln != null
 	public void removeAllAfter(ListNode<E> ln);
+	public void removeAllBefore(ListNode<E> ln);//essentially declare this as head
 	public void print();
 }

@@ -124,7 +124,19 @@ public class LinkedList<E> implements LinkedListInterface<E> {
     }
   }
 	public void removeAllAfter(ListNode<E> ln){
+    if (ln == null) {
+      System.out.println("Null pointer is passed so cannot do removeAllAfter.");
+      return;
+    }
     ln.setNext(null);
+    return;
+  }
+  public void removeAllBefore(ListNode<E> ln){
+    if (ln == null) {
+      System.out.println("Null pointer is passed so cannot do removeAllABefore.");
+      return;
+    }
+    this.head = ln;
     return;
   }
 
