@@ -60,12 +60,13 @@ public class StackL implements StackInterfaceL{
     else if (depth > num_elements) {
       return -9;//error code
     }
-    ListNode ptr = ll.head ;
+    ListNode<Integer> ptr = ll.head ;
 
     for (int i = 0; i<depth ; i++) {
         ptr = ptr.getNext();
     }
     ll.head = ptr;
+
     return depth-1;//number of toppled elements;
   }
 

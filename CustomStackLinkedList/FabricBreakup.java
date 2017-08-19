@@ -59,12 +59,13 @@ public class FabricBreakup{
             toppled =  stack.topple(depth);
             // System.out.println("Line 60 toppled is:" + toppled);
             writer.write(process_id + " " + toppled);
-            dummy++;
+            // dummy++;
             writer.newLine();
           }
         }
 
         else {
+          //or maybe throw an Exception
           System.out.println("Incorrect process type in the file.. Stopping Execution.");
           break;//SHould I remove this?
         }
