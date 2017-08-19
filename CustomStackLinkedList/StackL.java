@@ -42,7 +42,7 @@ public class StackL implements StackInterfaceL{
     int elem = -3;
     while(ptr != null){
       elem = (int)ptr.getElement();
-      System.out.println("45 line in STACKL"+elem);//DEBUG
+      // System.out.println("45 line in STACKL"+elem);//DEBUG
       if (elem > max) {
         max = elem;
         depth = position +1 ;//depth is 1 indexed
@@ -53,11 +53,12 @@ public class StackL implements StackInterfaceL{
     return depth; //depth is 1 indexed
   }
   public int topple(int depth){
+    // System.out.println("IN TOPPLE FUnCITON OF stackL.");
     if (depth <= 0) {
-      return 0;
+      return -1;
     }
     else if (depth > num_elements) {
-      return -1;//error code
+      return -9;//error code
     }
     ListNode ptr = ll.head ;
 
