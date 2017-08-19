@@ -1,8 +1,11 @@
 import java.lang.*;
 
 public class LinkedList<E> implements LinkedListInterface<E> {
-  private ListNode<E> head = null;
-  private int num_nodes = 0;
+  public ListNode<E> head = null;
+  public int num_nodes = 0;
+  // public LinkedList<E>(){//HOW DO WE DECIDE IF WE NEED A CONSTRUCTOR
+  //
+  // }
   public boolean isEmpty(){
           return num_nodes == 0;
   }
@@ -12,14 +15,13 @@ public class LinkedList<E> implements LinkedListInterface<E> {
   public void addFirst(E item){
           head = new ListNode<E>(item,head);
           num_nodes++;
-          // System.out.println("Added: " +item+" to the linked list.");
           return;
   }
-  public E getFirst() throws CustomException {
+  public E getFirst(){
           if(num_nodes == 0) {
-                  throw new CustomException("Your LinkedList is empty!");
+                  System.out.println("Your LinkedList is empty!");
+                  return null;
           }
-          // System.out.println("First Element of this list is: "+ head.getElement());
           return head.getElement();
   }
   //below method is impractical
@@ -28,25 +30,18 @@ public class LinkedList<E> implements LinkedListInterface<E> {
                   return false;
           }
           ListNode<E> ptr =this.head;
-          // try{
-                  // System.out.println("Line4141");
+          if(ptr.getElement()==item) {
+                  System.out.println("Your Linkedlist contains: " +item);
+                  return true;
+          }
+          while(ptr.getNext()!=null) {
+                  ptr = ptr.getNext();
+
                   if(ptr.getElement()==item) {
                           System.out.println("Your Linkedlist contains: " +item);
                           return true;
                   }
-                  while(ptr.getNext()!=null) {
-                          // System.out.println("In linked list contains Line 42" +ptr.getElement());
-                          ptr = ptr.getNext();
-
-                          if(ptr.getElement()==item) {
-                                  System.out.println("Your Linkedlist contains: " +item);
-                                  return true;
-                          }
-                  }
-          // }
-          // catch(CustomException e) {
-          //         e.printStackTrace();
-          // }
+          }
           System.out.println("Your Linkedlist does not contain: " +item);
           return false;
   }
@@ -68,24 +63,20 @@ public class LinkedList<E> implements LinkedListInterface<E> {
           // }
           return null;
   }
-  public E removeFirst() throws CustomException {
+  public E removeFirst(){
           E temp = null;
           if(head == null) {
-                  throw new CustomException("Your linked list is empty! SO cannot remove the first element.");
+                  System.out.println("Your linked list is empty! SO cannot remove the first element.");
+                  return null;
           }
           else{
                   temp = head.getElement();
                   head = head.getNext();
-                          // try{
-                  // }
-                  // catch(CustomException e) {
-                  //         head = null;
-                  // }
                   num_nodes--;
           }
 
           // System.out.println(head==null);
-          System.out.println("Removed first element from the list.");
+          // System.out.println("Removed first element from the list.");
           return temp;
   }
   public void print(){
@@ -139,5 +130,7 @@ public class LinkedList<E> implements LinkedListInterface<E> {
     this.head = ln;
     return;
   }
+
+  //How to make an iterator class ? thich will take this class as arg and iterate on it.?
 
 }

@@ -10,11 +10,11 @@ public static void main(String args[]){
         ln.print();
 
         ln.addFirst(67);
-        try {    //is this allowed? Logically yes as at a time only one exception can propogate
+        // try {    //is this allowed? Logically yes as at a time only one exception can propogate
                 ln.removeFirst();
-        } catch (CustomException e) {
-                e.printStackTrace();
-        }
+        // } catch (CustomException e) {
+        //         e.printStackTrace();
+        // }
         ln.addFirst(62);
         // ln.isEmpty();
         System.out.println(ln.isEmpty());
