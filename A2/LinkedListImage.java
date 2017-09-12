@@ -301,7 +301,17 @@ public class LinkedListImage implements CompressedImageInterface {
 			// ll.printLLdo();
 
     }
+		public LinkedListImage(LinkedListImage imageCompressed){
+			// ll = new LinkedList2D(imageCompressed.ll.gridHeight,imageCompressed.ll.gridWidth);//numCols array range as paramerter
+			// ll.numRows=imageCompressed.ll.numRows;
+			// ll.numCols= imageCompressed.ll.numCols;
+			// ll.gridHeight=imageCompressed.ll.gridHeight;
+			// ll.gridWidth=imageCompressed.ll.gridWidth;
 
+			//or simply
+			//HOW TO TRUELY CLONE ?
+			this.ll = imageCompressed.ll;
+		}
     public boolean getPixelValue(int x, int y) throws PixelOutOfBoundException
     {
 			if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
@@ -339,8 +349,12 @@ public class LinkedListImage implements CompressedImageInterface {
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
-    public void setPixelValue(int x, int y, boolean val)
+    public void setPixelValue(int x, int y, boolean val) throws PixelOutOfBoundException
     {
+			if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
+				throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
+			}
+
 		//you need to implement this
 		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
@@ -357,22 +371,30 @@ public class LinkedListImage implements CompressedImageInterface {
 		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
-    public void performAnd(CompressedImageInterface img)
+    public void performAnd(CompressedImageInterface img) throws BoundsMismatchException
     {
 		//you need to implement this
 		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
-    public void performOr(CompressedImageInterface img)
+    public void performOr(CompressedImageInterface img) throws BoundsMismatchException
     {
 		//you need to implement this
 		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
-    public void performXor(CompressedImageInterface img)
+    public void performXor(CompressedImageInterface img) throws BoundsMismatchException
     {
 		//you need to implement this
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+			LinkedListImage image = (LinkedListImage)img;
+			LinkedListImage imageXOR = new LinkedListImage(this) ;
+
+			//TO XOR of image and this -> store it in imageXOR
+
+
+			this.ll = imageXOR.ll;
+
+		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public String toStringUnCompressed()
