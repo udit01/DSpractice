@@ -178,11 +178,11 @@ public class LinkedListImage implements CompressedImageInterface {
 								ll.numRows++;
 							}
 						}
-
-						System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-						ll.printLLdo();
-						System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-						ll.printLLfor();
+						//assume stored correctly uncomment for debugging
+						// System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+						// ll.printLLdo();
+						// System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+						// ll.printLLfor();
 
 			// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
 		}
@@ -328,7 +328,7 @@ public class LinkedListImage implements CompressedImageInterface {
 				jItr = jItr.next;
 				endIndex = jItr.data;
 				jItr = jItr.next;
-				if ((y>=startIndex)||(y<=endIndex)) {
+				if ((y>=startIndex)&&(y<=endIndex)) {
 					return false;
 				}
 			}
@@ -455,7 +455,7 @@ public class LinkedListImage implements CompressedImageInterface {
                     System.out.println("Errorrrrrrrr");
                 }
     		}
-			printGrid(grid,16,16);
+			// printGrid(grid,16,16);
     	// check constructor from grid
     	CompressedImageInterface img2 = new LinkedListImage(grid, 16, 16);
 			LinkedListImage i2 = (LinkedListImage)img2;
