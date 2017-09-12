@@ -1,0 +1,227 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Sat Sep  2 14:37:02 2017
+# Process ID: 17433
+# Current directory: /media/udit01/files/practice/DSpractice/CustomStackLinkedList
+# Command line: vivado
+# Log file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.log
+# Journal file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+source lab5_gcd_tb.tcl
+add_bp {/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd} 120
+remove_bps -file {/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd} -line 120
+run 1100 ns
+close_sim
+remove_files  -fileset sim_1 /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+launch_simulation
+source lab5_gcd.tcl
+add_force {/lab5_gcd/a_i} -radix hex {88 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {1 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix bin {1 4ns} -cancel_after 5ns
+add_force {/lab5_gcd/pushbutton} -radix bin {1 0ns}
+add_force {/lab5_gcd/clk} -radix bin {1 0ns} {0 5ps} -repeat_every 10ps
+run 1100 ns
+save_wave_config {/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg}
+add_files -fileset sim_1 -norecurse /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+set_property xsim.view /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg [get_filesets sim_1]
+add_force {/lab5_gcd/push_i} -radix bin {1 0ns} {0 500ps} -repeat_every 1000ps
+run 1100 ns
+close_sim
+launch_simulation
+open_wave_config /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+source lab5_gcd.tcl
+add_force {/lab5_gcd/a_i} -radix hex {88 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix hex {1 0ns} {0 50ps} -repeat_every 100ps
+add_force {/lab5_gcd/clk} -radix hex {1 0ns} {0 5ps} -repeat_every 10ps
+run 1100 ps
+close_sim
+launch_simulation
+open_wave_config /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+source lab5_gcd.tcl
+add_force {/lab5_gcd/a_i} -radix hex {88 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix bin {1 0ns} {0 50ps} -repeat_every 100ps
+add_force {/lab5_gcd/clk} -radix bin {1 0ns} {0 5ps} -repeat_every 10ps
+run 1100 ps
+close_sim
+launch_simulation
+open_wave_config /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+source lab5_gcd.tcl
+add_force {/lab5_gcd/a_i} -radix hex {88 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix hex {1 0ns} {0 50ps} -repeat_every 100ps
+add_force {/lab5_gcd/clk} -radix hex {1 0ns} {0 5ps} -repeat_every 10ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+add_force {/lab5_gcd/push_i} -radix hex {0 0ns}
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+run 1100 ps
+save_wave_config {/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg}
+close_sim
+launch_simulation
+open_wave_config /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+source lab5_gcd.tcl
+add_force {/lab5_gcd/a_i} -radix hex {88 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix hex {1 20ns} {0 70000ps} -repeat_every 100000ps
+add_force {/lab5_gcd/clk} -radix hex {1 0ns} {0 5000ps} -repeat_every 10000ps
+add_force {/lab5_gcd/push_i} -radix bin {1 0ns} {0 50000ps} -repeat_every 100000ps
+run 1100 ns
+add_force {/lab5_gcd/push_i} -radix bin {0 0ns}
+run 100 ns
+add_force {/lab5_gcd/a_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix hex {1 50ns} -cancel_after 150ns
+run 300 ns
+add_force {/lab5_gcd/pushbutton} -radix hex {1 0ns}
+run 300 ns
+add_force {/lab5_gcd/a_i} -radix hex {77 0ns}
+run 300 ns
+add_force {/lab5_gcd/push_i} -radix hex {1 10ns} -cancel_after 20ns
+run 300 ns
+close_sim
+launch_simulation
+open_wave_config /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+source lab5_gcd.tcl
+add_force {/lab5_gcd/a_i} -radix hex {88 0ns}
+add_force {/lab5_gcd/b_i} -radix hex {11 0ns}
+add_force {/lab5_gcd/push_i} -radix hex {1 15ns} -cancel_after 20ns
+add_force {/lab5_gcd/pushbutton} -radix hex {1 0ns}
+add_force {/lab5_gcd/clk} -radix hex {1 0ns} {0 5000ps} -repeat_every 10000ps
+run 300 ns
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -norecurse /media/udit01/files/linuxDownloads/FINAL/lab5_gcd_tb.vhd
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+open_wave_config /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+source lab5_gcd.tcl
+update_compile_order -fileset sim_1
+run 1200 ns
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -norecurse /home/udit01/Desktop/215/lab5_gcd_tb.vhd
+update_compile_order -fileset sim_1
+remove_files  /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd
+remove_files  -fileset sim_1 /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/215/lab5_gcd_tb.vhd
+remove_files  /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd
+update_compile_order -fileset sim_1
+remove_files  -fileset sim_1 /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/FINAL/lab5_gcd_tb.vhd
+remove_files  -fileset sim_1 /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd_behav.wcfg
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -force -norecurse /home/udit01/Desktop/215/lab5_gcd_tb.vhd
+add_files -norecurse {/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd}
+update_compile_order -fileset sources_1
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+close_sim
+update_compile_order -fileset sources_1
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+set_property is_enabled false [get_files  /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/215/lab5_gcd_tb.vhd]
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -norecurse /media/udit01/files/linuxDownloads/lab5_tb.vhd
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1200 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+run 1500 ns
+run 1500 ns
+run 1500 ns
+run 1500 ns
+run 1500 ns
+run 1500 ns
+run 1500 ns
+run 1500 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+close_sim
+launch_simulation
+launch_simulation
+launch_simulation
+run all
+launch_simulation
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+close_sim
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1500 ns
+close_sim

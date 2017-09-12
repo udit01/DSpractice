@@ -1,0 +1,103 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Sat Aug 26 22:28:06 2017
+# Process ID: 13801
+# Current directory: /media/udit01/files/practice/DSpractice/CustomStackLinkedList
+# Command line: vivado
+# Log file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.log
+# Journal file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project lab5_gcd /media/udit01/files/linuxDownloads/FINAL/vivadoP/lab5_gcd -part xc7a35tcpg236-1
+add_files -norecurse {/media/udit01/files/linuxDownloads/FINAL/gcd_calculation.vhd /media/udit01/files/linuxDownloads/FINAL/lab5_gcd/lab5_gcd.vhd /media/udit01/files/linuxDownloads/FINAL/checker.vhd /media/udit01/files/linuxDownloads/FINAL/lab4_seven_segment_display.vhd /media/udit01/files/linuxDownloads/FINAL/register_my.vhd}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse /media/udit01/files/linuxDownloads/FINAL/lab5_gcd_tb.vhd
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+synth_design -rtl -name rtl_1
+close_design
+set_property target_language VHDL [current_project]
+set_property simulator_language VHDL [current_project]
+synth_design -rtl -name rtl_1
+close_design
+launch_simulation
+launch_simulation
+launch_simulation
+source lab5_gcd_tb.tcl
+add_bp {/media/udit01/files/linuxDownloads/FINAL/lab5_gcd_tb.vhd} 151
+remove_bps -file {/media/udit01/files/linuxDownloads/FINAL/lab5_gcd_tb.vhd} -line 151
+synth_design -rtl -name rtl_1
+add_files -norecurse /media/udit01/files/linuxDownloads/FINAL/am/gcd_calculation.vhd
+update_compile_order -fileset sources_1
+remove_files  /media/udit01/files/linuxDownloads/FINAL/gcd_calculation.vhd
+update_compile_order -fileset sources_1
+add_files -norecurse /media/udit01/files/linuxDownloads/FINAL/am/gcd_calculation.vhd
+remove_files  /media/udit01/files/linuxDownloads/FINAL/am/gcd_calculation.vhd
+add_files -norecurse /media/udit01/files/linuxDownloads/FINAL/am/gcd_calculation.vhd
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+close_sim
+refresh_design
+remove_files  /media/udit01/files/linuxDownloads/FINAL/lab5_gcd/lab5_gcd.vhd
+remove_files  {/media/udit01/files/linuxDownloads/FINAL/lab4_seven_segment_display.vhd /media/udit01/files/linuxDownloads/FINAL/checker.vhd /media/udit01/files/linuxDownloads/FINAL/am/gcd_calculation.vhd /media/udit01/files/linuxDownloads/FINAL/register_my.vhd}
+add_files -norecurse {{/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/gcd_calculation.vhd} {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/register_my.vhd} {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/checker.vhd} {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab4_seven_segment_display.vhd}}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+refresh_design
+launch_simulation
+launch_simulation
+launch_simulation
+source lab5_gcd_tb.tcl
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+run 100 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1000 ns
+run 100 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+add_files -norecurse {{/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/counter.vhd}}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+close_sim
+launch_simulation
+remove_files  {{/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/counter.vhd}}
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+add_bp {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} 126
+remove_bps -file {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} -line 126
+add_bp {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} 131
+remove_bps -file {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} -line 131
+add_bp {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} 132
+remove_bps -file {/media/udit01/files/linuxDownloads/FINAL/Untitled Folder/lab5_gcd.vhd} -line 132
+close_sim

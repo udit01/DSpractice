@@ -1,0 +1,1063 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Fri Sep  1 21:34:34 2017
+# Process ID: 28255
+# Current directory: /media/udit01/files/practice/DSpractice/CustomStackLinkedList
+# Command line: vivado
+# Log file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.log
+# Journal file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.xpr
+INFO: [Project 1-313] Project file moved from '/home/btech/cs1160327/col215/1SEPT/lab5_gcd' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [Project 1-230] Project 'lab5_gcd.xpr' upgraded for this version of Vivado.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/media/udit01/files/opt/Vivado/2017.2/data/ip'.
+open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:01:02 . Memory (MB): peak = 5991.312 ; gain = 55.168 ; free physical = 140 ; free virtual = 10758
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+ERROR: [XSIM 43-3249] File /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd, line 43. Unresolved signal "a0_int" is multiply driven.
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 6244.465 ; gain = 0.000 ; free physical = 274 ; free virtual = 10346
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+ERROR: [XSIM 43-3249] File /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd, line 43. Unresolved signal "a0_int" is multiply driven.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+ERROR: [XSIM 43-3249] File /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd, line 77. Unresolved signal "a0_int" is multiply driven.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+ERROR: [XSIM 43-3249] File /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd, line 77. Unresolved signal "a0_int" is multiply driven.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package ieee.vital_timing
+Compiling package ieee.vital_primitives
+Compiling package unisim.vpkg
+Compiling architecture behavioral of entity xil_defaultlib.CB16CE_HXILINX_lab4_seven_segment_display [cb16ce_hxilinx_lab4_seven_segmen...]
+Compiling architecture m2_1_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.M2_1_HXILINX_lab4_seven_segment_display [m2_1_hxilinx_lab4_seven_segment_...]
+Compiling architecture behavioral of entity xil_defaultlib.CB2CE_HXILINX_lab4_seven_segment_display [cb2ce_hxilinx_lab4_seven_segment...]
+Compiling architecture d2_4e_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.D2_4E_HXILINX_lab4_seven_segment_display [d2_4e_hxilinx_lab4_seven_segment...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="1000")(0,3)\]
+Compiling architecture and2_v of entity unisim.AND2 [and2_default]
+Compiling architecture lut4_v of entity unisim.LUT4 [\LUT4(init="1111111111111110")(0...]
+Compiling architecture or4_v of entity unisim.OR4 [or4_default]
+Compiling architecture behavioral of entity xil_defaultlib.Multiplexer_16to4_MUSER_lab4_seven_segment_display [multiplexer_16to4_muser_lab4_sev...]
+Compiling architecture inv4_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.INV4_HXILINX_lab4_seven_segment_display [inv4_hxilinx_lab4_seven_segment_...]
+Compiling architecture buf_v of entity unisim.BUF [buf_default]
+Compiling architecture behavioral of entity xil_defaultlib.bit4_to_bus_MUSER_lab4_seven_segment_display [bit4_to_bus_muser_lab4_seven_seg...]
+Compiling architecture behavioral of entity xil_defaultlib.msb_of_counter_MUSER_lab4_seven_segment_display [msb_of_counter_muser_lab4_seven_...]
+Compiling architecture or6_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.OR6_HXILINX_lab4_seven_segment_display [or6_hxilinx_lab4_seven_segment_d...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0001")(0,3)\]
+Compiling architecture and2b2_v of entity unisim.AND2B2 [and2b2_default]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0100")(0,3)\]
+Compiling architecture and2b1_v of entity unisim.AND2B1 [and2b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="01000000")(0,7)\]
+Compiling architecture and3b1_v of entity unisim.AND3B1 [and3b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00010000")(0,7)\]
+Compiling architecture and3b2_v of entity unisim.AND3B2 [and3b2_default]
+Compiling architecture behavioral of entity xil_defaultlib.Acathode_MUSER_lab4_seven_segment_display [acathode_muser_lab4_seven_segmen...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="11111111111111111111...]
+Compiling architecture or5_v of entity unisim.OR5 [or5_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00000001")(0,7)\]
+Compiling architecture and3b3_v of entity unisim.AND3B3 [and3b3_default]
+Compiling architecture behavioral of entity xil_defaultlib.Bcathode_MUSER_lab4_seven_segment_display [bcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ccathode_MUSER_lab4_seven_segment_display [ccathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Dcathode_MUSER_lab4_seven_segment_display [dcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ecathode_MUSER_lab4_seven_segment_display [ecathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Fcathode_MUSER_lab4_seven_segment_display [fcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Gcathode_MUSER_lab4_seven_segment_display [gcathode_muser_lab4_seven_segmen...]
+Compiling architecture inv_v of entity unisim.INV [inv_default]
+Compiling architecture behavioral of entity xil_defaultlib.binary_to_7_segment_display_MUSER_lab4_seven_segment_display [binary_to_7_segment_display_muse...]
+Compiling architecture behavioral of entity xil_defaultlib.lab4_seven_segment_display [lab4_seven_segment_display_defau...]
+Compiling architecture behavioral of entity xil_defaultlib.counter32bit [counter32bit_default]
+Compiling architecture behavioral of entity xil_defaultlib.lab5_gcd [lab5_gcd_default]
+Compiling architecture behavior of entity xil_defaultlib.lab5_gcd_tb
+Built simulation snapshot lab5_gcd_tb_behav
+
+****** Webtalk v2017.2 (64-bit)
+  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/xsim.dir/lab5_gcd_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Fri Sep  1 23:21:40 2017...
+run_program: Time (s): cpu = 00:00:02 ; elapsed = 00:00:09 . Memory (MB): peak = 6374.520 ; gain = 0.000 ; free physical = 392 ; free virtual = 10441
+INFO: [USF-XSim-69] 'elaborate' step finished in '10' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "lab5_gcd_tb_behav -key {Behavioral:sim_1:Functional:lab5_gcd_tb} -tclbatch {lab5_gcd_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.2
+Time resolution is 1 ps
+source lab5_gcd_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Error: Test failure. Please check the waveform
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 170 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 190 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 490 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 500 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 510 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 810 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 820 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 830 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 910 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 920 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 930 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 940 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 950 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 960 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 970 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 980 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 990 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 1 us  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+xsim: Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 6458.430 ; gain = 75.191 ; free physical = 320 ; free virtual = 10421
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'lab5_gcd_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:11 ; elapsed = 00:00:20 . Memory (MB): peak = 6458.430 ; gain = 83.910 ; free physical = 320 ; free virtual = 10421
+run 1100 ns
+Error: Incorrect cathode value
+Time: 1010 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1100 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1100 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1140 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1140 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Something wrong, try again
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+ERROR: [XSIM 43-3249] File /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd, line 77. Unresolved signal "a0_int" is multiply driven.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package ieee.vital_timing
+Compiling package ieee.vital_primitives
+Compiling package unisim.vpkg
+Compiling architecture behavioral of entity xil_defaultlib.CB16CE_HXILINX_lab4_seven_segment_display [cb16ce_hxilinx_lab4_seven_segmen...]
+Compiling architecture m2_1_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.M2_1_HXILINX_lab4_seven_segment_display [m2_1_hxilinx_lab4_seven_segment_...]
+Compiling architecture behavioral of entity xil_defaultlib.CB2CE_HXILINX_lab4_seven_segment_display [cb2ce_hxilinx_lab4_seven_segment...]
+Compiling architecture d2_4e_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.D2_4E_HXILINX_lab4_seven_segment_display [d2_4e_hxilinx_lab4_seven_segment...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="1000")(0,3)\]
+Compiling architecture and2_v of entity unisim.AND2 [and2_default]
+Compiling architecture lut4_v of entity unisim.LUT4 [\LUT4(init="1111111111111110")(0...]
+Compiling architecture or4_v of entity unisim.OR4 [or4_default]
+Compiling architecture behavioral of entity xil_defaultlib.Multiplexer_16to4_MUSER_lab4_seven_segment_display [multiplexer_16to4_muser_lab4_sev...]
+Compiling architecture inv4_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.INV4_HXILINX_lab4_seven_segment_display [inv4_hxilinx_lab4_seven_segment_...]
+Compiling architecture buf_v of entity unisim.BUF [buf_default]
+Compiling architecture behavioral of entity xil_defaultlib.bit4_to_bus_MUSER_lab4_seven_segment_display [bit4_to_bus_muser_lab4_seven_seg...]
+Compiling architecture behavioral of entity xil_defaultlib.msb_of_counter_MUSER_lab4_seven_segment_display [msb_of_counter_muser_lab4_seven_...]
+Compiling architecture or6_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.OR6_HXILINX_lab4_seven_segment_display [or6_hxilinx_lab4_seven_segment_d...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0001")(0,3)\]
+Compiling architecture and2b2_v of entity unisim.AND2B2 [and2b2_default]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0100")(0,3)\]
+Compiling architecture and2b1_v of entity unisim.AND2B1 [and2b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="01000000")(0,7)\]
+Compiling architecture and3b1_v of entity unisim.AND3B1 [and3b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00010000")(0,7)\]
+Compiling architecture and3b2_v of entity unisim.AND3B2 [and3b2_default]
+Compiling architecture behavioral of entity xil_defaultlib.Acathode_MUSER_lab4_seven_segment_display [acathode_muser_lab4_seven_segmen...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="11111111111111111111...]
+Compiling architecture or5_v of entity unisim.OR5 [or5_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00000001")(0,7)\]
+Compiling architecture and3b3_v of entity unisim.AND3B3 [and3b3_default]
+Compiling architecture behavioral of entity xil_defaultlib.Bcathode_MUSER_lab4_seven_segment_display [bcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ccathode_MUSER_lab4_seven_segment_display [ccathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Dcathode_MUSER_lab4_seven_segment_display [dcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ecathode_MUSER_lab4_seven_segment_display [ecathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Fcathode_MUSER_lab4_seven_segment_display [fcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Gcathode_MUSER_lab4_seven_segment_display [gcathode_muser_lab4_seven_segmen...]
+Compiling architecture inv_v of entity unisim.INV [inv_default]
+Compiling architecture behavioral of entity xil_defaultlib.binary_to_7_segment_display_MUSER_lab4_seven_segment_display [binary_to_7_segment_display_muse...]
+Compiling architecture behavioral of entity xil_defaultlib.lab4_seven_segment_display [lab4_seven_segment_display_defau...]
+Compiling architecture behavioral of entity xil_defaultlib.counter32bit [counter32bit_default]
+Compiling architecture behavioral of entity xil_defaultlib.lab5_gcd [lab5_gcd_default]
+Compiling architecture behavior of entity xil_defaultlib.lab5_gcd_tb
+Built simulation snapshot lab5_gcd_tb_behav
+
+****** Webtalk v2017.2 (64-bit)
+  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/xsim.dir/lab5_gcd_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Fri Sep  1 23:24:00 2017...
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "lab5_gcd_tb_behav -key {Behavioral:sim_1:Functional:lab5_gcd_tb} -tclbatch {lab5_gcd_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.2
+Time resolution is 1 ps
+source lab5_gcd_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Error: Test failure. Please check the waveform
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 170 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 190 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 490 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 500 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 510 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 810 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 820 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 830 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 910 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 920 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 930 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 940 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 950 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 960 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 970 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 980 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 990 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 1 us  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'lab5_gcd_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 6489.836 ; gain = 15.371 ; free physical = 328 ; free virtual = 10417
+run 1100 ns
+Error: Incorrect cathode value
+Time: 1010 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1100 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1100 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1140 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1140 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Something wrong, try again
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package ieee.vital_timing
+Compiling package ieee.vital_primitives
+Compiling package unisim.vpkg
+Compiling architecture behavioral of entity xil_defaultlib.CB16CE_HXILINX_lab4_seven_segment_display [cb16ce_hxilinx_lab4_seven_segmen...]
+Compiling architecture m2_1_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.M2_1_HXILINX_lab4_seven_segment_display [m2_1_hxilinx_lab4_seven_segment_...]
+Compiling architecture behavioral of entity xil_defaultlib.CB2CE_HXILINX_lab4_seven_segment_display [cb2ce_hxilinx_lab4_seven_segment...]
+Compiling architecture d2_4e_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.D2_4E_HXILINX_lab4_seven_segment_display [d2_4e_hxilinx_lab4_seven_segment...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="1000")(0,3)\]
+Compiling architecture and2_v of entity unisim.AND2 [and2_default]
+Compiling architecture lut4_v of entity unisim.LUT4 [\LUT4(init="1111111111111110")(0...]
+Compiling architecture or4_v of entity unisim.OR4 [or4_default]
+Compiling architecture behavioral of entity xil_defaultlib.Multiplexer_16to4_MUSER_lab4_seven_segment_display [multiplexer_16to4_muser_lab4_sev...]
+Compiling architecture inv4_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.INV4_HXILINX_lab4_seven_segment_display [inv4_hxilinx_lab4_seven_segment_...]
+Compiling architecture buf_v of entity unisim.BUF [buf_default]
+Compiling architecture behavioral of entity xil_defaultlib.bit4_to_bus_MUSER_lab4_seven_segment_display [bit4_to_bus_muser_lab4_seven_seg...]
+Compiling architecture behavioral of entity xil_defaultlib.msb_of_counter_MUSER_lab4_seven_segment_display [msb_of_counter_muser_lab4_seven_...]
+Compiling architecture or6_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.OR6_HXILINX_lab4_seven_segment_display [or6_hxilinx_lab4_seven_segment_d...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0001")(0,3)\]
+Compiling architecture and2b2_v of entity unisim.AND2B2 [and2b2_default]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0100")(0,3)\]
+Compiling architecture and2b1_v of entity unisim.AND2B1 [and2b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="01000000")(0,7)\]
+Compiling architecture and3b1_v of entity unisim.AND3B1 [and3b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00010000")(0,7)\]
+Compiling architecture and3b2_v of entity unisim.AND3B2 [and3b2_default]
+Compiling architecture behavioral of entity xil_defaultlib.Acathode_MUSER_lab4_seven_segment_display [acathode_muser_lab4_seven_segmen...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="11111111111111111111...]
+Compiling architecture or5_v of entity unisim.OR5 [or5_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00000001")(0,7)\]
+Compiling architecture and3b3_v of entity unisim.AND3B3 [and3b3_default]
+Compiling architecture behavioral of entity xil_defaultlib.Bcathode_MUSER_lab4_seven_segment_display [bcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ccathode_MUSER_lab4_seven_segment_display [ccathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Dcathode_MUSER_lab4_seven_segment_display [dcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ecathode_MUSER_lab4_seven_segment_display [ecathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Fcathode_MUSER_lab4_seven_segment_display [fcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Gcathode_MUSER_lab4_seven_segment_display [gcathode_muser_lab4_seven_segmen...]
+Compiling architecture inv_v of entity unisim.INV [inv_default]
+Compiling architecture behavioral of entity xil_defaultlib.binary_to_7_segment_display_MUSER_lab4_seven_segment_display [binary_to_7_segment_display_muse...]
+Compiling architecture behavioral of entity xil_defaultlib.lab4_seven_segment_display [lab4_seven_segment_display_defau...]
+Compiling architecture behavioral of entity xil_defaultlib.counter32bit [counter32bit_default]
+Compiling architecture behavioral of entity xil_defaultlib.lab5_gcd [lab5_gcd_default]
+Compiling architecture behavior of entity xil_defaultlib.lab5_gcd_tb
+Built simulation snapshot lab5_gcd_tb_behav
+
+****** Webtalk v2017.2 (64-bit)
+  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/xsim.dir/lab5_gcd_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Fri Sep  1 23:25:49 2017...
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "lab5_gcd_tb_behav -key {Behavioral:sim_1:Functional:lab5_gcd_tb} -tclbatch {lab5_gcd_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.2
+Time resolution is 1 ps
+source lab5_gcd_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Error: Test failure. Please check the waveform
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 170 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 190 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 490 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 500 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 510 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 810 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 820 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 830 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 910 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 920 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 930 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 940 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 950 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 960 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 970 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 980 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 990 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 1 us  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'lab5_gcd_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+run 1100 ns
+Error: Incorrect cathode value
+Time: 1010 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1100 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1100 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1140 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1140 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Something wrong, try again
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'lab5_gcd_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+xvhdl -m64 --relax -prj lab5_gcd_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/imports/1SEPT/lab4_seven_segment_display.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity INV4_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity OR6_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB16CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity D2_4E_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity M2_1_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity CB2CE_HXILINX_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Gcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Fcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ecathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Dcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Ccathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Bcathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Acathode_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity binary_to_7_segment_display_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity msb_of_counter_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity bit4_to_bus_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity Multiplexer_16to4_MUSER_lab4_seven_segment_display
+INFO: [VRFC 10-307] analyzing entity lab4_seven_segment_display
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sources_1/new/lab5_gcd.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity counter32bit
+INFO: [VRFC 10-307] analyzing entity lab5_gcd
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity lab5_gcd_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+Vivado Simulator 2017.2
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: /media/udit01/files/opt/Vivado/2017.2/bin/unwrapped/lnx64.o/xelab -wto 89f93dd96d2b4071ae571b1130427e45 --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot lab5_gcd_tb_behav xil_defaultlib.lab5_gcd_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package unisim.vcomponents
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package ieee.vital_timing
+Compiling package ieee.vital_primitives
+Compiling package unisim.vpkg
+Compiling architecture behavioral of entity xil_defaultlib.CB16CE_HXILINX_lab4_seven_segment_display [cb16ce_hxilinx_lab4_seven_segmen...]
+Compiling architecture m2_1_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.M2_1_HXILINX_lab4_seven_segment_display [m2_1_hxilinx_lab4_seven_segment_...]
+Compiling architecture behavioral of entity xil_defaultlib.CB2CE_HXILINX_lab4_seven_segment_display [cb2ce_hxilinx_lab4_seven_segment...]
+Compiling architecture d2_4e_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.D2_4E_HXILINX_lab4_seven_segment_display [d2_4e_hxilinx_lab4_seven_segment...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="1000")(0,3)\]
+Compiling architecture and2_v of entity unisim.AND2 [and2_default]
+Compiling architecture lut4_v of entity unisim.LUT4 [\LUT4(init="1111111111111110")(0...]
+Compiling architecture or4_v of entity unisim.OR4 [or4_default]
+Compiling architecture behavioral of entity xil_defaultlib.Multiplexer_16to4_MUSER_lab4_seven_segment_display [multiplexer_16to4_muser_lab4_sev...]
+Compiling architecture inv4_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.INV4_HXILINX_lab4_seven_segment_display [inv4_hxilinx_lab4_seven_segment_...]
+Compiling architecture buf_v of entity unisim.BUF [buf_default]
+Compiling architecture behavioral of entity xil_defaultlib.bit4_to_bus_MUSER_lab4_seven_segment_display [bit4_to_bus_muser_lab4_seven_seg...]
+Compiling architecture behavioral of entity xil_defaultlib.msb_of_counter_MUSER_lab4_seven_segment_display [msb_of_counter_muser_lab4_seven_...]
+Compiling architecture or6_hxilinx_lab4_seven_segment_display_v of entity xil_defaultlib.OR6_HXILINX_lab4_seven_segment_display [or6_hxilinx_lab4_seven_segment_d...]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0001")(0,3)\]
+Compiling architecture and2b2_v of entity unisim.AND2B2 [and2b2_default]
+Compiling architecture lut2_v of entity unisim.LUT2 [\LUT2(init="0100")(0,3)\]
+Compiling architecture and2b1_v of entity unisim.AND2B1 [and2b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="01000000")(0,7)\]
+Compiling architecture and3b1_v of entity unisim.AND3B1 [and3b1_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00010000")(0,7)\]
+Compiling architecture and3b2_v of entity unisim.AND3B2 [and3b2_default]
+Compiling architecture behavioral of entity xil_defaultlib.Acathode_MUSER_lab4_seven_segment_display [acathode_muser_lab4_seven_segmen...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="11111111111111111111...]
+Compiling architecture or5_v of entity unisim.OR5 [or5_default]
+Compiling architecture lut3_v of entity unisim.LUT3 [\LUT3(init="00000001")(0,7)\]
+Compiling architecture and3b3_v of entity unisim.AND3B3 [and3b3_default]
+Compiling architecture behavioral of entity xil_defaultlib.Bcathode_MUSER_lab4_seven_segment_display [bcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ccathode_MUSER_lab4_seven_segment_display [ccathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Dcathode_MUSER_lab4_seven_segment_display [dcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Ecathode_MUSER_lab4_seven_segment_display [ecathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Fcathode_MUSER_lab4_seven_segment_display [fcathode_muser_lab4_seven_segmen...]
+Compiling architecture behavioral of entity xil_defaultlib.Gcathode_MUSER_lab4_seven_segment_display [gcathode_muser_lab4_seven_segmen...]
+Compiling architecture inv_v of entity unisim.INV [inv_default]
+Compiling architecture behavioral of entity xil_defaultlib.binary_to_7_segment_display_MUSER_lab4_seven_segment_display [binary_to_7_segment_display_muse...]
+Compiling architecture behavioral of entity xil_defaultlib.lab4_seven_segment_display [lab4_seven_segment_display_defau...]
+Compiling architecture behavioral of entity xil_defaultlib.counter32bit [counter32bit_default]
+Compiling architecture behavioral of entity xil_defaultlib.lab5_gcd [lab5_gcd_default]
+Compiling architecture behavior of entity xil_defaultlib.lab5_gcd_tb
+Built simulation snapshot lab5_gcd_tb_behav
+
+****** Webtalk v2017.2 (64-bit)
+  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav/xsim.dir/lab5_gcd_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Fri Sep  1 23:28:09 2017...
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "lab5_gcd_tb_behav -key {Behavioral:sim_1:Functional:lab5_gcd_tb} -tclbatch {lab5_gcd_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.2
+Time resolution is 1 ps
+source lab5_gcd_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Error: Incorrect cathode value
+Time: 160 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 170 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 190 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 480 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 490 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 500 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 510 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 800 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 810 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 820 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 830 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Test failure. Please check the waveform
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 900 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 910 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 920 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 930 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 940 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 950 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 960 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 970 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 980 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 990 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Incorrect cathode value
+Time: 1 us  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'lab5_gcd_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+run 1100 ns
+Error: Incorrect cathode value
+Time: 1010 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+Error: Something wrong, try again
+Time: 1180 ns  Iteration: 0  Process: /lab5_gcd_tb/stim_proc  File: /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.srcs/sim_1/imports/Downloads/lab5_gcd_tb.vhd
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Sep  1 23:52:20 2017...

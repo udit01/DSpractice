@@ -1,0 +1,36 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Fri Sep  1 21:34:34 2017
+# Process ID: 28255
+# Current directory: /media/udit01/files/practice/DSpractice/CustomStackLinkedList
+# Command line: vivado
+# Log file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.log
+# Journal file: /media/udit01/files/practice/DSpractice/CustomStackLinkedList/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/udit01/Desktop/215/lab5_gcd/lab5_gcd/lab5_gcd.xpr
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+close_sim
+launch_simulation
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+close_sim
+launch_simulation
+source lab5_gcd_tb.tcl
+run 1100 ns
+close_sim
