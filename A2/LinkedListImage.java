@@ -37,7 +37,9 @@ class LinkedList2D{
 		ListNodeHead iItr = this.head;
 		ListNodeHead jItr = iItr;
 
-		for(i=0;i<this.numRows;i++){
+		System.out.println(gridHeight + " "+ gridWidth);
+
+		for(i=0;i<this.numRows+1;i++){
 			jItr = iItr;
 			for (j=0;j<this.numCols[i] ;j++ ) {
 				System.out.print(jItr.data + " ");
@@ -87,23 +89,23 @@ public class LinkedListImage implements CompressedImageInterface {
 			//you need to implement this
 			Scanner sc = null;
 			File fileIn = null;
-			Integer i=0,j=0,width=0,height=0,temp=0;
+			Integer p=0,q=0,width=0,height=0,temp=0;
 			boolean[][] grid = null;
 			try {
 				fileIn = new File(filename);
 				sc = new Scanner(fileIn);
-				width = sc.nextInt();
+				width = sc.nextInt();//first is width
 				height = sc.nextInt();
 				grid = new boolean[height][width];
 
-				for (i=0;i<height ;i++ ) {
-					for (j=0;j<width ;j++ ) {
+				for (p=0;p<height ;p++ ) {
+					for (q=0;q<width ;q++ ) {
 						temp = sc.nextInt();
 						if (temp==1) {
-							grid[i][j]=true;
+							grid[p][q]=true;
 						}
 						else {
-							grid[i][j]=false;
+							grid[p][q]=false;
 						}
 					}
 				}
@@ -112,15 +114,88 @@ public class LinkedListImage implements CompressedImageInterface {
 				e.printStackTrace();
 			}
 
-			new LinkedListImage(grid,width,height);
+			// new LinkedListImage(grid,width,height);//I WANT  THIS TO RUN
+///////////////////BELOW IS EXACT COPY(without helper commnets) OF THE CONSTRUCTOR BELOW AS THE ABOVE COMMAND WON'T WORK PROPERLY
+						ll = new LinkedList2D(height,width);//numCols array range as paramerter
+						ll.numRows=0;
+						ll.gridHeight=height;
+						ll.gridWidth=width;
+						ListNodeHead xItr = null;
+						ListNodeHead yItr = null;
+
+						Integer i=0,j=0,counter = 0,consec = 0,flag=0;
+
+						xItr = ll.head;
+
+						for (i=0;i<height ; i++) {
+
+							consec = 0;
+							counter = 1;
+							flag = 0;
+							yItr = xItr;
+
+							for (j=0;j<width ;j++ ) {
+
+								if (!grid[i][j]) {//current element is black
+									flag = 1;//atleast one black has been found//first or Nth black after break
+
+									if (consec == 0) {
+										yItr.data = j;
+										ll.addAfter(yItr,-1);
+										yItr = yItr.next;
+										consec++;
+										counter++;
+									}
+									else if(consec > 0){
+										consec++;
+										continue;
+									}
+								}
+
+								else {//Current element is white
+									if (flag==1) {//if atleast black has been found //odd parity
+										yItr.data = j-1;
+										ll.addAfter(yItr,-1);
+										yItr = yItr.next;
+										counter++;//one more elem added to this row
+									}
+									flag = 0;
+									consec = 0;
+								}
+							}
+							if (flag==1) {//if atleast black has been found //odd parity
+								yItr.data = j-1;
+								ll.addAfter(yItr,-1);
+								yItr = yItr.next;
+								counter++;//one more elem added to this row
+								flag = 0;
+								consec = 0;
+							}
+							ll.numCols[i]=counter;
+							if (i<height-1) {
+								ll.addBelow(xItr,-1);
+								xItr = xItr.nextHead;
+								ll.numRows++;
+							}
+						}
+
+						System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+						ll.printLLdo();
+						System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+						ll.printLLfor();
+
 			// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
 		}
+
+//CONSTRUCTOR 2 WITH COMMENTS IN LOGIC
 
     public LinkedListImage(boolean[][] grid, int width, int height)
     {
 
 			ll = new LinkedList2D(height,width);//numCols array range as paramerter
-
+			ll.numRows=0;
+			ll.gridHeight=height;
+			ll.gridWidth=width;
 			ListNodeHead xItr = null;
 			ListNodeHead yItr = null;
 
@@ -222,15 +297,46 @@ public class LinkedListImage implements CompressedImageInterface {
 			}
 			//loop ends
 
-			System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-			ll.printLLdo();
+			// System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+			// ll.printLLdo();
 
     }
 
-    public boolean getPixelValue(int x, int y)
+    public boolean getPixelValue(int x, int y) throws PixelOutOfBoundException
     {
+			if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
+				throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
+			}
+			Integer i=0,j=0,startIndex=0,endIndex=0;
+			ListNodeHead iItr = ll.head;
+			ListNodeHead jItr = iItr;
+
+			// System.out.println(ll.gridHeight + " "+ ll.gridWidth);
+
+			for(i=0;i<x;i++){
+				// System.out.println();
+				iItr=iItr.nextHead;
+			}
+			jItr = iItr;
+			for (j=0;j<ll.numCols[x] ;j = j+2 ) {
+				// System.out.print(jItr.data + " ");
+				// jItr=jItr.next;
+				if (jItr.data == -1) {
+					return true;
+				}
+				startIndex = jItr.data;
+				jItr = jItr.next;
+				endIndex = jItr.data;
+				jItr = jItr.next;
+				if ((y>=startIndex)||(y<=endIndex)) {
+					return false;
+				}
+			}
+			System.out.println("This line 335 shouldnt be printed");
+			return true;//shouldnt be required
 		//you need to implement this
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+
+		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public void setPixelValue(int x, int y, boolean val)
@@ -286,7 +392,7 @@ public class LinkedListImage implements CompressedImageInterface {
 				jItr = iItr;
 
 				do {
-					str+=jItr.data + " ";
+					str+= " " + jItr.data ;
 					// System.out.print(jItr.data + " ");
 					jItr=jItr.next;
 				} while (jItr!=null);
@@ -294,13 +400,29 @@ public class LinkedListImage implements CompressedImageInterface {
 				// System.out.println();
 				iItr = iItr.nextHead;
 			} while (iItr!=null);
-			System.out.println(str);
-			return str;
+			// s = str.substring(0,str.length()-1);
+			// System.out.println(s);
+			return str.substring(0,str.length()-1);
 
 		//you need to implement this
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-
+		public static void printGrid(boolean[][] grid,Integer width,Integer height){
+			Integer i=0,j=0;
+			System.out.println("GRID COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			System.out.println(width +" "+ height);
+			for (i=0;i<height ;i++ ) {
+				for (j=0;j<width ;j++ ) {
+					if (grid[i][j]) {
+						System.out.print("1 ");
+					}
+					else{
+						System.out.print("0 ");
+					}
+				}
+				System.out.println();
+			}
+		}
     public static void main(String[] args) {
     	// testing all methods here :
     	boolean success = true;
@@ -326,17 +448,21 @@ public class LinkedListImage implements CompressedImageInterface {
     		{
                 try
                 {
-        			grid[i][j] = img1.getPixelValue(i, j);
+        						grid[i][j] = img1.getPixelValue(i, j);
                 }
                 catch (PixelOutOfBoundException e)
                 {
                     System.out.println("Errorrrrrrrr");
                 }
     		}
-
+			printGrid(grid,16,16);
     	// check constructor from grid
     	CompressedImageInterface img2 = new LinkedListImage(grid, 16, 16);
+			LinkedListImage i2 = (LinkedListImage)img2;
+			// i2.ll.printLLdo();
     	String img2_compressed = img2.toStringCompressed();
+			// System.out.println("LINE447 my    str val:"+img2_compressed);
+			// System.out.println("LINE447 given str val:"+img_ans);
     	success = success && (img2_compressed.equals(img_ans));
 
     	if (!success)
