@@ -302,15 +302,15 @@ public class LinkedListImage implements CompressedImageInterface {
 
     }
 		public LinkedListImage(LinkedListImage imageCompressed){
-			// ll = new LinkedList2D(imageCompressed.ll.gridHeight,imageCompressed.ll.gridWidth);//numCols array range as paramerter
-			// ll.numRows=imageCompressed.ll.numRows;
-			// ll.numCols= imageCompressed.ll.numCols;
-			// ll.gridHeight=imageCompressed.ll.gridHeight;
-			// ll.gridWidth=imageCompressed.ll.gridWidth;
+			ll = new LinkedList2D(imageCompressed.ll.gridHeight,imageCompressed.ll.gridWidth);//numCols array range as paramerter
+			ll.numRows=imageCompressed.ll.numRows;
+			ll.numCols= imageCompressed.ll.numCols;
+			ll.gridHeight=imageCompressed.ll.gridHeight;
+			ll.gridWidth=imageCompressed.ll.gridWidth;
 
 			//or simply
 			//HOW TO TRUELY CLONE ?
-			this.ll = imageCompressed.ll;
+			// this.ll = imageCompressed.ll;
 		}
     public boolean getPixelValue(int x, int y) throws PixelOutOfBoundException
     {
@@ -379,20 +379,160 @@ public class LinkedListImage implements CompressedImageInterface {
 
     public void performOr(CompressedImageInterface img) throws BoundsMismatchException
     {
+			LinkedListImage image = (LinkedListImage)img;
+			LinkedListImage imageOR = new LinkedListImage(this) ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
+
+			//TO XOR of image and this -> store it in imageOR
+			Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,v1i1=0,v2i1=0,v1i2=0,v2i2=0;
+			ListNodeHead iItr1 = this.ll.head;
+			ListNodeHead iItr2 = image.ll.head;
+			ListNodeHead iItr3 = imageOR.ll.head;
+			ListNodeHead jItr1 = iItr1;
+			ListNodeHead jItr2 = iItr2;
+			ListNodeHead jItr3 = iItr3;
+
+			// System.out.println(ll.gridHeight + " "+ ll.gridWidth);
+
+			for(i=0;i<this.ll.gridHeight;i++){
+					// System.out.println();
+				jItr1 = iItr1;
+				jItr2 = iItr2;
+				jItr3 = iItr3;
+
+				while(true){
+					if (jItr1.data==-1) {
+						// while(jItr2.data!=-1){
+							// imageOR.ll.addAfter(jItr3,-1)
+							// jItr3 = jItr3.next;//now on null
+						// }
+						break;
+					}
+					if (jItr2.data==-1) {
+						// while(jItr1.data!=-1){
+							// imageOR.ll.addAfter(jItr3,-1)
+							// jItr3 = jItr3.next;//now on null
+						// }
+						break;
+					}
+
+					v1i1 =	jItr1.data;
+					v2i1 =	jItr1.next.data;
+					v1i2 =	jItr2.data;
+					v2i2 =	jItr2.next.data;
+
+
+
+					min1 = Math.min(v1i1,v1i2);
+					max1 = Math.max(v1i1,v1i2);
+					min2 = Math.min(v2i1,v2i2);
+					max2 = Math.max(v2i1,v2i2);
+
+
+					//cases depending on relative value of min12 and max12 6 or 3 cases
+
+					// very very COMPLEX LOGIC if do by 6 cases and I think still cases left IN AND and XOR
+
+					if (max1>min2) {//skewed case//skip the lesser case
+						if(v1i1<v1i2){//values in 1 st img are lesser
+							jItr1=jItr1.next;
+							jItr1=jItr1.next;
+						}
+						else{
+							jItr2=jItr2.next;
+							jItr2=jItr2.next;
+						}
+					}
+					// else if (){
+					//
+					// }
+					else{//good normal case
+
+						jItr3.data = max1;//as current data was null
+						imageOR.ll.addAfter(jItr3,max2);
+						jItr3 = jItr3.next;//has max2 data
+						jItr3 = jItr3.next;//is null data
+						// imageOR.addAfter(jItr3,max1);
+						// jItr3=jItr3.next;
+						// imageOR.addAfter(jItr3,min2);
+						// jItr3=jItr3.next;
+						jItr1=jItr1.next;
+						jItr1=jItr1.next;
+						jItr2=jItr2.next;
+						jItr2=jItr2.next;
+
+					}
+
+					// else if((min2<max1)&&(min2>min1)){
+					//
+					// }
+					// else if((min2<max1)&&(min2<min1)){
+					//
+					// }
+					// else if((max2<max1)&&(min2>min1)){
+					//
+					// }
+					// else if((min2<max1)&&(min2>min1)){
+					//
+					// }
+					// else if((min2<max1)&&(min2>min1)){
+					//
+					// }
+
+					// imageOR.addAfter(jItr3,max1);
+				}
+				jItr3.data=-1;
+
+				if (i<this.ll.gridHeight-1) {//will not happen on the last iteration
+					iItr1=iItr1.nextHead;
+					iItr2=iItr2.nextHead;
+					imageOR.ll.addBelow(iItr3,-1);
+					iItr3=iItr3.nextHead;
+				}
+			}
+
 		//you need to implement this
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		imageOR.ll.printLLdo();
+		this.ll = imageOR.ll;
+		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+		return;
     }
 
     public void performXor(CompressedImageInterface img) throws BoundsMismatchException
     {
 		//you need to implement this
-			LinkedListImage image = (LinkedListImage)img;
-			LinkedListImage imageXOR = new LinkedListImage(this) ;
+			// LinkedListImage image = (LinkedListImage)img;
+			// LinkedListImage imageXOR = new LinkedListImage(this) ;
+			//
+			// //TO XOR of image and this -> store it in imageXOR
+			// Integer i=0,j=0,startIndex=0,endIndex=0;
+			// ListNodeHead iItr1 = this.ll.head;
+			// ListNodeHead iItr2 = img.ll.head;
+			// ListNodeHead jItr1 = iItr1;
+			// ListNodeHead jItr2 = iItr2;
+			//
+			// // System.out.println(ll.gridHeight + " "+ ll.gridWidth);
+			//
+			// for(i=0;i<x;i++){
+			// 	// System.out.println();
+			// 	iItr=iItr.nextHead;
+			// }
+			// jItr = iItr;
+			// for (j=0;j<ll.numCols[x] ;j = j+2 ) {
+			// 	// System.out.print(jItr.data + " ");
+			// 	// jItr=jItr.next;
+			// 	if (jItr.data == -1) {
+			// 		return true;
+			// 	}
+			// 	startIndex = jItr.data;
+			// 	jItr = jItr.next;
+			// 	endIndex = jItr.data;
+			// 	jItr = jItr.next;
+			// 	if ((y>=startIndex)&&(y<=endIndex)) {
+			// 		return false;
+			// 	}
+			// }
 
-			//TO XOR of image and this -> store it in imageXOR
-
-
-			this.ll = imageXOR.ll;
+			// this.ll = imageXOR.ll;
 
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
