@@ -373,8 +373,149 @@ public class LinkedListImage implements CompressedImageInterface {
 
     public void performAnd(CompressedImageInterface img) throws BoundsMismatchException
     {
-		//you need to implement this
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+
+				LinkedListImage image = (LinkedListImage)img;
+				LinkedListImage imageAND = new LinkedListImage(this) ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
+
+				//TO XOR of image and this -> store it in imageAND
+				Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,v1i1=0,v2i1=0,v1i2=0,v2i2=0,data=0;
+				ListNodeHead iItr1 = this.ll.head;
+				ListNodeHead iItr2 = image.ll.head;
+				ListNodeHead iItr3 = imageAND.ll.head;//empty node but other parameters to correct value
+				ListNodeHead jItr1 = iItr1;
+				ListNodeHead jItr2 = iItr2;
+				ListNodeHead jItr3 = iItr3;
+
+				// System.out.println(ll.gridHeight + " "+ ll.gridWidth);
+
+				for(i=0;i<this.ll.gridHeight;i++){
+						// System.out.println();
+					jItr1 = iItr1;
+					jItr2 = iItr2;
+					jItr3 = iItr3;
+
+					while(true){
+						if (jItr1.data==-1) {
+							while(jItr2.data!=-1){//empty the second image
+								data = jItr2.data;
+								jItr2 = jItr2.next;
+								jItr3.data = data;
+								imageAND.ll.addAfter(jItr3,-1);
+								jItr3 = jItr3.next;//-1 will be added automatically after parent while loop
+								// imageAND.ll.addAfter(jItr3,-1)
+								// jItr3 = jItr3.next;//now on null or -1
+							}
+							break;
+						}
+						if (jItr2.data==-1) {
+
+								while(jItr1.data!=-1){//empty the first image's row
+									data = jItr1.data;
+									jItr1=jItr1.next;
+									jItr3.data = data;
+									imageAND.ll.addAfter(jItr3,-1);
+									jItr3 = jItr3.next;
+								}
+							// while(jItr1.data!=-1){
+								// imageAND.ll.addAfter(jItr3,-1)
+								// jItr3 = jItr3.next;//now on null
+							// }
+							break;
+						}
+
+						v1i1 =	jItr1.data;
+						v2i1 =	jItr1.next.data;
+						v1i2 =	jItr2.data;
+						v2i2 =	jItr2.next.data;
+
+
+
+						min1 = Math.min(v1i1,v1i2);
+						max1 = Math.max(v1i1,v1i2);
+						min2 = Math.min(v2i1,v2i2);
+						max2 = Math.max(v2i1,v2i2);
+
+
+						//cases depending on relative value of min12 and max12 6 or 3 cases
+
+						// very very COMPLEX LOGIC if do by 6 cases and I think still cases left IN AND and XOR
+/////////////////////////////////////------------------------------------HERE
+						// if (min1<max2) {//skewed case//skip the lesser case
+							if(v2i1<v1i2){//values in 1 st img are lesser
+								jItr3.data = jItr1.data;
+								jItr1=jItr1.next;
+								imageAND.ll.addAfter(jItr3,jItr1.data);
+								jItr1=jItr1.next;//contains next value to be read
+								jItr3=jItr3.next;//contatins data
+								imageAND.ll.addAfter(jItr3,-1);
+								jItr3=jItr3.next;//contains -1
+							}
+							else if(v1i1>v2i2){//value in 2nd image are lesser
+								jItr3.data = jItr2.data;
+								jItr2=jItr2.next;
+								imageAND.ll.addAfter(jItr3,jItr2.data);
+								jItr2=jItr2.next;//contains next value to be read
+								jItr3=jItr3.next;//contatins data
+								imageAND.ll.addAfter(jItr3,-1);
+								jItr3=jItr3.next;//contains -1
+							}
+						// }
+						// else if (){
+						//
+						// }
+						else{//good normal case
+
+							jItr3.data = min1;//as current data was null
+							imageAND.ll.addAfter(jItr3,max2);
+							jItr3 = jItr3.next;//has max2 data
+							imageAND.ll.addAfter(jItr3,-1);
+							jItr3 = jItr3.next;//is null data or -1
+							// imageAND.addAfter(jItr3,max1);
+							// jItr3=jItr3.next;
+							// imageAND.addAfter(jItr3,min2);
+							// jItr3=jItr3.next;
+							jItr1=jItr1.next;
+							jItr1=jItr1.next;
+							jItr2=jItr2.next;
+							jItr2=jItr2.next;
+
+						}
+
+						// else if((min2<max1)&&(min2>min1)){
+						//
+						// }
+						// else if((min2<max1)&&(min2<min1)){
+						//
+						// }
+						// else if((max2<max1)&&(min2>min1)){
+						//
+						// }
+						// else if((min2<max1)&&(min2>min1)){
+						//
+						// }
+						// else if((min2<max1)&&(min2>min1)){
+						//
+						// }
+
+						// imageAND.addAfter(jItr3,max1);
+					}
+					jItr3.data=-1;
+
+					if (i<this.ll.gridHeight-1) {//will not happen on the last iteration
+						iItr1=iItr1.nextHead;
+						iItr2=iItr2.nextHead;
+						imageAND.ll.addBelow(iItr3,-1);
+						iItr3=iItr3.nextHead;
+					}
+				}
+
+			//you need to implement this
+			imageAND.ll.printLLdo();
+			this.ll = imageAND.ll;
+			// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+			return;
+		// //you need to implement this
+		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public void performOr(CompressedImageInterface img) throws BoundsMismatchException
@@ -448,7 +589,7 @@ public class LinkedListImage implements CompressedImageInterface {
 					else{//good normal case
 
 						jItr3.data = max1;//as current data was null
-						imageOR.ll.addAfter(jItr3,max2);
+						imageOR.ll.addAfter(jItr3,min2);
 						jItr3 = jItr3.next;//has max2 data
 						jItr3 = jItr3.next;//is null data
 						// imageOR.addAfter(jItr3,max1);
