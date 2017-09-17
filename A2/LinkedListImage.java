@@ -400,6 +400,9 @@ public class LinkedListImage implements CompressedImageInterface {
 
     public void invert()
     {
+        System.out.println("BEFORE INVERT");
+        this.ll.printLLdo();
+
         LinkedList2D newList = new LinkedList2D((int)this.ll.gridHeight,(int)this.ll.gridWidth);//numCols array range as paramerter
 
         newList.numRows=this.ll.numRows;
@@ -412,49 +415,79 @@ public class LinkedListImage implements CompressedImageInterface {
         ListNodeHead jItrOrig = iItrOrig;
         ListNodeHead jItr = iItr;
         Integer valueHead=0,value=0;
+        Integer start = 0, end = 0, flaga=0,flagb=0;
         // System.out.println(gridHeight + " "+ gridWidth);
-        while (iItrOrig!=null){
 
+        while (iItrOrig!=null){
+            flaga=0;
+            flagb=0;
             jItr = iItr;
             jItrOrig = iItrOrig;
 //            count = 0;
-//            valueHead = iItrOrig.data;
-//            if (valueHead == 0){
-//                iItr.data = iItrOrig.next.data;
-//            }
-//            else{
-//                iItr.data = valueHead;
-//            }
+            valueHead = iItrOrig.data;
+
             if (iItrOrig.nextHead!=null) {
                 newList.addBelow(iItr, -1);
             }
-//                System.out.println("LINE109");
-            while (jItrOrig!=null) {
-                // System.out.print(jItrOrig.data + " ");
-//                if (count==0) {
-//                    value = jItrOrig.data;
-//                    if (value == 0) {
-//                        jItr.data = jItrOrig.next.data;
-//                        continue;
-//                    }
-//                    jItr.data = 0;
-//                    newList.addAfter(jItr, value);
-//                    jItr = jItr.next;
-//                    jItrOrig = jItrOrig.next;//here it's null
-//                    count = 1;
-//                }
-//                if (count == 1){
-//
-//                    count = 0;
-//                }
-
-            }
-
-            // System.out.println();
             iItr = iItr.nextHead;
             iItrOrig = iItrOrig.nextHead;
-        }
 
+
+            if (valueHead == 0){//do something
+                if (!jItrOrig.next.data.equals(newList.gridWidth-1)){
+                    jItr.data = jItrOrig.next.data;
+                    newList.addAfter(jItr,-1);
+                    jItr = jItr.next;
+                    flaga = 1;
+                }
+                else{
+                    jItr.data = -1;
+                    continue;
+                }
+            }
+            else{
+                jItr.data = 0;
+                newList.addAfter(jItr,-1);
+                jItr = jItr.next;
+            }
+//                System.out.println("LINE109");
+            while (jItrOrig.data!=-1) {
+                start = jItrOrig.data;
+                end = jItrOrig.next.data;//holding the pointers
+
+                if (end == newList.gridWidth-1){
+                    flagb=1;
+                }
+
+                if (flaga!=1){
+                    jItr.data = start-1;
+                    newList.addAfter(jItr,-1);
+                    jItr = jItr.next;
+                }
+                if (flagb!=1){
+                    jItr.data = end+1;
+                    newList.addAfter(jItr,-1);
+                    jItr = jItr.next;
+                }
+                flaga=0;
+
+                jItrOrig = jItrOrig.next;
+                jItrOrig = jItrOrig.next;
+
+            }
+            if (flagb==1){
+                jItr.data = -1;
+            }
+            else{
+                jItr.data = newList.gridWidth-1;
+                newList.addAfter(jItr,-1);
+                jItr = jItr.next;
+            }
+            // System.out.println();
+
+        }
+        System.out.println("AFTER INVERT");
+        newList.printLLdo();
 //            newList.printLLdo();
         //or simply
         //HOW TO TRUELY CLONE ?
@@ -816,7 +849,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
     	// check toStringCompressed
     	String img1_compressed = img1.toStringCompressed();
-    	String img_ans = "16 16, -1, 5 7 -1, 3 7 -1, 2 7 -1, 2 2 6 7 -1, 6 7 -1, 6 7 -1, 4 6 -1, 2 4 -1, 2 3 14 15 -1, 2 2 13 15 -1, 11 13 -1, 11 12 -1, 10 11 -1, 9 10 -1, 7 9 -1";
+    	String img_ans = "16 16, -1, 0 15 -1, 3 7 -1, 2 7 -1, 2 2 6 7 -1, 6 7 -1, 6 7 -1, 4 6 -1, 2 4 -1, 2 3 14 15 -1, 2 2 13 15 -1, 11 13 -1, 11 12 -1, 10 11 -1, 9 10 -1, 7 9 -1";
     	success = success && (img_ans.equals(img1_compressed));
 
     	if (!success)
