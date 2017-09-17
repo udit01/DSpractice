@@ -37,7 +37,7 @@ class LinkedList2D{
 		ListNodeHead iItr = this.head;
 		ListNodeHead jItr = iItr;
 
-		System.out.println(gridHeight + " "+ gridWidth);
+		System.out.println("PRINTING::::::::::::::::::::::::::::::::::::::::::::::"+gridHeight + " "+ gridWidth);
 
 		for(i=0;i<this.numRows+1;i++){
 			jItr = iItr;
@@ -54,7 +54,7 @@ class LinkedList2D{
 		ListNodeHead iItr = this.head;
 		ListNodeHead jItr = iItr;
 
-		System.out.println(gridHeight + " "+ gridWidth);
+		System.out.println("PRINTING::::::::::::::::::::::::::::::::::::::::::::::"+gridHeight + " "+ gridWidth);
 		do {
 			jItr = iItr;
 
@@ -71,21 +71,65 @@ class LinkedList2D{
 
 }
 
-
 class ListNodeHead{
 	Integer data = -1;
 	ListNodeHead nextHead = null;
 	ListNodeHead next = null;
 }
 
-
-
-
 public class LinkedListImage implements CompressedImageInterface {
 		LinkedList2D ll = null;
+		// public LinkedListImage clone() throws CloneNotSupportedException {
+    //     return super.clone();
+    // }
+		public LinkedListImage deepCopy(){
+//            this.ll.printLLdo();
+//            LinkedListImage original = this;
+            LinkedList2D newList = new LinkedList2D((int)this.ll.gridHeight,(int)this.ll.gridWidth);//numCols array range as paramerter
+            //AFTER THE ABOVE INSTRUCTION ... ALL GOES TO HELL THIS AND ORIGINAL COMPLETELY CHANGE
+            this.ll.printLLdo();
 
-		public LinkedListImage(String filename)
-		{
+            newList.numRows=this.ll.numRows;
+            newList.numCols= this.ll.numCols;
+            newList.gridHeight=this.ll.gridHeight;
+            newList.gridWidth=this.ll.gridWidth;
+
+            ListNodeHead iItrOrig = this.ll.head;
+            ListNodeHead iItr = newList.head;
+            ListNodeHead jItrOrig = iItrOrig;
+            ListNodeHead jItr = iItr;
+            // System.out.println(gridHeight + " "+ gridWidth);
+            while (iItrOrig!=null){
+                iItr.data = iItrOrig.data;
+                if (iItrOrig.nextHead!=null) {
+                    newList.addBelow(iItr, -1);
+                }
+                jItrOrig = iItrOrig;
+                jItr = iItr;
+//                System.out.println("LINE109");
+                while (jItrOrig.next!=null) {
+                    // System.out.print(jItrOrig.data + " ");
+                    jItrOrig=jItrOrig.next;//here it's null
+                    newList.addAfter(jItr,jItrOrig.data);
+                    jItr = jItr.next;
+                }
+
+                // System.out.println();
+                iItr = iItr.nextHead;
+                iItrOrig = iItrOrig.nextHead;
+            }
+
+            newList.printLLdo();
+            //or simply
+            //HOW TO TRUELY CLONE ?
+            // this.newList = this.ll;
+            LinkedListImage imgNew = new LinkedListImage(newList);
+            return imgNew;
+        }
+		public LinkedListImage(LinkedList2D ll){
+			this.ll = ll;
+		}
+		public LinkedListImage(String filename){
 			//you need to implement this
 			Scanner sc = null;
 			File fileIn = null;
@@ -301,17 +345,9 @@ public class LinkedListImage implements CompressedImageInterface {
 			// ll.printLLdo();
 
     }
-		public LinkedListImage(LinkedListImage imageCompressed){
-			ll = new LinkedList2D(imageCompressed.ll.gridHeight,imageCompressed.ll.gridWidth);//numCols array range as paramerter
-			ll.numRows=imageCompressed.ll.numRows;
-			ll.numCols= imageCompressed.ll.numCols;
-			ll.gridHeight=imageCompressed.ll.gridHeight;
-			ll.gridWidth=imageCompressed.ll.gridWidth;
 
-			//or simply
-			//HOW TO TRUELY CLONE ?
-			// this.ll = imageCompressed.ll;
-		}
+
+		// -------------------------------------------------------------------------------------------
     public boolean getPixelValue(int x, int y) throws PixelOutOfBoundException
     {
 			if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
@@ -348,7 +384,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-
+// -------------------------------------------------------------------------------------------------------
     public void setPixelValue(int x, int y, boolean val) throws PixelOutOfBoundException
     {
 			if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
@@ -370,15 +406,15 @@ public class LinkedListImage implements CompressedImageInterface {
 		//you need to implement this
 		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-
+// -------------------------------------------------------------------------------------------------------
     public void performAnd(CompressedImageInterface img) throws BoundsMismatchException
     {
 
 				LinkedListImage image = (LinkedListImage)img;
-				LinkedListImage imageAND = new LinkedListImage(this) ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
+				LinkedListImage imageAND = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
 
 				//TO XOR of image and this -> store it in imageAND
-				Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,v1i1=0,v2i1=0,v1i2=0,v2i2=0,data=0;
+				Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0,data=0;
 				ListNodeHead iItr1 = this.ll.head;
 				ListNodeHead iItr2 = image.ll.head;
 				ListNodeHead iItr3 = imageAND.ll.head;//empty node but other parameters to correct value
@@ -398,8 +434,8 @@ public class LinkedListImage implements CompressedImageInterface {
 						if (jItr1.data==-1) {
 							while(jItr2.data!=-1){//empty the second image
 								data = jItr2.data;
-								jItr2 = jItr2.next;
 								jItr3.data = data;
+								jItr2 = jItr2.next;
 								imageAND.ll.addAfter(jItr3,-1);
 								jItr3 = jItr3.next;//-1 will be added automatically after parent while loop
 								// imageAND.ll.addAfter(jItr3,-1)
@@ -423,17 +459,17 @@ public class LinkedListImage implements CompressedImageInterface {
 							break;
 						}
 
-						v1i1 =	jItr1.data;
-						v2i1 =	jItr1.next.data;
-						v1i2 =	jItr2.data;
-						v2i2 =	jItr2.next.data;
+						value1image1 =	jItr1.data;
+						value2image1 =	jItr1.next.data;//but holding the pointers in their place
+						value1image2 =	jItr2.data;
+						value2image2 =	jItr2.next.data;//but holding the pointers in their place
 
 
 
-						min1 = Math.min(v1i1,v1i2);
-						max1 = Math.max(v1i1,v1i2);
-						min2 = Math.min(v2i1,v2i2);
-						max2 = Math.max(v2i1,v2i2);
+						min1 = Math.min(value1image1,value1image2);
+						max1 = Math.max(value1image1,value1image2);
+						min2 = Math.min(value2image1,value2image2);
+						max2 = Math.max(value2image1,value2image2);
 
 
 						//cases depending on relative value of min12 and max12 6 or 3 cases
@@ -441,7 +477,7 @@ public class LinkedListImage implements CompressedImageInterface {
 						// very very COMPLEX LOGIC if do by 6 cases and I think still cases left IN AND and XOR
 /////////////////////////////////////------------------------------------HERE
 						// if (min1<max2) {//skewed case//skip the lesser case
-							if(v2i1<v1i2){//values in 1 st img are lesser
+							if(value2image1<value1image2){//values in 1 st img are lesser
 								jItr3.data = jItr1.data;
 								jItr1=jItr1.next;
 								imageAND.ll.addAfter(jItr3,jItr1.data);
@@ -450,7 +486,7 @@ public class LinkedListImage implements CompressedImageInterface {
 								imageAND.ll.addAfter(jItr3,-1);
 								jItr3=jItr3.next;//contains -1
 							}
-							else if(v1i1>v2i2){//value in 2nd image are lesser
+							else if(value1image1>value2image2){//value in 2nd image are lesser
 								jItr3.data = jItr2.data;
 								jItr2=jItr2.next;
 								imageAND.ll.addAfter(jItr3,jItr2.data);
@@ -510,21 +546,22 @@ public class LinkedListImage implements CompressedImageInterface {
 				}
 
 			//you need to implement this
-			imageAND.ll.printLLdo();
+			System.out.println("AND COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//			imageAND.ll.printLLdo();
 			this.ll = imageAND.ll;
 			// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
 			return;
 		// //you need to implement this
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-
+// ----------------------------------------------------------------------------
     public void performOr(CompressedImageInterface img) throws BoundsMismatchException
     {
 			LinkedListImage image = (LinkedListImage)img;
-			LinkedListImage imageOR = new LinkedListImage(this) ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
+			LinkedListImage imageOR = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
 
 			//TO XOR of image and this -> store it in imageOR
-			Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,v1i1=0,v2i1=0,v1i2=0,v2i2=0;
+			Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0;
 			ListNodeHead iItr1 = this.ll.head;
 			ListNodeHead iItr2 = image.ll.head;
 			ListNodeHead iItr3 = imageOR.ll.head;
@@ -556,17 +593,17 @@ public class LinkedListImage implements CompressedImageInterface {
 						break;
 					}
 
-					v1i1 =	jItr1.data;
-					v2i1 =	jItr1.next.data;
-					v1i2 =	jItr2.data;
-					v2i2 =	jItr2.next.data;
+					value1image1 =	jItr1.data;
+					value2image1 =	jItr1.next.data;//but holding the pointers in their place
+					value1image2 =	jItr2.data;
+					value2image2 =	jItr2.next.data;//but holding the pointers in their place
 
 
 
-					min1 = Math.min(v1i1,v1i2);
-					max1 = Math.max(v1i1,v1i2);
-					min2 = Math.min(v2i1,v2i2);
-					max2 = Math.max(v2i1,v2i2);
+					min1 = Math.min(value1image1,value1image2);
+					max1 = Math.max(value1image1,value1image2);
+					min2 = Math.min(value2image1,value2image2);
+					max2 = Math.max(value2image1,value2image2);
 
 
 					//cases depending on relative value of min12 and max12 6 or 3 cases
@@ -574,7 +611,7 @@ public class LinkedListImage implements CompressedImageInterface {
 					// very very COMPLEX LOGIC if do by 6 cases and I think still cases left IN AND and XOR
 
 					if (max1>min2) {//skewed case//skip the lesser case
-						if(v1i1<v1i2){//values in 1 st img are lesser
+						if(value1image1<value1image2){//values in 1 st img are lesser
 							jItr1=jItr1.next;
 							jItr1=jItr1.next;
 						}
@@ -632,49 +669,34 @@ public class LinkedListImage implements CompressedImageInterface {
 			}
 
 		//you need to implement this
-		imageOR.ll.printLLdo();
+		System.out.println("OR COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//		imageOR.ll.printLLdo();
 		this.ll = imageOR.ll;
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
 		return;
     }
 
+// ----------------------------------------------------------------------------------------
     public void performXor(CompressedImageInterface img) throws BoundsMismatchException
     {
 		//you need to implement this
-			// LinkedListImage image = (LinkedListImage)img;
-			// LinkedListImage imageXOR = new LinkedListImage(this) ;
+			LinkedListImage image = (LinkedListImage)img;
+//			image.ll.printLLdo();
+			LinkedListImage imageXOR = image.deepCopy() ;
+			LinkedListImage imageC = this.deepCopy() ;
+			LinkedListImage imageB = image.deepCopy() ;
 			//
-			// //TO XOR of image and this -> store it in imageXOR
-			// Integer i=0,j=0,startIndex=0,endIndex=0;
-			// ListNodeHead iItr1 = this.ll.head;
-			// ListNodeHead iItr2 = img.ll.head;
-			// ListNodeHead jItr1 = iItr1;
-			// ListNodeHead jItr2 = iItr2;
-			//
-			// // System.out.println(ll.gridHeight + " "+ ll.gridWidth);
-			//
-			// for(i=0;i<x;i++){
-			// 	// System.out.println();
-			// 	iItr=iItr.nextHead;
-			// }
-			// jItr = iItr;
-			// for (j=0;j<ll.numCols[x] ;j = j+2 ) {
-			// 	// System.out.print(jItr.data + " ");
-			// 	// jItr=jItr.next;
-			// 	if (jItr.data == -1) {
-			// 		return true;
-			// 	}
-			// 	startIndex = jItr.data;
-			// 	jItr = jItr.next;
-			// 	endIndex = jItr.data;
-			// 	jItr = jItr.next;
-			// 	if ((y>=startIndex)&&(y<=endIndex)) {
-			// 		return false;
-			// 	}
-			// }
-
-			// this.ll = imageXOR.ll;
-
+			imageB.invert();
+			imageXOR.performAnd(imageB);//  this AND img'
+			imageB = image.deepCopy();
+			imageC = this.deepCopy();
+			imageC.invert();
+			imageB.performAnd(imageC);//img AND this'
+			imageXOR.performOr(imageB);//  (this AND img')OR(img AND this')
+			System.out.println(" XOR COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//			imageXOR.ll.printLLdo();
+			this.ll = imageXOR.ll;
+			return;
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -710,7 +732,8 @@ public class LinkedListImage implements CompressedImageInterface {
 		//you need to implement this
 		// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-		public static void printGrid(boolean[][] grid,Integer width,Integer height){
+    public static void printGrid(boolean[][] grid,Integer width,Integer height)
+    {
 			Integer i=0,j=0;
 			System.out.println("GRID COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			System.out.println(width +" "+ height);
@@ -777,6 +800,7 @@ public class LinkedListImage implements CompressedImageInterface {
     	// check Xor
         try
         {
+					// img1.ll.printLLdo();
         	img1.performXor(img2);
         }
         catch (BoundsMismatchException e)
