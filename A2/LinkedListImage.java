@@ -400,8 +400,8 @@ public class LinkedListImage implements CompressedImageInterface {
 
     public void invert()
     {
-        System.out.println("BEFORE INVERT");
-        this.ll.printLLdo();
+//        System.out.println("BEFORE INVERT");
+//        this.ll.printLLdo();
 
         LinkedList2D newList = new LinkedList2D((int)this.ll.gridHeight,(int)this.ll.gridWidth);//numCols array range as paramerter
 
@@ -486,8 +486,8 @@ public class LinkedListImage implements CompressedImageInterface {
             // System.out.println();
 
         }
-        System.out.println("AFTER INVERT");
-        newList.printLLdo();
+//        System.out.println("AFTER INVERT");
+//        newList.printLLdo();
 //            newList.printLLdo();
         //or simply
         //HOW TO TRUELY CLONE ?
@@ -503,8 +503,10 @@ public class LinkedListImage implements CompressedImageInterface {
 
 				LinkedListImage image = (LinkedListImage)img;
 				LinkedListImage imageAND = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
-
-				//TO XOR of image and this -> store it in imageAND
+                System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (IMG)::::::");
+                image.ll.printLLdo();
+                System.out.println("IMAGE 2 BEFORE AAANNNDDDDD (IMG)::::::");
+                this.ll.printLLdo();
 				Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0,data=0;
 				ListNodeHead iItr1 = this.ll.head;
 				ListNodeHead iItr2 = image.ll.head;
@@ -639,7 +641,9 @@ public class LinkedListImage implements CompressedImageInterface {
 			//you need to implement this
 			System.out.println("AND COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //			imageAND.ll.printLLdo();
-			this.ll = imageAND.ll;
+            System.out.println("IMAGE RESULTANT OF AAANNNDDDDD (IMG)::::::");
+            imageAND.ll.printLLdo();
+            this.ll = imageAND.ll;
 			// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
 			return;
 		// //you need to implement this
