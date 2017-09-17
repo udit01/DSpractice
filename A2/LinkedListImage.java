@@ -82,54 +82,51 @@ public class LinkedListImage implements CompressedImageInterface {
 		// public LinkedListImage clone() throws CloneNotSupportedException {
     //     return super.clone();
     // }
-		public LinkedListImage deepCopy(){
+    public LinkedListImage deepCopy(){
 //            this.ll.printLLdo();
-//            LinkedListImage original = this;
-            LinkedList2D newList = new LinkedList2D((int)this.ll.gridHeight,(int)this.ll.gridWidth);//numCols array range as paramerter
-            //AFTER THE ABOVE INSTRUCTION ... ALL GOES TO HELL THIS AND ORIGINAL COMPLETELY CHANGE
-            this.ll.printLLdo();
+        LinkedList2D newList = new LinkedList2D((int)this.ll.gridHeight,(int)this.ll.gridWidth);//numCols array range as paramerter
 
-            newList.numRows=this.ll.numRows;
-            newList.numCols= this.ll.numCols;
-            newList.gridHeight=this.ll.gridHeight;
-            newList.gridWidth=this.ll.gridWidth;
+        newList.numRows=this.ll.numRows;
+        newList.numCols= this.ll.numCols;
+        newList.gridHeight=this.ll.gridHeight;
+        newList.gridWidth=this.ll.gridWidth;
 
-            ListNodeHead iItrOrig = this.ll.head;
-            ListNodeHead iItr = newList.head;
-            ListNodeHead jItrOrig = iItrOrig;
-            ListNodeHead jItr = iItr;
-            // System.out.println(gridHeight + " "+ gridWidth);
-            while (iItrOrig!=null){
-                iItr.data = iItrOrig.data;
-                if (iItrOrig.nextHead!=null) {
-                    newList.addBelow(iItr, -1);
-                }
-                jItrOrig = iItrOrig;
-                jItr = iItr;
+        ListNodeHead iItrOrig = this.ll.head;
+        ListNodeHead iItr = newList.head;
+        ListNodeHead jItrOrig = iItrOrig;
+        ListNodeHead jItr = iItr;
+        // System.out.println(gridHeight + " "+ gridWidth);
+        while (iItrOrig!=null){
+            iItr.data = iItrOrig.data;
+            if (iItrOrig.nextHead!=null) {
+                newList.addBelow(iItr, -1);
+            }
+            jItrOrig = iItrOrig;
+            jItr = iItr;
 //                System.out.println("LINE109");
-                while (jItrOrig.next!=null) {
-                    // System.out.print(jItrOrig.data + " ");
-                    jItrOrig=jItrOrig.next;//here it's null
-                    newList.addAfter(jItr,jItrOrig.data);
-                    jItr = jItr.next;
-                }
-
-                // System.out.println();
-                iItr = iItr.nextHead;
-                iItrOrig = iItrOrig.nextHead;
+            while (jItrOrig.next!=null) {
+                // System.out.print(jItrOrig.data + " ");
+                jItrOrig=jItrOrig.next;//here it's null
+                newList.addAfter(jItr,jItrOrig.data);
+                jItr = jItr.next;
             }
 
-            newList.printLLdo();
-            //or simply
-            //HOW TO TRUELY CLONE ?
-            // this.newList = this.ll;
-            LinkedListImage imgNew = new LinkedListImage(newList);
-            return imgNew;
+            // System.out.println();
+            iItr = iItr.nextHead;
+            iItrOrig = iItrOrig.nextHead;
         }
-		public LinkedListImage(LinkedList2D ll){
-			this.ll = ll;
-		}
-		public LinkedListImage(String filename){
+
+//            newList.printLLdo();
+        //or simply
+        //HOW TO TRUELY CLONE ?
+        // this.newList = this.ll;
+        LinkedListImage imgNew = new LinkedListImage(newList);
+        return imgNew;
+    }
+    public LinkedListImage(LinkedList2D ll){
+        this.ll = ll;
+    }
+    public LinkedListImage(String filename){
 			//you need to implement this
 			Scanner sc = null;
 			File fileIn = null;
@@ -403,8 +400,69 @@ public class LinkedListImage implements CompressedImageInterface {
 
     public void invert()
     {
-		//you need to implement this
-		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+        LinkedList2D newList = new LinkedList2D((int)this.ll.gridHeight,(int)this.ll.gridWidth);//numCols array range as paramerter
+
+        newList.numRows=this.ll.numRows;
+        newList.numCols= this.ll.numCols;
+        newList.gridHeight=this.ll.gridHeight;
+        newList.gridWidth=this.ll.gridWidth;
+
+        ListNodeHead iItrOrig = this.ll.head;
+        ListNodeHead iItr = newList.head;
+        ListNodeHead jItrOrig = iItrOrig;
+        ListNodeHead jItr = iItr;
+        Integer valueHead=0,value=0;
+        // System.out.println(gridHeight + " "+ gridWidth);
+        while (iItrOrig!=null){
+
+            jItr = iItr;
+            jItrOrig = iItrOrig;
+//            count = 0;
+//            valueHead = iItrOrig.data;
+//            if (valueHead == 0){
+//                iItr.data = iItrOrig.next.data;
+//            }
+//            else{
+//                iItr.data = valueHead;
+//            }
+            if (iItrOrig.nextHead!=null) {
+                newList.addBelow(iItr, -1);
+            }
+//                System.out.println("LINE109");
+            while (jItrOrig!=null) {
+                // System.out.print(jItrOrig.data + " ");
+//                if (count==0) {
+//                    value = jItrOrig.data;
+//                    if (value == 0) {
+//                        jItr.data = jItrOrig.next.data;
+//                        continue;
+//                    }
+//                    jItr.data = 0;
+//                    newList.addAfter(jItr, value);
+//                    jItr = jItr.next;
+//                    jItrOrig = jItrOrig.next;//here it's null
+//                    count = 1;
+//                }
+//                if (count == 1){
+//
+//                    count = 0;
+//                }
+
+            }
+
+            // System.out.println();
+            iItr = iItr.nextHead;
+            iItrOrig = iItrOrig.nextHead;
+        }
+
+//            newList.printLLdo();
+        //or simply
+        //HOW TO TRUELY CLONE ?
+         this.ll = newList;
+
+        return;
+//        //you need to implement this
+//		throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 // -------------------------------------------------------------------------------------------------------
     public void performAnd(CompressedImageInterface img) throws BoundsMismatchException
