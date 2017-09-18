@@ -384,7 +384,7 @@ public class LinkedListImage implements CompressedImageInterface {
             throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
         }
         Integer i=0,j=0,startIndex=0,endIndex=0,flag = 0;
-        ListNodeHead iItr = ll.head;
+        ListNodeHead iItr = this.ll.head;
         ListNodeHead jItr = iItr;
 
         // System.out.println(ll.gridHeight + " "+ ll.gridWidth);
@@ -403,7 +403,12 @@ public class LinkedListImage implements CompressedImageInterface {
                     //do nothing as already 0 which is required
                 }
                 else{//run if val is 1
-                    if (y==startIndex){//STARTING CORNER CASE
+                    if ((y == startIndex)&&(y == endIndex)){//stand- alone 0 to 1
+                        jItr.data = jItr.next.next.data;
+                        jItr.next = jItr.next.next.next;
+                        //done and break ?
+                    }
+                    else if (y==startIndex){//STARTING CORNER CASE 0000 type
                         jItr.data = startIndex+1;
                         //done and break
                     }
@@ -436,62 +441,200 @@ public class LinkedListImage implements CompressedImageInterface {
         }
         //if we have to set a 0 in between of ones THE MOST HELLISH CASE
         jItr = iItr;//return to start of good old row!
-        startIndex = 0;
-        /////////////////////////////////////////////////////////////////TO MANY CASES!!!!!!!!!!!!!!!!!!!!!!!!!
-//        --------------------------------------------------------------------------------------------
-        while(jItr!=null){//what if some other condition here
-            endIndex = jItr.data;
-            if (endIndex==-1){
-                endIndex = this.ll.gridWidth-1;//WILL THIS WORK ?
+        try{
+            while(jItr.next.data!=-1){
+                jItr=jItr.next;
             }
-            //ALSO DIFFRENT IF START INDEX = 0 OR NON 0
-            //ALSO WHAT IFF END INDEX = 0 ? ? ?
-            if (y>=startIndex&&y<=endIndex ) {
-                flag = 1;
-                if (y==startIndex&&y==endIndex){//if both are same then conjoin
-//                    ListNodeHead hold = jItr.nex
-                    if (y==0){
-
-                    }
-                    else{
-                        jItr.data = jItr.next.next.data;
-                        jItr.next = jItr.next.next.next;//skipping 2 nodes and transferring value
-                    }
-                }
-                else if (y == startIndex) {//STARTING CORNER CASE
-                    if (startIndex==0){
-
-                    }
-                    else{
-                        jItr.data = endIndex+1;
-                    }
-                } else if (y == endIndex) {//ENDING CORNER CASE
-
-                } else {//CLEAN CLASE
-                    if (startIndex==0){
-
-                    }
-                    else{
-                        ListNodeHead hold = jItr.next;
-                        this.ll.addAfter(jItr, y);
-                        jItr = jItr.next;
-                        this.ll.addAfter(jItr, y);
-                        jItr = jItr.next;
-                        jItr.next = hold;
-                    }
-                }
-            }
-            startIndex = endIndex;
-            jItr = jItr.next;
         }
-        //you need to implement this
+        catch (Exception e){
+            //if it doesnt exist // do the thing below;ie its -1 already
+            jItr.data = 0;
+            this.ll.addAfter(jItr,0);
+            jItr = jItr.next;
+            this.ll.addAfter(jItr,-1);
+            return;
+        }
+        ListNodeHead lastValidPointer = jItr;//just before -1//what if it doesnt exist
+        jItr = iItr;//return to start of good old row!
+        startIndex = 0;
+        if (y==0){
+            if (jItr.data==1){//jItr.data can't be 0
+                jItr.data = 0;
+                return;
+            }
+            else{
+                Integer valHold = jItr.data;
+                ListNodeHead pointerHold = jItr.next;
+                jItr.data = 0;
+                this.ll.addAfter(jItr,0);
+                jItr = jItr.next;
+                this.ll.addAfter(jItr,valHold);
+                jItr = jItr.next;
+                jItr.next = pointerHold;
+                return;
+            }
+        }
+        else if(y<jItr.data){
+            if (y==jItr.data-1){
+                jItr.data--;
+                return;
+            }
+            else{
+                Integer valHolder = jItr.data;
+                ListNodeHead pointerHolder = jItr.next;
+                jItr.data = y;
+                this.ll.addAfter(jItr,y);
+                jItr = jItr.next;
+                this.ll.addAfter(jItr,valHolder);
+                jItr = jItr.next;
+                jItr.next = pointerHolder;
+                return;
+            }
+        }
+        else if (y>lastValidPointer.data){//it can't be equal! as we already covered that
+            if (y==(lastValidPointer.data+1)){
+                lastValidPointer.data++;
+            }
+            else{
+                this.ll.addAfter(lastValidPointer,y);
+                lastValidPointer = lastValidPointer.next;
+                this.ll.addAfter(lastValidPointer,y);
+                lastValidPointer = lastValidPointer.next;
+            }
+        }
+        //TO DO SOMETHING SEPERATLY FOR END INDEX = WIDTH-1  OF GRID ?
+        else{//case where y lies in one of the in-between cuts of 1
+            startIndex = 0;
+            jItr = jItr.next;//odd pairing
+            ListNodeHead start = null;
+            ListNodeHead end = null;
+            Integer boundsFlag = 0;
+            while(jItr!=null&&jItr.next!=null){//java will do short-circuiting
+                //what if some other condition above----------------------------------------------------------------
+                start = jItr;
+                end = jItr.next;
+                startIndex = start.data+1;
+                endIndex = end.data==-1? this.ll.gridWidth :end.data-1;//end.data can be -1 sooo;
+                boundsFlag = end.data==-1?1:0;
+                //as i have done the case of bounds flag == 0 previously therefore will not do it again
+                if (boundsFlag==1){
+                    break;//i am doing every one a favor
+                }
+                if (y>=startIndex&&y<=endIndex ) {//will itself run on the in between case
+                    flag = 1;
+                    if (y==startIndex&&y==endIndex){//if both are same then conjoin
+                        start.data = start.next.next.data;
+                        start.next = start.next.next.next;//skipping 2 nodes and transferring value
+                    }
+                    else if (y == startIndex) {//STARTING CORNER CASE
+                        //TO GO TO PREV POINTER
+                        start.data++;
+                    }
+                    else if (y == endIndex) {//ENDING CORNER CASE
+                        end.data--;
+                    }
+                    else {//CLEAN CLASE
+                        ListNodeHead hold = start.next;
+                        this.ll.addAfter(start, y);
+                        start = start.next;
+                        this.ll.addAfter(start, y);
+                        start = start.next;
+                        start.next = hold;
+                    }
+                }
+                if (flag==1){
+                    return;
+                }
+                jItr = jItr.next;
+                jItr = jItr.next;
+            }
+        }
+        return;
+
+        /////////////////////////////////////////////////////////////////TO0000 MANY CASES!!!!!!!!!!!!!!!!!!!!!!!!!
+//        --------------------------------------------------------------------------------------------
+//        while(jItr!=null){//what if some other condition here
+//            endIndex = jItr.data;
+//            if (endIndex==-1){
+//                endIndex = this.ll.gridWidth-1;//WILL THIS WORK ?
+//            }
+//            //ALSO DIFFRENT IF START INDEX = 0 OR NON 0
+//            //ALSO WHAT IFF END INDEX = 0 ? ? ?
+//            if (y>=startIndex&&y<=endIndex ) {
+//                flag = 1;
+//                if (y==startIndex&&y==endIndex){//if both are same then conjoin
+////                    ListNodeHead hold = jItr.nex
+//                    if (y==0){
+//
+//                    }
+//                    else{
+//                        jItr.data = jItr.next.next.data;
+//                        jItr.next = jItr.next.next.next;//skipping 2 nodes and transferring value
+//                    }
+//                }
+//                else if (y == startIndex) {//STARTING CORNER CASE
+//                    if (startIndex==0){
+//
+//                    }
+//                    else{
+//                        jItr.data = endIndex+1;
+//                    }
+//                } else if (y == endIndex) {//ENDING CORNER CASE
+//
+//                } else {//CLEAN CLASE
+//                    if (startIndex==0){
+//
+//                    }
+//                    else{
+//                        ListNodeHead hold = jItr.next;
+//                        this.ll.addAfter(jItr, y);
+//                        jItr = jItr.next;
+//                        this.ll.addAfter(jItr, y);
+//                        jItr = jItr.next;
+//                        jItr.next = hold;
+//                    }
+//                }
+//            }
+//            startIndex = endIndex;
+//            jItr = jItr.next;
+//        }
+//        _____________________________________________________________________________________________________
+//        you need to implement this
 //        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public int[] numberOfBlackPixels()
     {
+        //YOU NEED TO CHECK THESE
+        int[] a = new int[this.ll.gridHeight];
+        ListNodeHead iItr = this.ll.head;
+        ListNodeHead jItr = iItr;
+        Integer i=0,j=0,startIndex=0,endIndex=0;
+        //condition in for loop was this.ll.numRows+1;
+//        System.out.println("COUNTING THE NUMBER OF BLACK PIXELS IN THE FOLLOWING IMAGE::");
+//        this.ll.printLLdo();
+//        System.out.println("COUNTING THE NUMBER OF BLACK PIXELS VALUES ARE THE FOLLOWING:");
+
+        for(i=0;i<this.ll.gridHeight;i++){
+            jItr = iItr;
+            for (j=0;j<this.ll.numCols[i] ;j=j+2 ) {
+                try{
+                    startIndex = jItr.data;
+                    endIndex = jItr.next.data;
+                }
+                catch (Exception e){
+                    continue;
+                }
+                a[i]+=endIndex-startIndex+1;
+                jItr=jItr.next;
+                jItr=jItr.next;
+            }
+//            System.out.println(" i = "+i+" ; a[i] = "+a[i]);
+            iItr=iItr.nextHead;
+        }
+        return a;
         //you need to implement this
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+//        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public void invert()
@@ -936,9 +1079,38 @@ public class LinkedListImage implements CompressedImageInterface {
     }
 
     public String toStringUnCompressed()
-    {
+    {//YOU NEED TO CHECK THESE
         //you need to implement this
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+        String str = this.ll.gridWidth+" "+this.ll.gridHeight;
+        ListNodeHead iItr = this.ll.head;
+        ListNodeHead jItr = iItr;
+        Integer i=0,j=0,k=0,ender1=0,startIndex=0,endIndex=0;
+
+        for(i=0;i<this.ll.gridHeight;i++){
+            jItr = iItr;
+            str += ",";
+            for (k=0;k<jItr.data;k++){
+                str+=" 1";
+            }
+            while(jItr.data!=-1) {
+                startIndex = jItr.data;
+                endIndex = jItr.next.data;
+                for (k=startIndex;k<=endIndex;k++){
+                    str+=" 0";
+                }
+
+                ender1 = jItr.next.next.data==-1 ? this.ll.gridWidth : jItr.next.next.data;
+
+                    for (k=endIndex+1 ; k<=ender1-1 ;k++){
+                        str+=" 1";
+                    }
+                jItr=jItr.next;
+                jItr=jItr.next;
+            }
+            iItr=iItr.nextHead;
+        }
+        return str;
+//        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public String toStringCompressed()
