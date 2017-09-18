@@ -229,11 +229,8 @@ public class LinkedListImage implements CompressedImageInterface {
 
         // throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-
 //CONSTRUCTOR 2 WITH COMMENTS IN LOGIC
-
-    public LinkedListImage(boolean[][] grid, int width, int height)
-    {
+    public LinkedListImage(boolean[][] grid, int width, int height) {
 
         ll = new LinkedList2D(height,width);//numCols array range as paramerter
         ll.numRows=0;
@@ -344,11 +341,8 @@ public class LinkedListImage implements CompressedImageInterface {
         // ll.printLLdo();
 
     }
-
-
     // -------------------------------------------------------------------------------------------
-    public boolean getPixelValue(int x, int y) throws PixelOutOfBoundException
-    {
+    public boolean getPixelValue(int x, int y) throws PixelOutOfBoundException{
         if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
             throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
         }
@@ -384,8 +378,8 @@ public class LinkedListImage implements CompressedImageInterface {
         // throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
     // -------------------------------------------------------------------------------------------------------
-    public void setPixelValue(int x, int y, boolean val) throws PixelOutOfBoundException
-    {
+//        INCOMPLETE below method
+    public void setPixelValue(int x, int y, boolean val) throws PixelOutOfBoundException {
         if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
             throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
         }
@@ -444,6 +438,7 @@ public class LinkedListImage implements CompressedImageInterface {
         jItr = iItr;//return to start of good old row!
         startIndex = 0;
         /////////////////////////////////////////////////////////////////TO MANY CASES!!!!!!!!!!!!!!!!!!!!!!!!!
+//        --------------------------------------------------------------------------------------------
         while(jItr!=null){//what if some other condition here
             endIndex = jItr.data;
             if (endIndex==-1){
