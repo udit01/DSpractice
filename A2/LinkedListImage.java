@@ -389,9 +389,108 @@ public class LinkedListImage implements CompressedImageInterface {
         if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
             throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
         }
+        Integer i=0,j=0,startIndex=0,endIndex=0,flag = 0;
+        ListNodeHead iItr = ll.head;
+        ListNodeHead jItr = iItr;
 
+        // System.out.println(ll.gridHeight + " "+ ll.gridWidth);
+
+        for(i=0;i<x;i++){
+            // System.out.println();
+            iItr=iItr.nextHead;
+        }
+        jItr = iItr;//on correct row
+        for (j=0;j<ll.numCols[x] ;j = j+2 ) {
+            startIndex = jItr.data;
+            endIndex = jItr.next.data;
+            if (y>=startIndex&&y<=endIndex ){
+                flag = 1;
+                if (!val){//run if val is 0
+                    //do nothing as already 0 which is required
+                }
+                else{//run if val is 1
+                    if (y==startIndex){//STARTING CORNER CASE
+                        jItr.data = startIndex+1;
+                        //done and break
+                    }
+                    else if(y==endIndex){//ENDING CORNER CASE
+                        jItr.next.data = endIndex-1;
+                    }
+                    else{//CLEAN CLASE
+                        ListNodeHead hold = jItr.next;
+                        this.ll.addAfter(jItr,y-1);
+                        jItr = jItr.next;
+                        this.ll.addAfter(jItr,y+1);
+                        jItr = jItr.next;
+                        jItr.next = hold;
+                    }
+                }
+            }
+            if (flag==1){
+                return;//don't wait just gooo
+            }
+            jItr = jItr.next;
+            jItr = jItr.next;
+        }
+        if (flag==1){
+            return;//go already
+        }
+        //if flag is not 1 ie it didn't lie in between so wth
+        //now if val == 1 then it doesn't matter
+        if (val){
+            return;
+        }
+        //if we have to set a 0 in between of ones THE MOST HELLISH CASE
+        jItr = iItr;//return to start of good old row!
+        startIndex = 0;
+        /////////////////////////////////////////////////////////////////TO MANY CASES!!!!!!!!!!!!!!!!!!!!!!!!!
+        while(jItr!=null){//what if some other condition here
+            endIndex = jItr.data;
+            if (endIndex==-1){
+                endIndex = this.ll.gridWidth-1;//WILL THIS WORK ?
+            }
+            //ALSO DIFFRENT IF START INDEX = 0 OR NON 0
+            //ALSO WHAT IFF END INDEX = 0 ? ? ?
+            if (y>=startIndex&&y<=endIndex ) {
+                flag = 1;
+                if (y==startIndex&&y==endIndex){//if both are same then conjoin
+//                    ListNodeHead hold = jItr.nex
+                    if (y==0){
+
+                    }
+                    else{
+                        jItr.data = jItr.next.next.data;
+                        jItr.next = jItr.next.next.next;//skipping 2 nodes and transferring value
+                    }
+                }
+                else if (y == startIndex) {//STARTING CORNER CASE
+                    if (startIndex==0){
+
+                    }
+                    else{
+                        jItr.data = endIndex+1;
+                    }
+                } else if (y == endIndex) {//ENDING CORNER CASE
+
+                } else {//CLEAN CLASE
+                    if (startIndex==0){
+
+                    }
+                    else{
+                        ListNodeHead hold = jItr.next;
+                        this.ll.addAfter(jItr, y);
+                        jItr = jItr.next;
+                        this.ll.addAfter(jItr, y);
+                        jItr = jItr.next;
+                        jItr.next = hold;
+                    }
+                }
+            }
+            startIndex = endIndex;
+            jItr = jItr.next;
+        }
         //you need to implement this
-        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
+//        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
     public int[] numberOfBlackPixels()
