@@ -1,3 +1,5 @@
+import com.sun.javafx.image.BytePixelSetter;
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -503,10 +505,10 @@ public class LinkedListImage implements CompressedImageInterface {
 
 				LinkedListImage image = (LinkedListImage)img;
 				LinkedListImage imageAND = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
-                System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (IMG)::::::");
-                image.ll.printLLdo();
-                System.out.println("IMAGE 2 BEFORE AAANNNDDDDD (IMG)::::::");
-                this.ll.printLLdo();
+                // System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (IMG)::::::");
+                // image.ll.printLLdo();
+                // System.out.println("IMAGE 2 BEFORE AAANNNDDDDD (IMG)::::::");
+                // this.ll.printLLdo();
 				Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0,data=0;
 				ListNodeHead iItr1 = this.ll.head;
 				ListNodeHead iItr2 = image.ll.head;
@@ -630,19 +632,50 @@ public class LinkedListImage implements CompressedImageInterface {
 					}
 					jItr3.data=-1;
 
+//					while()
+
 					if (i<this.ll.gridHeight-1) {//will not happen on the last iteration
 						iItr1=iItr1.nextHead;
 						iItr2=iItr2.nextHead;
 						imageAND.ll.addBelow(iItr3,-1);
 						iItr3=iItr3.nextHead;
 					}
+
+
 				}
 
+				ListNodeHead iItrand = imageAND.ll.head;
+				ListNodeHead jItrand = iItrand;
+//				ListNodeHead ptr = iItrand;
+                Integer val1=0,val2=0,c=0;
+				while(iItrand!=null){
+				    jItrand = iItrand;
+//				    ptr = jItrand;
+//				    c=1;
+                    try {
+                        while (jItrand.next.next.next != null) {
+                            if ((jItrand.next.data + 1) == jItrand.next.next.data) {
+                                jItrand.next = jItrand.next.next.next;
+                            }
+                            else{
+                                jItrand = jItrand.next;
+                                jItrand = jItrand.next;
+                            }
+                        }
+                    }
+                    catch (Exception e){
+                        //do nothing ?
+
+                    }
+                    iItrand = iItrand.nextHead;
+
+                }
+
 			//you need to implement this
-			System.out.println("AND COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			// System.out.println("AND COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 //			imageAND.ll.printLLdo();
-            System.out.println("IMAGE RESULTANT OF AAANNNDDDDD (IMG)::::::");
-            imageAND.ll.printLLdo();
+            // System.out.println("IMAGE RESULTANT OF AAANNNDDDDD (IMG)::::::");
+            // imageAND.ll.printLLdo();
             this.ll = imageAND.ll;
 			// throw new java.lang.UnsupportedOperationException("Not implemented yet.");
 			return;
