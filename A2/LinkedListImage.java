@@ -229,7 +229,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
         // throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
-//CONSTRUCTOR 2 WITH COMMENTS IN LOGIC
+    //CONSTRUCTOR 2 WITH COMMENTS IN LOGIC
     public LinkedListImage(boolean[][] grid, int width, int height) {
 
         ll = new LinkedList2D(height,width);//numCols array range as paramerter
@@ -292,7 +292,7 @@ public class LinkedListImage implements CompressedImageInterface {
                         // System.out.println("LINE 159: val of j-1 ="+ (j-1) + " and i =  "+(i)+"::::::::::::::::::::::::::::::::::::::::::::::");
                         // ll.printLLdo();
 
-                        // System.out.println("Just after Line 161 yIter.data:"+ (yItr.data));
+                        // System.out.println("Just after Line 51 yIter.data:"+ (yItr.data));
                         counter++;//one more elem added to this row
                     }
                     flag = 0;
@@ -322,7 +322,7 @@ public class LinkedListImage implements CompressedImageInterface {
                 // System.out.println("LINE 159: val of j-1 ="+ (j-1) + " and i =  "+(i)+"::::::::::::::::::::::::::::::::::::::::::::::");
                 // ll.printLLdo();
 
-                // System.out.println("Just after Line 161 yIter.data:"+ (yItr.data));
+                // System.out.println("Just after Line 51 yIter.data:"+ (yItr.data));
                 counter++;//one more elem added to this row
                 flag = 0;
                 consec = 0;
@@ -657,74 +657,254 @@ public class LinkedListImage implements CompressedImageInterface {
         Integer start = 0, end = 0, flaga=0,flagb=0;
         // System.out.println(gridHeight + " "+ gridWidth);
 
-        while (iItrOrig!=null){
-            flaga=0;
-            flagb=0;
+
+        while(iItrOrig!=null){
             jItr = iItr;
             jItrOrig = iItrOrig;
-//            count = 0;
-            valueHead = iItrOrig.data;
-
+            ListNodeHead rowStart = iItrOrig;//or start of row of image
+             //getting over the iitr business
             if (iItrOrig.nextHead!=null) {
                 newList.addBelow(iItr, -1);
             }
             iItr = iItr.nextHead;
             iItrOrig = iItrOrig.nextHead;
 
-
-            if (valueHead == 0){//do something
-                if (!jItrOrig.next.data.equals(newList.gridWidth-1)){
-                    jItr.data = jItrOrig.next.data;
-                    newList.addAfter(jItr,-1);
-                    jItr = jItr.next;
-                    flaga = 1;
-                }
-                else{
-                    jItr.data = -1;
-                    continue;
-                }
-            }
-            else{
+            if (jItrOrig.data==-1){
                 jItr.data = 0;
+                newList.addAfter(jItr,newList.gridWidth-1);
+                jItr = jItr.next;//on15
                 newList.addAfter(jItr,-1);
-                jItr = jItr.next;
+                jItr = jItr.next;//on-1
+                continue;
             }
-//                System.out.println("LINE109");
-            while (jItrOrig.data!=-1) {
-                start = jItrOrig.data;
-                end = jItrOrig.next.data;//holding the pointers
 
-                if (end == newList.gridWidth-1){
-                    flagb=1;
+            ListNodeHead lastValidPointer = null;
+            while(jItrOrig.next.data!=-1){
+                jItrOrig = jItrOrig.next;
+            }
+            lastValidPointer = jItrOrig;
+            jItrOrig = rowStart;//returning to start of row
+            if (jItrOrig.data==0){// seq is 0 x x ...
+                if (lastValidPointer.data.equals(newList.gridWidth-1)){//seq is 0 15 -1 or 0 7 8 15 -1
+                    if (jItrOrig.next==lastValidPointer){//seq is 0 15 -1
+                        jItr.data = -1;
+                        jItr.next = null;
+                        continue;
+                    }
+                    else{// seq is 0 6 7 15 -1
+                        jItrOrig = jItrOrig.next;//on 2 if seq is 0 2 7 15 -1
+                        while(!jItrOrig.data.equals(newList.gridWidth-1)){
+                            start = jItrOrig.data;
+                            end = jItrOrig.next.data;
+                            jItr.data = start + 1 ;
+                            newList.addAfter(jItr,end-1);
+                            jItr = jItr.next;
+                            newList.addAfter(jItr,-1);
+                            jItr = jItr.next;
+                            jItrOrig = jItrOrig.next;
+                            jItrOrig = jItrOrig.next;
+                        }
+                    }
                 }
+                else {// sequene is like 0 2 7 8 -1 or normal case **really ?
+                    jItrOrig = jItrOrig.next;//now on 2
+                    while(!jItrOrig.next.data.equals(-1)){
+                        start = jItrOrig.data;
+                        end = jItrOrig.next.data;
+                        jItr.data = start + 1 ;
+                        newList.addAfter(jItr,end-1);
+                        jItr = jItr.next;
+                        newList.addAfter(jItr,-1);
+                        jItr = jItr.next;
+                        jItrOrig = jItrOrig.next;
+                        jItrOrig = jItrOrig.next;
+                    }
+                    jItr.data = lastValidPointer.data +1;
+                    newList.addAfter(jItr,newList.gridWidth-1);
+                    jItr=jItr.next;
+                    newList.addAfter(jItr,-1);
+                    jItr=jItr.next;
+                }
+            }
+            else {// seq is like 2 3 4 15 etc
+                if (lastValidPointer.data.equals(newList.gridWidth-1)){//case like 2 3 4 15 or 2 15;
+                    if (jItrOrig.next==lastValidPointer){//2 15 -1
+                        jItr.data = 0;
+                        newList.addAfter(jItr,jItrOrig.data-1);
+                        jItr = jItr.next ;
+                        newList.addAfter(jItr,-1);
+                        jItr = jItr.next ;
+                        continue;
+                    }
+                    else{//2 3 6 15 -1
+                        jItr.data = 0;
+                        newList.addAfter(jItr,jItrOrig.data -1);
+                        jItr = jItr.next;
+                        newList.addAfter(jItr,-1);
+                        jItr = jItr.next;
+                        jItrOrig = jItrOrig.next;//on 3 if seq is 2 3 6 15 -1;
 
-                if (flaga!=1){
-                    jItr.data = start-1;
+                        while(!jItrOrig.data.equals(newList.gridWidth-1)){
+                            start = jItrOrig.data;
+                            end = jItrOrig.next.data;
+                            jItr.data = start + 1 ;
+                            newList.addAfter(jItr,end-1);
+                            jItr = jItr.next;
+                            newList.addAfter(jItr,-1);
+                            jItr = jItr.next;
+                            jItrOrig = jItrOrig.next;
+                            jItrOrig = jItrOrig.next;
+                        }
+                        //nothig to do post loop
+
+                    }
+                }
+                else{//case like 2 4 or 2 4 7 8 the really normal ones ?
+                    jItr.data = 0;
+                    newList.addAfter(jItr,jItrOrig.data -1);
+                    jItr = jItr.next;
                     newList.addAfter(jItr,-1);
                     jItr = jItr.next;
-                }
-                if (flagb!=1){
-                    jItr.data = end+1;
+                    jItrOrig = jItrOrig.next;//now on 4
+
+                    while(!jItrOrig.next.data.equals(-1)){
+                        start = jItrOrig.data;
+                        end = jItrOrig.next.data;
+                        jItr.data = start + 1 ;
+                        newList.addAfter(jItr,end-1);
+                        jItr = jItr.next;
+                        newList.addAfter(jItr,-1);
+                        jItr = jItr.next;
+                        jItrOrig = jItrOrig.next;
+                        jItrOrig = jItrOrig.next;
+                    }
+                    jItr.data = lastValidPointer.data +1;
+                    newList.addAfter(jItr,newList.gridWidth-1);
+                    jItr=jItr.next;
                     newList.addAfter(jItr,-1);
-                    jItr = jItr.next;
+                    jItr=jItr.next;
                 }
-                flaga=0;
-
-                jItrOrig = jItrOrig.next;
-                jItrOrig = jItrOrig.next;
-
             }
-            if (flagb==1){
-                jItr.data = -1;
-            }
-            else{
-                jItr.data = newList.gridWidth-1;
-                newList.addAfter(jItr,-1);
-                jItr = jItr.next;
-            }
-            // System.out.println();
 
         }
+
+
+//        while (iItrOrig!=null){
+////            newList.printLLdo();
+//            flaga=0;
+//            flagb=0;
+//            jItr = iItr;
+//            jItrOrig = iItrOrig;
+////            count = 0;
+//            valueHead = iItrOrig.data;
+//
+//            if (iItrOrig.nextHead!=null) {
+//                newList.addBelow(iItr, -1);
+//            }
+//            iItr = iItr.nextHead;
+//            iItrOrig = iItrOrig.nextHead;
+//
+//
+//            if (valueHead == 0){//do something//if jItrOrig has 1st elem as 0
+//                if (!jItrOrig.next.data.equals(newList.gridWidth-1)){
+//                    jItr.data = jItrOrig.next.data + 1;//first value stored after 0 example 0 2 10 12 ...then 3 is stored//jItrOrig on 0
+//                    newList.addAfter(jItr,-1);//trailing empty node is added
+//                    jItr = jItr.next;
+//                    jItrOrig = jItrOrig.next;//move onto next node inside is not 15 so why not add it ?//jItrOrig on 2
+////                    jItr.data = jItr.next.data -1;//storing 9
+////                    newList.addAfter(jItr,-1);//trailing empty node is added
+////                    jItrOrig = jItrOrig.next;//on 10 now
+//                    flaga = 1;
+//                }
+//                else{//just finish this row!
+//                    jItr.data = -1;
+//                    jItr.next = null;
+//                    continue;
+//                }
+//            }
+//            else{
+//                jItr.data = 0;
+//                newList.addAfter(jItr,-1);
+//                jItr = jItr.next;
+//                jItr.data = jItrOrig.data-1;
+//                newList.addAfter(jItr,-1);
+//                jItr = jItr.next;
+//                jItrOrig = jItrOrig.next;
+//
+//            }
+////                System.out.println("LINE109");
+//            while (true) {//just changed the condition
+////                newList.printLLdo();
+//                if (jItrOrig.next.data==-1){//i have already taken into account the things to add after 2
+//                    jItr.data = newList.gridWidth-1;
+//                    newList.addAfter(jItr,-1);
+//                    jItr = jItr.next;
+//                    break;
+//                }
+//                start = jItrOrig.data;
+//                end = jItrOrig.next.data;//holding the pointers
+//
+//                if (end == newList.gridWidth-1){//what to do
+//                    flagb=1;
+//                }
+//
+////                if (flaga!=1){
+//                    jItr.data = start+1;
+//                    newList.addAfter(jItr,-1);
+//                    jItr = jItr.next;
+////                }
+//                if (flagb!=1){
+//                    jItr.data = end-1;
+//                    newList.addAfter(jItr,-1);
+//                    jItr = jItr.next;
+//                }
+//                flaga=0;
+//
+//                jItrOrig = jItrOrig.next;
+//                jItrOrig = jItrOrig.next;
+//
+//            }
+//            if (flagb==1){
+//                jItr.data = -1;
+//                jItr.next = null;
+//            }
+//            else{
+//                jItr.data = newList.gridWidth-1;
+//                newList.addAfter(jItr,-1);
+//                jItr = jItr.next;
+//            }
+//            // System.out.println();
+//
+//        }
+
+
+//        ListNodeHead iItrand = newList.head;
+//        ListNodeHead jItrand = iItrand;
+////				ListNodeHead ptr = iItrand;
+//        Integer val1=0,val2=0,c=0;
+//        while(iItrand!=null){
+//            jItrand = iItrand;
+////				    ptr = jItrand;
+////				    c=1;
+//            try {
+//                while (jItrand.next.next.next != null) {
+//                    if ((jItrand.next.data + 1) == jItrand.next.next.data) {
+//                        jItrand.next = jItrand.next.next.next;
+//                    }
+//                    else{
+//                        jItrand = jItrand.next;
+//                        jItrand = jItrand.next;
+//                    }
+//                }
+//            }
+//            catch (Exception e){
+//                //do nothing ?
+//
+//            }
+//            iItrand = iItrand.nextHead;
+//
+//        }
+
 //        System.out.println("AFTER INVERT");
 //        newList.printLLdo();
 //            newList.printLLdo();
@@ -741,6 +921,11 @@ public class LinkedListImage implements CompressedImageInterface {
     {
 
         LinkedListImage image = (LinkedListImage)img;
+
+        if ((image.ll.gridWidth!=this.ll.gridWidth)||image.ll.gridHeight!=this.ll.gridHeight){
+            throw new BoundsMismatchException("Sizes of images do not match");
+        }
+
         LinkedListImage imageAND = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
         // System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (IMG)::::::");
         // image.ll.printLLdo();
@@ -924,6 +1109,11 @@ public class LinkedListImage implements CompressedImageInterface {
     public void performOr(CompressedImageInterface img) throws BoundsMismatchException
     {
         LinkedListImage image = (LinkedListImage)img;
+
+        if ((image.ll.gridWidth!=this.ll.gridWidth)||image.ll.gridHeight!=this.ll.gridHeight){
+            throw new BoundsMismatchException("Sizes of images do not match");
+        }
+
         LinkedListImage imageOR = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
 //        System.out.println("BEFORE ORRRRR :::: IMAGE 1:(this)");
 //        this.ll.printLLdo();
@@ -1052,6 +1242,9 @@ public class LinkedListImage implements CompressedImageInterface {
     {
         //you need to implement this
         LinkedListImage image = (LinkedListImage)img;
+        if ((image.ll.gridWidth!=this.ll.gridWidth)||image.ll.gridHeight!=this.ll.gridHeight){
+            throw new BoundsMismatchException("Sizes of images do not match");
+        }
 
 //        System.out.println("before XORR Image1:(this):");
 //        this.ll.printLLdo();
@@ -1107,9 +1300,9 @@ public class LinkedListImage implements CompressedImageInterface {
 
                 ender1 = jItr.next.next.data==-1 ? this.ll.gridWidth : jItr.next.next.data;
 
-                    for (k=endIndex+1 ; k<=ender1-1 ;k++){
-                        str+=" 1";
-                    }
+                for (k=endIndex+1 ; k<=ender1-1 ;k++){
+                    str+=" 1";
+                }
                 jItr=jItr.next;
                 jItr=jItr.next;
             }
@@ -1167,12 +1360,15 @@ public class LinkedListImage implements CompressedImageInterface {
         boolean success = true;
 
         // check constructor from file
-        CompressedImageInterface img1 = new LinkedListImage("sampleInputFile.txt");
+        CompressedImageInterface img1 = new LinkedListImage("sampleInputFile1.txt");
         LinkedListImage i1 =(LinkedListImage)img1;
 
         // check toStringCompressed
         String img1_compressed = img1.toStringCompressed();
-        String img_ans = "16 16, -1, 0 15 -1, 3 7 -1, 2 7 -1, 2 2 6 7 -1, 6 7 -1, 6 7 -1, 4 6 -1, 2 4 -1, 2 3 14 15 -1, 2 2 13 15 -1, 11 13 -1, 11 12 -1, 10 11 -1, 9 10 -1, 7 9 -1";
+        String img_ans = "5 5, -1, 0 4 -1, 3 4 -1, 2 4 -1, 2 2 -1";
+        // System.out.println(img_ans);
+        // System.out.println(img1_compressed);
+
         success = success && (img_ans.equals(img1_compressed));
 
         if (!success)
@@ -1183,8 +1379,8 @@ public class LinkedListImage implements CompressedImageInterface {
 
         // check getPixelValue
         boolean[][] grid = new boolean[16][16];
-        for (int i = 0; i < 16; i++)
-            for (int j = 0; j < 16; j++)
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++)
             {
                 try
                 {
@@ -1192,12 +1388,13 @@ public class LinkedListImage implements CompressedImageInterface {
                 }
                 catch (PixelOutOfBoundException e)
                 {
-                    System.out.println("Errorrrrrrrr");
+
+                    System.out.println("Errorrrrrrrr1");
                 }
             }
         // printGrid(grid,16,16);
         // check constructor from grid
-        CompressedImageInterface img2 = new LinkedListImage(grid, 16, 16);
+        CompressedImageInterface img2 = new LinkedListImage(grid, 5, 5);
         LinkedListImage i2 = (LinkedListImage)img2;
         // i2.ll.printLLdo();
         String img2_compressed = img2.toStringCompressed();
@@ -1221,8 +1418,8 @@ public class LinkedListImage implements CompressedImageInterface {
         {
             System.out.println("Errorrrrrrrr");
         }
-        for (int i = 0; i < 16; i++)
-            for (int j = 0; j < 16; j++)
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++)
             {
                 try
                 {
@@ -1243,7 +1440,7 @@ public class LinkedListImage implements CompressedImageInterface {
 //        i1.ll.printLLdo();
 
         // check setPixelValue
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 5; i++)
         {
             try
             {
@@ -1258,9 +1455,9 @@ public class LinkedListImage implements CompressedImageInterface {
 
         // check numberOfBlackPixels
         int[] img1_black = img1.numberOfBlackPixels();
-        success = success && (img1_black.length == 16);
-        for (int i = 0; i < 16 && success; i++)
-            success = success && (img1_black[i] == 15);
+        success = success && (img1_black.length == 5);
+        for (int i = 0; i < 5 && success; i++)
+            success = success && (img1_black[i] == 4);
         if (!success)
         {
             System.out.println("setPixelValue or numberOfBlackPixels ERROR");
@@ -1273,7 +1470,7 @@ public class LinkedListImage implements CompressedImageInterface {
         img1.invert();
 //        i1.ll.printLLdo();
 
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 5; i++)
         {
             try
             {
@@ -1303,8 +1500,8 @@ public class LinkedListImage implements CompressedImageInterface {
         }
         //running till here yaay
 //        i1.ll.printLLdo();
-        for (int i = 0; i < 16; i++)
-            for (int j = 1; j < 16; j++)//made a change here;; testing pourpose strike back
+        for (int i = 0; i < 5; i++)
+            for (int j = 1; j < 5; j++)//made a change here;; testing pourpose strike back
             {
                 try
                 {
@@ -1330,8 +1527,8 @@ public class LinkedListImage implements CompressedImageInterface {
         {
             System.out.println("Errorrrrrrrr");
         }
-        for (int i = 0; i < 16; i++)
-            for (int j = 0; j < 16; j++)
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++)
             {
                 try
                 {
@@ -1349,7 +1546,7 @@ public class LinkedListImage implements CompressedImageInterface {
         }
 
         // check toStringUnCompressed
-        String img_ans_uncomp = "16 16, 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1, 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0, 1 1 1 0 0 0 0 0 1 1 1 1 1 1 1 1, 1 1 0 0 0 0 0 0 1 1 1 1 1 1 1 1, 1 1 0 1 1 1 0 0 1 1 1 1 1 1 1 1, 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1, 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1, 1 1 1 1 0 0 0 1 1 1 1 1 1 1 1 1, 1 1 0 0 0 1 1 1 1 1 1 1 1 1 1 1, 1 1 0 0 1 1 1 1 1 1 1 1 1 1 0 0, 1 1 0 1 1 1 1 1 1 1 1 1 1 0 0 0, 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1 1, 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1, 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 1, 1 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1, 1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1";
+        String img_ans_uncomp = "5 5, 1 1 1 1 1, 0 0 0 0 0, 1 1 1 0 0, 1 1 0 0 0, 1 1 0 1 1";
 //        System.out.println(img_ans_uncomp);
 //        System.out.println(img1.toStringUnCompressed());
 //        System.out.println(img_ans);
@@ -1368,5 +1565,137 @@ public class LinkedListImage implements CompressedImageInterface {
         }
         else
             System.out.println("ALL TESTS SUCCESSFUL! YAYY!");
+
+        int xxx=50;
+        boolean[][] grid1=new boolean[xxx][xxx];
+        boolean[][] grid2=new boolean[xxx][xxx];
+        boolean[][] xor=new boolean[xxx][xxx];
+        boolean[][] or=new boolean[xxx][xxx];
+
+        boolean[][] and=new boolean[xxx][xxx];
+
+
+        for (int i=0; i<xxx; i++ ) {
+            for (int j=0; j<xxx; j++ ) {
+                // grid1[i][j]=true;
+                // grid2[i][j]=true;
+
+                grid1[i][j]=((Math.random() * 1)>0.5);
+                grid2[i][j]=((Math.random() * 1)>0.5);
+                xor[i][j]=(grid1[i][j]!=grid2[i][j]);
+                or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
+                and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
+                // System.out.println(grid[i][j]);
+            }
+        }
+        // for (int i=0; ; ) {
+        //
+        // }
+
+        CompressedImageInterface img11=new LinkedListImage(grid1,xxx,xxx);
+        CompressedImageInterface img22=new LinkedListImage(grid2,xxx,xxx);
+        CompressedImageInterface xorer=new LinkedListImage(xor,xxx,xxx);
+        CompressedImageInterface orer=new LinkedListImage(or,xxx,xxx);
+        CompressedImageInterface ander=new LinkedListImage(and,xxx,xxx);
+        String str1=img11.toStringCompressed();
+
+        // for (int i=0; i<xxx; i++ ) {
+        //         for (int j=0; j<xxx; j++ ) {
+        //           try{
+        //             // img11.setPixelValue(i,j,img11.getPixelValue(i,j));
+        //             img11.setPixelValue(i,j,false);
+        //
+        //           }catch(PixelOutOfBoundException e){
+        //             System.out.println("s");
+        //           }
+        //         }
+        // }
+//        System.out.println(img11.numberOfBlackPixels()[15]);
+
+        LinkedListImage  i11 = (LinkedListImage)(img11);
+
+//        img11.invert();
+//                i11.ll.printLLdo();
+        img11.invert();
+//        System.out.println(img11.numberOfBlackPixels()[15]);
+
+        img11.invert();
+        if(str1.equals(img11.toStringCompressed()))
+            System.out.println("Invert Working");
+
+
+        try {
+            img11.performAnd(img22);
+        } catch (BoundsMismatchException e) {
+            System.out.println("ErrorrrrrrrrSSSSSSS");
+        }
+        String str2=img11.toStringCompressed();
+        if(str2.equals(ander.toStringCompressed())) {
+            System.out.println("And Working:::::::::::::::::::::::::::::::::::::::YO");
+        }
+
+
+
+//
+//
+//        int xxx=500;
+//        boolean[][] grid1=new boolean[xxx][xxx];
+//        boolean[][] grid2=new boolean[xxx][xxx];
+//        boolean[][] xor=new boolean[xxx][xxx];
+//        boolean[][] or=new boolean[xxx][xxx];
+//
+//        boolean[][] and=new boolean[xxx][xxx];
+//        boolean[][] invert1=new boolean[xxx][xxx];
+//
+//
+//        for (int i=0; i<xxx; i++ ) {
+//            for (int j=0; j<xxx; j++ ) {
+//                // grid1[i][j]=true;
+//                // grid2[i][j]=true;
+//
+//                grid1[i][j]=((Math.random() * 1)>0.5);
+//                grid2[i][j]=((Math.random() * 1)>0.5);
+//                xor[i][j]=(grid1[i][j]!=grid2[i][j]);
+//                or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
+//                and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
+//                invert1[i][j]=(!grid1[i][j]);
+//                // System.out.println(grid[i][j]);
+//            }
+//        }
+//        // for (int i=0; ; ) {
+//        //
+//        // }
+//
+//        CompressedImageInterface img11=new LinkedListImage(grid1,xxx,xxx);
+//        CompressedImageInterface img22=new LinkedListImage(grid2,xxx,xxx);
+//        CompressedImageInterface xorer=new LinkedListImage(xor,xxx,xxx);
+//        CompressedImageInterface orer=new LinkedListImage(or,xxx,xxx);
+//        CompressedImageInterface ander=new LinkedListImage(and,xxx,xxx);
+//        CompressedImageInterface inverter1=new LinkedListImage(invert1,xxx,xxx);
+//
+//        String str1=img11.toStringCompressed();
+//
+//        for (int i=0; i<xxx; i++ ) {
+//            for (int j=0; j<xxx; j++ ) {
+//                try{
+//                    // System.out.print(img11.getPixelValue(i,j)+" ");
+//                    // System.out.println(" ");
+//
+//                    // System.out.println(img11.toStringCompressed());
+//                    img11.setPixelValue(i,j,!img11.getPixelValue(i,j));
+//                    // System.out.println(img11.toStringCompressed());
+//
+//                    // img11.setPixelValue(i,j,false);
+//                    // System.out.println(" ");
+//
+//                }catch(PixelOutOfBoundException e){
+//                    System.out.println("s");
+//                }
+//            }
+//
+//        }
+//        // System.out.println(img11.toStringUnCompressed());
+//
+//        System.out.println(img11.toStringCompressed().equals(inverter1.toStringCompressed()));
     }
 }
