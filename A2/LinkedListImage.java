@@ -367,7 +367,8 @@ public class LinkedListImage implements CompressedImageInterface {
         ListNodeHead jItr = iItr;
 
         // System.out.println(ll.gridHeight + " "+ ll.gridWidth);
-
+        System.out.println("IN GET PIXEL TO GET " + x +"," + y);
+        this.ll.printLLdo();
         for(i=0;i<x;i++){
             // System.out.println();
             iItr=iItr.nextHead;
@@ -967,9 +968,16 @@ public class LinkedListImage implements CompressedImageInterface {
 
         LinkedListImage image2 = ((LinkedListImage)img).deepCopy();
 
-        if ((image2.ll.gridWidth!=this.ll.gridWidth)||image2.ll.gridHeight!=this.ll.gridHeight){
+        if (!((image2.ll.gridWidth.equals(this.ll.gridWidth))&&image2.ll.gridHeight.equals(this.ll.gridHeight))){
+
+            System.out.println("HERE IS where sizes don't match");
+            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
+            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
+
+//      image2.ll.gridHeight
             throw new BoundsMismatchException("Sizes of images do not match");
         }
+
         LinkedListImage image1 = this.deepCopy();
 
 //        System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (THIS)::::::");
@@ -1170,10 +1178,15 @@ public class LinkedListImage implements CompressedImageInterface {
     {
         LinkedListImage image = (LinkedListImage)img;
 
-        if ((image.ll.gridWidth!=this.ll.gridWidth)||image.ll.gridHeight!=this.ll.gridHeight){
+        if (!((image.ll.gridWidth.equals(this.ll.gridWidth))&&image.ll.gridHeight.equals(this.ll.gridHeight))){
+
+            System.out.println("HERE IS where sizes don't match");
+            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
+            System.out.println(image.ll.gridWidth+" , "+image.ll.gridHeight);
+
+//      image2.ll.gridHeight
             throw new BoundsMismatchException("Sizes of images do not match");
         }
-
         LinkedListImage imageOR = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
 //        System.out.println("BEFORE ORRRRR :::: IMAGE 1:(this)");
 //        this.ll.printLLdo();
@@ -1407,7 +1420,13 @@ public class LinkedListImage implements CompressedImageInterface {
         //you need to implement this
         LinkedListImage image2 = ((LinkedListImage)img).deepCopy();
 
-        if ((image2.ll.gridWidth!=this.ll.gridWidth)||image2.ll.gridHeight!=this.ll.gridHeight){
+        if (!((image2.ll.gridWidth.equals(this.ll.gridWidth))&&image2.ll.gridHeight.equals(this.ll.gridHeight))){
+
+            System.out.println("HERE IS where sizes don't match");
+            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
+            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
+
+//      image2.ll.gridHeight
             throw new BoundsMismatchException("Sizes of images do not match");
         }
 
@@ -1451,40 +1470,48 @@ public class LinkedListImage implements CompressedImageInterface {
     public String toStringUnCompressed()
     {//YOU NEED TO CHECK THESE
         //you need to implement this
-        String str = this.ll.gridWidth+" "+this.ll.gridHeight;
+        StringBuilder str = new StringBuilder();
+        str.append(this.ll.gridWidth);
+        str.append(" ");
+        str.append(this.ll.gridHeight);
         ListNodeHead iItr = this.ll.head;
         ListNodeHead jItr = iItr;
         Integer i=0,j=0,k=0,ender1=0,startIndex=0,endIndex=0;
 
         for(i=0;i<this.ll.gridHeight;i++){
             jItr = iItr;
-            str += ",";
+            str.append(",");
             if (jItr.data==-1){
                 for (k=0;k<this.ll.gridWidth;k++){
-                    str+=" 1";
+                    str.append(" 1");
                 }
             }
             for (k=0;k<jItr.data;k++){
-                str+=" 1";
+//                str+=" 1";
+                str.append(" 1");
+
             }
             while(jItr.data!=-1) {
                 startIndex = jItr.data;
                 endIndex = jItr.next.data;
                 for (k=startIndex;k<=endIndex;k++){
-                    str+=" 0";
+                    str.append(" 0");
+//                    str+=" 0";
                 }
 
                 ender1 = jItr.next.next.data==-1 ? this.ll.gridWidth : jItr.next.next.data;
 
                 for (k=endIndex+1 ; k<=ender1-1 ;k++){
-                    str+=" 1";
+//                    str+=" 1";
+                    str.append(" 1");
                 }
+
                 jItr=jItr.next;
                 jItr=jItr.next;
             }
             iItr=iItr.nextHead;
         }
-        return str;
+        return str.toString();
 //        throw new java.lang.UnsupportedOperationException("Not implemented yet.");
     }
 
@@ -1493,17 +1520,29 @@ public class LinkedListImage implements CompressedImageInterface {
 
         ListNodeHead iItr = ll.head;
         ListNodeHead jItr = iItr;
-        String str = "";
-        str += ll.gridHeight + " "+ ll.gridWidth + ",";
+        StringBuilder str = new StringBuilder();
+
+//        str += ll.gridHeight + " "+ ll.gridWidth + ",";
+        str.append(this.ll.gridWidth);
+        str.append(" ");
+        str.append(this.ll.gridHeight);
+        str.append(",");
+
         do {
+
             jItr = iItr;
 
             do {
-                str+= " " + jItr.data ;
+//                str+= " " + jItr.data ;
+                str.append(" ");
+                str.append(jItr.data);
+
                 // System.out.print(jItr.data + " ");
                 jItr=jItr.next;
             } while (jItr!=null);
-            str +=",";
+//            str +=",";
+            str.append(",");
+
             // System.out.println();
             iItr = iItr.nextHead;
         } while (iItr!=null);
@@ -1747,86 +1786,14 @@ public class LinkedListImage implements CompressedImageInterface {
             System.out.println("ALL TESTS SUCCESSFUL! YAYY!");
         success = true;
 
-        int xxx=40;
-        boolean[][] grid1=new boolean[xxx][xxx];
-        boolean[][] grid2=new boolean[xxx][xxx];
-        boolean[][] xor=new boolean[xxx][xxx];
-        boolean[][] or=new boolean[xxx][xxx];
-
-        boolean[][] and=new boolean[xxx][xxx];
-
-
-        for (int i=0; i<xxx; i++ ) {
-            for (int j=0; j<xxx; j++ ) {
-                // grid1[i][j]=true;
-                // grid2[i][j]=true;
-
-                grid1[i][j]=((Math.random() * 1)>0.5);
-                grid2[i][j]=((Math.random() * 1)>0.5);
-                xor[i][j]=(grid1[i][j]!=grid2[i][j]);
-                or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
-                and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
-                // System.out.println(grid[i][j]);
-            }
-        }
-        // for (int i=0; ; ) {
-        //
-        // }
-
-        CompressedImageInterface img11=new LinkedListImage(grid1,xxx,xxx);
-        CompressedImageInterface img22=new LinkedListImage(grid2,xxx,xxx);
-        CompressedImageInterface xorer=new LinkedListImage(xor,xxx,xxx);
-        CompressedImageInterface orer=new LinkedListImage(or,xxx,xxx);
-        CompressedImageInterface ander=new LinkedListImage(and,xxx,xxx);
-        String str1=img11.toStringCompressed();
-
-        // for (int i=0; i<xxx; i++ ) {
-        //         for (int j=0; j<xxx; j++ ) {
-        //           try{
-        //             // img11.setPixelValue(i,j,img11.getPixelValue(i,j));
-        //             img11.setPixelValue(i,j,false);
-        //
-        //           }catch(PixelOutOfBoundException e){
-        //             System.out.println("s");
-        //           }
-        //         }
-        // }
-//        System.out.println(img11.numberOfBlackPixels()[15]);
-
-        LinkedListImage  i11 = (LinkedListImage)(img11);
-
-//        img11.invert();
-//                i11.ll.printLLdo();
-        img11.invert();
-//        System.out.println(img11.numberOfBlackPixels()[15]);
-
-        img11.invert();
-        if(str1.equals(img11.toStringCompressed()))
-            System.out.println("Invert Working");
-
-
-        try {
-            img11.performXor(img22);
-        } catch (BoundsMismatchException e) {
-            System.out.println("ErrorrrrrrrrSSSSSSS");
-        }
-        String str2=img11.toStringCompressed();
-        if(str2.equals(xorer.toStringCompressed())) {
-            System.out.println("XOR Working:::::::::::::::::::::::::::::::::::::::YO");
-        }
-
-
-
+//        int xxx=2000;
 //
-//
-//        int xxx=500;
 //        boolean[][] grid1=new boolean[xxx][xxx];
 //        boolean[][] grid2=new boolean[xxx][xxx];
 //        boolean[][] xor=new boolean[xxx][xxx];
 //        boolean[][] or=new boolean[xxx][xxx];
-//
 //        boolean[][] and=new boolean[xxx][xxx];
-//        boolean[][] invert1=new boolean[xxx][xxx];
+//
 //
 //
 //        for (int i=0; i<xxx; i++ ) {
@@ -1839,7 +1806,6 @@ public class LinkedListImage implements CompressedImageInterface {
 //                xor[i][j]=(grid1[i][j]!=grid2[i][j]);
 //                or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
 //                and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
-//                invert1[i][j]=(!grid1[i][j]);
 //                // System.out.println(grid[i][j]);
 //            }
 //        }
@@ -1852,31 +1818,106 @@ public class LinkedListImage implements CompressedImageInterface {
 //        CompressedImageInterface xorer=new LinkedListImage(xor,xxx,xxx);
 //        CompressedImageInterface orer=new LinkedListImage(or,xxx,xxx);
 //        CompressedImageInterface ander=new LinkedListImage(and,xxx,xxx);
-//        CompressedImageInterface inverter1=new LinkedListImage(invert1,xxx,xxx);
-//
 //        String str1=img11.toStringCompressed();
 //
-//        for (int i=0; i<xxx; i++ ) {
-//            for (int j=0; j<xxx; j++ ) {
-//                try{
-//                    // System.out.print(img11.getPixelValue(i,j)+" ");
-//                    // System.out.println(" ");
+//        // for (int i=0; i<xxx; i++ ) {
+//        //         for (int j=0; j<xxx; j++ ) {
+//        //           try{
+//        //             // img11.setPixelValue(i,j,img11.getPixelValue(i,j));
+//        //             img11.setPixelValue(i,j,false);
+//        //
+//        //           }catch(PixelOutOfBoundException e){
+//        //             System.out.println("s");
+//        //           }
+//        //         }
+//        // }
+////        System.out.println(img11.numberOfBlackPixels()[15]);
 //
-//                    // System.out.println(img11.toStringCompressed());
-//                    img11.setPixelValue(i,j,!img11.getPixelValue(i,j));
-//                    // System.out.println(img11.toStringCompressed());
+//        LinkedListImage  i11 = (LinkedListImage)(img11);
 //
-//                    // img11.setPixelValue(i,j,false);
-//                    // System.out.println(" ");
+////        img11.invert();
+////                i11.ll.printLLdo();
+//        img11.invert();
+////        System.out.println(img11.numberOfBlackPixels()[15]);
 //
-//                }catch(PixelOutOfBoundException e){
-//                    System.out.println("s");
-//                }
-//            }
+//        img11.invert();
+//        if(str1.equals(img11.toStringCompressed()))
+//            System.out.println("Invert Working");
 //
+//
+//        try {
+//            img11.performXor(img22);
+//        } catch (BoundsMismatchException e) {
+//            e.printStackTrace();
+//            System.out.println("ErrorrrrrrrrSSSSSSS");
 //        }
-//        // System.out.println(img11.toStringUnCompressed());
+//        String str2=img11.toStringCompressed();
+//        if(str2.equals(xorer.toStringCompressed())) {
+//            System.out.println("XOR Working:::::::::::::::::::::::::::::::::::::::YO");
+//        }
 //
-//        System.out.println(img11.toStringCompressed().equals(inverter1.toStringCompressed()));
+//
+
+
+
+        int xxx=50;
+        boolean[][] grid1=new boolean[xxx][xxx];
+        boolean[][] grid2=new boolean[xxx][xxx];
+        boolean[][] xor=new boolean[xxx][xxx];
+        boolean[][] or=new boolean[xxx][xxx];
+
+        boolean[][] and=new boolean[xxx][xxx];
+        boolean[][] invert1=new boolean[xxx][xxx];
+
+
+        for (int i=0; i<xxx; i++ ) {
+            for (int j=0; j<xxx; j++ ) {
+                // grid1[i][j]=true;
+                // grid2[i][j]=true;
+
+                grid1[i][j]=((Math.random() * 1)>0.5);
+                grid2[i][j]=((Math.random() * 1)>0.5);
+                xor[i][j]=(grid1[i][j]!=grid2[i][j]);
+                or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
+                and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
+                invert1[i][j]=(!grid1[i][j]);
+                // System.out.println(grid[i][j]);
+            }
+        }
+        // for (int i=0; ; ) {
+        //
+        // }
+
+        CompressedImageInterface img11=new LinkedListImage(grid1,xxx,xxx);
+        CompressedImageInterface img22=new LinkedListImage(grid2,xxx,xxx);
+        CompressedImageInterface xorer=new LinkedListImage(xor,xxx,xxx);
+        CompressedImageInterface orer=new LinkedListImage(or,xxx,xxx);
+        CompressedImageInterface ander=new LinkedListImage(and,xxx,xxx);
+        CompressedImageInterface inverter1=new LinkedListImage(invert1,xxx,xxx);
+
+        String str1=img11.toStringCompressed();
+
+        for (int i=0; i<xxx; i++ ) {
+            for (int j=0; j<xxx; j++ ) {
+                try{
+                    // System.out.print(img11.getPixelValue(i,j)+" ");
+                    // System.out.println(" ");
+
+                    // System.out.println(img11.toStringCompressed());
+                    img11.setPixelValue(i,j,!img11.getPixelValue(i,j));
+                    // System.out.println(img11.toStringCompressed());
+
+                    // img11.setPixelValue(i,j,false);
+                    // System.out.println(" ");
+
+                }catch(PixelOutOfBoundException e){
+                    System.out.println("s::::::::::::::::::::::::::::");
+                }
+            }
+
+        }
+        // System.out.println(img11.toStringUnCompressed());
+
+        System.out.println(img11.toStringCompressed().equals(inverter1.toStringCompressed()));
     }
 }
