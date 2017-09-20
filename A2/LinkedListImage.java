@@ -1,5 +1,3 @@
-import com.sun.javafx.image.BytePixelSetter;
-
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -1855,7 +1853,7 @@ public class LinkedListImage implements CompressedImageInterface {
             System.out.println("ALL TESTS SUCCESSFUL! YAYY!");
         success = true;
 
-//        int xxx=200;
+//        int xxx=2000;
 //
 //        boolean[][] grid1=new boolean[xxx][xxx];
 //        boolean[][] grid2=new boolean[xxx][xxx];
@@ -1867,11 +1865,11 @@ public class LinkedListImage implements CompressedImageInterface {
 //
 //        for (int i=0; i<xxx; i++ ) {
 //            for (int j=0; j<xxx; j++ ) {
-//                 grid1[i][j]=true;
-//                 grid2[i][j]=true;
+////                 grid1[i][j]=true;
+////                 grid2[i][j]=true;
 //
-////                grid1[i][j]=((Math.random() * 1)>0.75);
-////                grid2[i][j]=((Math.random() * 1)>0.25);
+//                grid1[i][j]=((Math.random() * 1)>0.75);
+//                grid2[i][j]=((Math.random() * 1)>0.25);
 //                xor[i][j]=(grid1[i][j]!=grid2[i][j]);
 //                or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
 //                and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
@@ -1942,7 +1940,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
 
 
-        int xxx=300;
+        int xxx=1500;
         boolean[][] grid1=new boolean[xxx][xxx];
         boolean[][] grid2=new boolean[xxx][xxx];
         boolean[][] xor=new boolean[xxx][xxx];
@@ -1957,12 +1955,12 @@ public class LinkedListImage implements CompressedImageInterface {
                 // grid1[i][j]=true;
                 // grid2[i][j]=true;
 
-                grid1[i][j]=((Math.random() * 1)>0.5);
-                grid2[i][j]=((Math.random() * 1)>0.5);
+                grid1[i][j]=((Math.random() * 1)>0.75);
+                grid2[i][j]=((Math.random() * 1)>0.25);
                 xor[i][j]=(grid1[i][j]!=grid2[i][j]);
                 or[i][j]=(grid1[i][j]==true || grid2[i][j]==true);
                 and[i][j]=(grid1[i][j]==true && grid2[i][j]==true);
-                invert1[i][j]=(grid1[i][j]);
+                invert1[i][j]=(!grid1[i][j]);
                 // System.out.println(grid[i][j]);
             }
         }
@@ -1986,7 +1984,7 @@ public class LinkedListImage implements CompressedImageInterface {
                     // System.out.println(" ");
 
                     // System.out.println(img11.toStringCompressed());
-                    img11.setPixelValue(i,j,img11.getPixelValue(i,j));
+                    img11.setPixelValue(i,j,!img11.getPixelValue(i,j));
                     // System.out.println(img11.toStringCompressed());
 
 //                     img11.setPixelValue(i,j,false);
