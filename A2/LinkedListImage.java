@@ -157,8 +157,8 @@ public class LinkedListImage implements CompressedImageInterface {
             e.printStackTrace();
         }
 
-        // new LinkedListImage(grid,width,height);//I WANT  THIS TO RUN
-///////////////////BELOW IS EXACT COPY(without helper commnets) OF THE CONSTRUCTOR BELOW AS THE ABOVE COMMAND WON'T WORK PROPERLY
+        // new LinkedListImage(grid,width,height);//I WANTED  THIS TO RUN
+
         ll = new LinkedList2D(height,width);//numCols array range as paramerter
         ll.numRows=0;
         ll.gridHeight=height;
@@ -182,17 +182,33 @@ public class LinkedListImage implements CompressedImageInterface {
                 if (!grid[i][j]) {//current element is black
                     flag = 1;//atleast one black has been found//first or Nth black after break
 
+                    //if first occurence after break then consec =0
                     if (consec == 0) {
+
+                        // while (yItr.next!=null) {//probably not needed
+                        // 	yItr = yItr.next;
+                        // }
                         yItr.data = j;
                         ll.addAfter(yItr,-1);
                         yItr = yItr.next;
+                        // if (counter==1) {
+                        // 	yItr.data = j;
+                        // 	// ll.addAfter(yItr,j);
+                        // 	yItr = yItr.next;
+                        // }
+                        // else{
+                        // 	ll.addAfter(yItr,j);
+                        // 	yItr = yItr.next;
+                        // }
                         consec++;
                         counter++;
                     }
+                    //any occurence in the middle and black is going on
                     else if(consec > 0){
                         consec++;
                         continue;
                     }
+
                 }
 
                 else {//Current element is white
@@ -200,16 +216,40 @@ public class LinkedListImage implements CompressedImageInterface {
                         yItr.data = j-1;
                         ll.addAfter(yItr,-1);
                         yItr = yItr.next;
+                        // System.out.println("LINE 159: val of j-1 ="+ (j-1) + " and i =  "+(i)+"::::::::::::::::::::::::::::::::::::::::::::::");
+                        // ll.printLLdo();
+
+                        // System.out.println("Just after Line 51 yIter.data:"+ (yItr.data));
                         counter++;//one more elem added to this row
                     }
                     flag = 0;
                     consec = 0;
                 }
             }
+            //outer for loop
+            // yItr.data = -1;
+            // ll.addAfter(yItr,-1);
+            // yItr = yItr.next;
+
+            // if (counter==1) {
+            // 	yItr.data = -1;
+            // 	// ll.addAfter(yItr,j);
+            // 	yItr = yItr.next;//ie null
+            // }
+            // else{
+            // 	ll.addAfter(yItr,-1);
+            // 	counter++;
+            // 	yItr = yItr.next;
+            // }
+            // counter++;
             if (flag==1) {//if atleast black has been found //odd parity
                 yItr.data = j-1;
                 ll.addAfter(yItr,-1);
                 yItr = yItr.next;
+                // System.out.println("LINE 159: val of j-1 ="+ (j-1) + " and i =  "+(i)+"::::::::::::::::::::::::::::::::::::::::::::::");
+                // ll.printLLdo();
+
+                // System.out.println("Just after Line 51 yIter.data:"+ (yItr.data));
                 counter++;//one more elem added to this row
                 flag = 0;
                 consec = 0;
@@ -220,7 +260,10 @@ public class LinkedListImage implements CompressedImageInterface {
                 xItr = xItr.nextHead;
                 ll.numRows++;
             }
+            // xItr = parent;
         }
+        //loop ends
+
         //assume stored correctly uncomment for debugging
         // System.out.println("FINAL STORED ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
         // ll.printLLdo();
@@ -1601,12 +1644,12 @@ public class LinkedListImage implements CompressedImageInterface {
         boolean success = true;
 
         // check constructor from file
-        CompressedImageInterface img1 = new LinkedListImage("sampleInputFile1.txt");
+        CompressedImageInterface img1 = new LinkedListImage("sampleInputFile.txt");
         LinkedListImage i1 =(LinkedListImage)img1;
 
         // check toStringCompressed
         String img1_compressed = img1.toStringCompressed();
-        String img_ans = "5 5, -1, 0 4 -1, 3 4 -1, 2 4 -1, 2 2 -1";
+        String img_ans = "16 16, -1, 5 7 -1, 3 7 -1, 2 7 -1, 2 2 6 7 -1, 6 7 -1, 6 7 -1, 4 6 -1, 2 4 -1, 2 3 14 15 -1, 2 2 13 15 -1, 11 13 -1, 11 12 -1, 10 11 -1, 9 10 -1, 7 9 -1";
         // System.out.println(img_ans);
         // System.out.println(img1_compressed);
 
@@ -1620,8 +1663,8 @@ public class LinkedListImage implements CompressedImageInterface {
 
         // check getPixelValue
         boolean[][] grid = new boolean[16][16];
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
+        for (int i = 0; i < 16; i++)
+            for (int j = 0; j < 16; j++)
             {
                 try
                 {
@@ -1635,7 +1678,7 @@ public class LinkedListImage implements CompressedImageInterface {
             }
         // printGrid(grid,16,16);
         // check constructor from grid
-        CompressedImageInterface img2 = new LinkedListImage(grid, 5, 5);
+        CompressedImageInterface img2 = new LinkedListImage(grid, 16, 16);
         LinkedListImage i2 = (LinkedListImage)img2;
         // i2.ll.printLLdo();
         String img2_compressed = img2.toStringCompressed();
@@ -1659,8 +1702,8 @@ public class LinkedListImage implements CompressedImageInterface {
         {
             System.out.println("Errorrrrrrrr");
         }
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
+        for (int i = 0; i < 16; i++)
+            for (int j = 0; j < 16; j++)
             {
                 try
                 {
@@ -1681,7 +1724,7 @@ public class LinkedListImage implements CompressedImageInterface {
 //        i1.ll.printLLdo();
 
         // check setPixelValue
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 16; i++)
         {
             try
             {
@@ -1696,7 +1739,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
         // check numberOfBlackPixels
         int[] img1_black = img1.numberOfBlackPixels();
-        success = success && (img1_black.length == 5);
+        success = success && (img1_black.length == 16);
 //        for (int i = 0; i < 5 && success; i++)
 //            success = success && (img1_black[i] == 4);
         if (!success)
@@ -1712,7 +1755,7 @@ public class LinkedListImage implements CompressedImageInterface {
         img1.invert();
 //        i1.ll.printLLdo();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 16; i++)
         {
             try
             {
@@ -1743,8 +1786,8 @@ public class LinkedListImage implements CompressedImageInterface {
         }
         //running till here yaay
 //        i1.ll.printLLdo();
-        for (int i = 0; i < 5; i++)
-            for (int j = 1; j < 5; j++)//made a change here;; testing pourpose strike back
+        for (int i = 0; i < 16; i++)
+            for (int j = 0; j < 16; j++)//made a change here;; testing pourpose strike back
             {
                 try
                 {
@@ -1771,8 +1814,8 @@ public class LinkedListImage implements CompressedImageInterface {
         {
             System.out.println("Errorrrrrrrr");
         }
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
+        for (int i = 0; i < 16; i++)
+            for (int j = 0; j < 16; j++)
             {
                 try
                 {
@@ -1791,7 +1834,7 @@ public class LinkedListImage implements CompressedImageInterface {
         success = true;
 
         // check toStringUnCompressed
-        String img_ans_uncomp = "5 5, 1 1 1 1 1, 0 0 0 0 0, 1 1 1 0 0, 1 1 0 0 0, 1 1 0 1 1";
+        String img_ans_uncomp = "16 16, 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1, 1 1 1 1 1 0 0 0 1 1 1 1 1 1 1 1, 1 1 1 0 0 0 0 0 1 1 1 1 1 1 1 1, 1 1 0 0 0 0 0 0 1 1 1 1 1 1 1 1, 1 1 0 1 1 1 0 0 1 1 1 1 1 1 1 1, 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1, 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1, 1 1 1 1 0 0 0 1 1 1 1 1 1 1 1 1, 1 1 0 0 0 1 1 1 1 1 1 1 1 1 1 1, 1 1 0 0 1 1 1 1 1 1 1 1 1 1 0 0, 1 1 0 1 1 1 1 1 1 1 1 1 1 0 0 0, 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1 1, 1 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1, 1 1 1 1 1 1 1 1 1 1 0 0 1 1 1 1, 1 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1, 1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1";
 //        System.out.println(img_ans_uncomp);
 //        System.out.println(img1.toStringUnCompressed());
 //        System.out.println(img_ans);
