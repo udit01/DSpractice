@@ -6,15 +6,15 @@ import java.lang.*;
 
 class LinkedList2D{
     ListNodeHead head = null;
-    Integer numRows = 0;
-    Integer[] numCols =null;
-    Integer gridHeight = 0;
-    Integer gridWidth = 0;
+    int numRows = 0;
+    int[] numCols =null;
+    int gridHeight = 0;
+    int gridWidth = 0;
 
     public LinkedList2D(Integer height,Integer width){
         this.head = new ListNodeHead();
         this.numRows = 1;
-        this.numCols = new Integer[height];
+        this.numCols = new int[height];
         this.gridHeight=height;
         this.gridWidth=width;
     }
@@ -74,7 +74,7 @@ class LinkedList2D{
 }
 
 class ListNodeHead{
-    Integer data = -1;
+    int data = -1;
     ListNodeHead nextHead = null;
     ListNodeHead next = null;
 }
@@ -132,7 +132,7 @@ public class LinkedListImage implements CompressedImageInterface {
         //you need to implement this
         Scanner sc = null;
         File fileIn = null;
-        Integer p=0,q=0,width=0,height=0,temp=0;
+        int p=0,q=0,width=0,height=0,temp=0;
         boolean[][] grid = null;
         try {
             fileIn = new File(filename);
@@ -166,7 +166,7 @@ public class LinkedListImage implements CompressedImageInterface {
         ListNodeHead xItr = null;
         ListNodeHead yItr = null;
 
-        Integer i=0,j=0,counter = 0,consec = 0,flag=0;
+        int i=0,j=0,counter = 0,consec = 0,flag=0;
 
         xItr = ll.head;
 
@@ -239,7 +239,7 @@ public class LinkedListImage implements CompressedImageInterface {
         ListNodeHead xItr = null;
         ListNodeHead yItr = null;
 
-        Integer i=0,j=0,counter = 0,consec = 0,flag=0;
+        int i=0,j=0,counter = 0,consec = 0,flag=0;
 
         xItr = ll.head;
 
@@ -362,7 +362,7 @@ public class LinkedListImage implements CompressedImageInterface {
         if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
             throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
         }
-        Integer i=0,j=0,startIndex=0,endIndex=0;
+        int i=0,j=0,startIndex=0,endIndex=0;
         ListNodeHead iItr = ll.head;
         ListNodeHead jItr = iItr;
 
@@ -401,7 +401,7 @@ public class LinkedListImage implements CompressedImageInterface {
         if ((x>=ll.gridHeight)||(y>=ll.gridWidth)) {
             throw new PixelOutOfBoundException("Pixels indices are out of bounds.");
         }
-        Integer i=0,j=0,startIndex=0,endIndex=0,flag = 0;
+        int i=0,j=0,startIndex=0,endIndex=0,flag = 0;
         ListNodeHead iItr = this.ll.head;
         ListNodeHead jItr = iItr;
 
@@ -509,7 +509,7 @@ public class LinkedListImage implements CompressedImageInterface {
                 return;
             }
             else{
-                Integer valHold = jItr.data;
+                int valHold = jItr.data;
                 ListNodeHead pointerHold = jItr.next;
                 jItr.data = 0;
                 this.ll.addAfter(jItr,0);
@@ -526,7 +526,7 @@ public class LinkedListImage implements CompressedImageInterface {
                 return;
             }
             else{
-                Integer valHolder = jItr.data;
+                int valHolder = jItr.data;
                 ListNodeHead pointerHolder = jItr.next;
                 jItr.data = y;
                 this.ll.addAfter(jItr,y);
@@ -554,7 +554,7 @@ public class LinkedListImage implements CompressedImageInterface {
             jItr = jItr.next;//odd pairing
             ListNodeHead start = null;
             ListNodeHead end = null;
-            Integer boundsFlag = 0;
+            int boundsFlag = 0;
             while(jItr!=null&&jItr.next!=null){//java will do short-circuiting
                 //what if some other condition above----------------------------------------------------------------
                 start = jItr;
@@ -655,7 +655,7 @@ public class LinkedListImage implements CompressedImageInterface {
         int[] a = new int[this.ll.gridHeight];
         ListNodeHead iItr = this.ll.head;
         ListNodeHead jItr = iItr;
-        Integer i=0,j=0,startIndex=0,endIndex=0;
+        int i=0,j=0,startIndex=0,endIndex=0;
         //condition in for loop was this.ll.numRows+1;
 //        System.out.println("COUNTING THE NUMBER OF BLACK PIXELS IN THE FOLLOWING IMAGE::");
 //        this.ll.printLLdo();
@@ -699,8 +699,8 @@ public class LinkedListImage implements CompressedImageInterface {
         ListNodeHead iItr = newList.head;
         ListNodeHead jItrOrig = iItrOrig;
         ListNodeHead jItr = iItr;
-        Integer valueHead=0,value=0;
-        Integer start = 0, end = 0, flaga=0,flagb=0;
+        int valueHead=0,value=0;
+        int start = 0, end = 0, flaga=0,flagb=0;
         // System.out.println(gridHeight + " "+ gridWidth);
 
 
@@ -731,7 +731,7 @@ public class LinkedListImage implements CompressedImageInterface {
             lastValidPointer = jItrOrig;
             jItrOrig = rowStart;//returning to start of row
             if (jItrOrig.data==0){// seq is 0 x x ...
-                if (lastValidPointer.data.equals(newList.gridWidth-1)){//seq is 0 15 -1 or 0 7 8 15 -1
+                if (lastValidPointer.data==(newList.gridWidth-1)){//seq is 0 15 -1 or 0 7 8 15 -1
                     if (jItrOrig.next==lastValidPointer){//seq is 0 15 -1
                         jItr.data = -1;
                         jItr.next = null;
@@ -739,7 +739,7 @@ public class LinkedListImage implements CompressedImageInterface {
                     }
                     else{// seq is 0 6 7 15 -1
                         jItrOrig = jItrOrig.next;//on 2 if seq is 0 2 7 15 -1
-                        while(!jItrOrig.data.equals(newList.gridWidth-1)){
+                        while(!(jItrOrig.data==(newList.gridWidth-1))){
                             start = jItrOrig.data;
                             end = jItrOrig.next.data;
                             jItr.data = start + 1 ;
@@ -754,7 +754,7 @@ public class LinkedListImage implements CompressedImageInterface {
                 }
                 else {// sequene is like 0 2 7 8 -1 or normal case **really ?
                     jItrOrig = jItrOrig.next;//now on 2
-                    while(!jItrOrig.next.data.equals(-1)){
+                    while(!(jItrOrig.next.data==(-1))){
                         start = jItrOrig.data;
                         end = jItrOrig.next.data;
                         jItr.data = start + 1 ;
@@ -773,7 +773,7 @@ public class LinkedListImage implements CompressedImageInterface {
                 }
             }
             else {// seq is like 2 3 4 15 etc
-                if (lastValidPointer.data.equals(newList.gridWidth-1)){//case like 2 3 4 15 or 2 15;
+                if (lastValidPointer.data==(newList.gridWidth-1)){//case like 2 3 4 15 or 2 15;
                     if (jItrOrig.next==lastValidPointer){//2 15 -1
                         jItr.data = 0;
                         newList.addAfter(jItr,jItrOrig.data-1);
@@ -790,7 +790,7 @@ public class LinkedListImage implements CompressedImageInterface {
                         jItr = jItr.next;
                         jItrOrig = jItrOrig.next;//on 3 if seq is 2 3 6 15 -1;
 
-                        while(!jItrOrig.data.equals(newList.gridWidth-1)){
+                        while(!(jItrOrig.data==(newList.gridWidth-1))){
                             start = jItrOrig.data;
                             end = jItrOrig.next.data;
                             jItr.data = start + 1 ;
@@ -813,7 +813,7 @@ public class LinkedListImage implements CompressedImageInterface {
                     jItr = jItr.next;
                     jItrOrig = jItrOrig.next;//now on 4
 
-                    while(!jItrOrig.next.data.equals(-1)){
+                    while(!(jItrOrig.next.data==(-1))){
                         start = jItrOrig.data;
                         end = jItrOrig.next.data;
                         jItr.data = start + 1 ;
@@ -927,7 +927,7 @@ public class LinkedListImage implements CompressedImageInterface {
 //        ListNodeHead iItrand = newList.head;
 //        ListNodeHead jItrand = iItrand;
 ////				ListNodeHead ptr = iItrand;
-//        Integer val1=0,val2=0,c=0;
+//        int val1=0,val2=0,c=0;
 //        while(iItrand!=null){
 //            jItrand = iItrand;
 ////				    ptr = jItrand;
@@ -968,11 +968,11 @@ public class LinkedListImage implements CompressedImageInterface {
 
         LinkedListImage image2 = ((LinkedListImage)img).deepCopy();
 
-        if (!((image2.ll.gridWidth.equals(this.ll.gridWidth))&&image2.ll.gridHeight.equals(this.ll.gridHeight))){
+        if (((image2.ll.gridWidth!=this.ll.gridWidth)||image2.ll.gridHeight!=this.ll.gridHeight)){
 
-            System.out.println("HERE IS where sizes don't match");
-            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
-            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
+//            System.out.println("HERE IS where sizes don't match");
+//            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
+//            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
 
 //      image2.ll.gridHeight
             throw new BoundsMismatchException("Sizes of images do not match");
@@ -1000,7 +1000,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
 
 //        LinkedListImage imageAND = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
-//        Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0,data=0;
+//        int i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0,data=0;
 //        ListNodeHead iItr1 = this.ll.head;
 //        ListNodeHead iItr2 = image.ll.head;
 //        ListNodeHead iItr3 = imageAND.ll.head;//empty node but other parameters to correct value
@@ -1139,7 +1139,7 @@ public class LinkedListImage implements CompressedImageInterface {
 //        ListNodeHead iItrand = imageAND.ll.head;
 //        ListNodeHead jItrand = iItrand;
 ////				ListNodeHead ptr = iItrand;
-//        Integer val1=0,val2=0,c=0;
+//        int val1=0,val2=0,c=0;
 //        while(iItrand!=null){
 //            jItrand = iItrand;
 ////				    ptr = jItrand;
@@ -1178,21 +1178,22 @@ public class LinkedListImage implements CompressedImageInterface {
     {
         LinkedListImage image = (LinkedListImage)img;
 
-        if (!((image.ll.gridWidth.equals(this.ll.gridWidth))&&image.ll.gridHeight.equals(this.ll.gridHeight))){
+        if (((image.ll.gridWidth!=this.ll.gridWidth)||image.ll.gridHeight!=this.ll.gridHeight)){
 
-            System.out.println("HERE IS where sizes don't match");
-            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
-            System.out.println(image.ll.gridWidth+" , "+image.ll.gridHeight);
+//            System.out.println("HERE IS where sizes don't match");
+//            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
+//            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
 
 //      image2.ll.gridHeight
             throw new BoundsMismatchException("Sizes of images do not match");
         }
+
         LinkedListImage imageOR = this.deepCopy() ;//PROBABLY IMPLEMENT DEEP CLONING HERE..
 //        System.out.println("BEFORE ORRRRR :::: IMAGE 1:(this)");
 //        this.ll.printLLdo();
 //        System.out.println("BEFORE ORRRRR :::: IMAGE 2:(image)");
 //        image.ll.printLLdo();
-        Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=-3,value2image1=-3,value1image2=-3,value2image2=-3;
+        int i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=-3,value2image1=-3,value1image2=-3,value2image2=-3;
         ListNodeHead iItr1 = this.ll.head;
         ListNodeHead iItr2 = image.ll.head;
         ListNodeHead iItr3 = imageOR.ll.head;
@@ -1420,11 +1421,11 @@ public class LinkedListImage implements CompressedImageInterface {
         //you need to implement this
         LinkedListImage image2 = ((LinkedListImage)img).deepCopy();
 
-        if (!((image2.ll.gridWidth.equals(this.ll.gridWidth))&&image2.ll.gridHeight.equals(this.ll.gridHeight))){
+        if (((image2.ll.gridWidth!=this.ll.gridWidth)||image2.ll.gridHeight!=this.ll.gridHeight)){
 
-            System.out.println("HERE IS where sizes don't match");
-            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
-            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
+//            System.out.println("HERE IS where sizes don't match");
+//            System.out.println(this.ll.gridWidth+" , "+this.ll.gridHeight);
+//            System.out.println(image2.ll.gridWidth+" , "+image2.ll.gridHeight);
 
 //      image2.ll.gridHeight
             throw new BoundsMismatchException("Sizes of images do not match");
@@ -1476,7 +1477,7 @@ public class LinkedListImage implements CompressedImageInterface {
         str.append(this.ll.gridHeight);
         ListNodeHead iItr = this.ll.head;
         ListNodeHead jItr = iItr;
-        Integer i=0,j=0,k=0,ender1=0,startIndex=0,endIndex=0;
+        int i=0,j=0,k=0,ender1=0,startIndex=0,endIndex=0;
 
         for(i=0;i<this.ll.gridHeight;i++){
             jItr = iItr;
@@ -1555,7 +1556,7 @@ public class LinkedListImage implements CompressedImageInterface {
     }
     public static void printGrid(boolean[][] grid,Integer width,Integer height)
     {
-        Integer i=0,j=0;
+        int i=0,j=0;
         System.out.println("GRID COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println(width +" "+ height);
         for (i=0;i<height ;i++ ) {
@@ -1786,7 +1787,7 @@ public class LinkedListImage implements CompressedImageInterface {
             System.out.println("ALL TESTS SUCCESSFUL! YAYY!");
         success = true;
 
-//        int xxx=2000;
+//        int xxx=3000;
 //
 //        boolean[][] grid1=new boolean[xxx][xxx];
 //        boolean[][] grid2=new boolean[xxx][xxx];
@@ -1856,11 +1857,11 @@ public class LinkedListImage implements CompressedImageInterface {
 //            System.out.println("XOR Working:::::::::::::::::::::::::::::::::::::::YO");
 //        }
 //
-//
 
 
 
-        int xxx=50;
+
+        int xxx=10;
         boolean[][] grid1=new boolean[xxx][xxx];
         boolean[][] grid2=new boolean[xxx][xxx];
         boolean[][] xor=new boolean[xxx][xxx];
@@ -1919,5 +1920,8 @@ public class LinkedListImage implements CompressedImageInterface {
         // System.out.println(img11.toStringUnCompressed());
 
         System.out.println(img11.toStringCompressed().equals(inverter1.toStringCompressed()));
+//
+//
+
     }
 }
