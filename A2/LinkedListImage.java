@@ -972,10 +972,10 @@ public class LinkedListImage implements CompressedImageInterface {
         }
         LinkedListImage image1 = this.deepCopy();
 
-        System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (THIS)::::::");
-        image1.ll.printLLdo();
-        System.out.println("IMAGE 2 BEFORE AAANNNDDDDD (IMG)::::::");
-        image2.ll.printLLdo();
+//        System.out.println("IMAGE 1 BEFORE AAANNNDDDDD (THIS)::::::");
+//        image1.ll.printLLdo();
+//        System.out.println("IMAGE 2 BEFORE AAANNNDDDDD (IMG)::::::");
+//        image2.ll.printLLdo();
 
 
         image1.invert();
@@ -985,9 +985,9 @@ public class LinkedListImage implements CompressedImageInterface {
 
         image1.invert();
 
-         System.out.println("AND COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-         System.out.println("IMAGE RESULTANT OF AAANNNDDDDD (IMG)::::::");
-        image1.ll.printLLdo();
+//         System.out.println("AND COMING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//         System.out.println("IMAGE RESULTANT OF AAANNNDDDDD (IMG)::::::");
+//        image1.ll.printLLdo();
         this.ll = image1.ll;
 
 
@@ -1179,7 +1179,7 @@ public class LinkedListImage implements CompressedImageInterface {
 //        this.ll.printLLdo();
 //        System.out.println("BEFORE ORRRRR :::: IMAGE 2:(image)");
 //        image.ll.printLLdo();
-        Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=0,value2image1=0,value1image2=0,value2image2=0;
+        Integer i=0,j=0,startIndex=0,endIndex=0,min1=0,max1=0,min2=0,max2=0,value1image1=-3,value2image1=-3,value1image2=-3,value2image2=-3;
         ListNodeHead iItr1 = this.ll.head;
         ListNodeHead iItr2 = image.ll.head;
         ListNodeHead iItr3 = imageOR.ll.head;
@@ -1195,38 +1195,57 @@ public class LinkedListImage implements CompressedImageInterface {
             jItr2 = iItr2;
             jItr3 = iItr3;
 
+            if (i<this.ll.gridHeight-1) {//will not happen on the last iteration
+                iItr1=iItr1.nextHead;
+                iItr2=iItr2.nextHead;
+                imageOR.ll.addBelow(iItr3,-1);
+                iItr3=iItr3.nextHead;
+            }
+
             while(true){
                 if (jItr1.data==-1) {//image 1's row has ended//if this isn't the anwer then many many cases
+
+                    if (value2image1==-3){
+                        //ie it runs in the first iteration itself//just make
+                        jItr3.data = -1;
+                        jItr3.next = null;
+                        break;
+                    }
 
                     while(jItr2.data!=-1){
                         start = jItr2.data;
                         end = jItr2.next.data;
-                        if (start>value2image1){
+                        if (start>value2image1){//what it this runs in the first iteration ?
+                            jItr3.data = -1;
+                            jItr3.next = null;
                             break;//do nothing
                         }
                         else if(start == value2image1){
-                            jItr3.data = start;
-                            imageOR.ll.addAfter(jItr3,start);
-                            jItr3 = jItr3.next;
-                            imageOR.ll.addAfter(jItr3,-1);
-                            jItr3 = jItr3.next;
-                            break;
+//                            jItr3.data = start;
+//                            imageOR.ll.addAfter(jItr3,start);
+//                            jItr3 = jItr3.next;
+//                            imageOR.ll.addAfter(jItr3,-1);
+//                            jItr3 = jItr3.next;
+                            jItr2=jItr2.next.next;
+
+//                            break;
                         }
-                        else{//start is less but where is end ?
+                        else{//start is less but where is end ?//this case should be covered previously?
                             if (end>=value2image1){
-                                jItr3.data = start;
-                                imageOR.ll.addAfter(jItr3,value2image1);
-                                jItr3 = jItr3.next;
-                                imageOR.ll.addAfter(jItr3,-1);
-                                jItr3 = jItr3.next;
-                                break;
+//                                jItr3.data = start;
+//                                imageOR.ll.addAfter(jItr3,value2image1);
+//                                jItr3 = jItr3.next;
+//                                imageOR.ll.addAfter(jItr3,-1);
+//                                jItr3 = jItr3.next;
+//                                break;
+                                jItr2=jItr2.next.next;
                             }
                             else {
-                                jItr3.data = start;
-                                imageOR.ll.addAfter(jItr3,end);
-                                jItr3 = jItr3.next;
-                                imageOR.ll.addAfter(jItr3,-1);
-                                jItr3 = jItr3.next;
+//                                jItr3.data = start;
+//                                imageOR.ll.addAfter(jItr3,end);
+//                                jItr3 = jItr3.next;
+//                                imageOR.ll.addAfter(jItr3,-1);
+//                                jItr3 = jItr3.next;
                                 jItr2=jItr2.next.next;
                             }
                         }
@@ -1241,36 +1260,49 @@ public class LinkedListImage implements CompressedImageInterface {
 
                 if (jItr2.data==-1) {//image 2 has ended
 
+                    if (value2image2==-3){
+                        //ie it runs in the first iteration itself//just make
+                        jItr3.data = -1;
+                        jItr3.next = null;
+                        break;
+                    }
+
                     while(jItr1.data!=-1) {
 
                         start = jItr1.data;
                         end = jItr1.next.data;
 
                         if (start > value2image2) {
+                            jItr3.data = -1;
+                            jItr3.next = null;
                             break;//do nothing
                         } else if (start == value2image2) {
-                            jItr3.data = start;
-                            imageOR.ll.addAfter(jItr3, start);
-                            jItr3 = jItr3.next;
-                            imageOR.ll.addAfter(jItr3, -1);
-                            jItr3 = jItr3.next;
-                            break;
+//                            jItr3.data = start;
+//                            imageOR.ll.addAfter(jItr3, start);
+//                            jItr3 = jItr3.next;
+//                            imageOR.ll.addAfter(jItr3, -1);
+//                            jItr3 = jItr3.next;
+//                            break;
+                            jItr1 = jItr1.next.next;
                         }
                         else {//start is less but where is end ?
                             if (end >= value2image2) {
-                                jItr3.data = start;
-                                imageOR.ll.addAfter(jItr3, value2image2);
-                                jItr3 = jItr3.next;
-                                imageOR.ll.addAfter(jItr3, -1);
-                                jItr3 = jItr3.next;
-                                break;
+//                                jItr3.data = start;
+//                                imageOR.ll.addAfter(jItr3, value2image2);
+//                                jItr3 = jItr3.next;
+//                                imageOR.ll.addAfter(jItr3, -1);
+//                                jItr3 = jItr3.next;
+//                                break;
+                                jItr1 = jItr1.next.next;
                             } else {
-                                jItr3.data = start;
-                                imageOR.ll.addAfter(jItr3, end);
-                                jItr3 = jItr3.next;
-                                imageOR.ll.addAfter(jItr3, -1);
-                                jItr3 = jItr3.next;
-                                jItr1 = jItr1.next.next;//keep going
+//                                jItr3.data = start;
+//                                imageOR.ll.addAfter(jItr3, end);
+//                                jItr3 = jItr3.next;
+//                                imageOR.ll.addAfter(jItr3, -1);
+//                                jItr3 = jItr3.next;
+//                                jItr1 = jItr1.next.next;//keep going
+                                jItr1 = jItr1.next.next;
+
                             }
                         }
                     }
@@ -1322,10 +1354,17 @@ public class LinkedListImage implements CompressedImageInterface {
                     // jItr3=jItr3.next;
                     // imageOR.addAfter(jItr3,min2);
                     // jItr3=jItr3.next;
-                    jItr1=jItr1.next;
-                    jItr1=jItr1.next;
-                    jItr2=jItr2.next;
-                    jItr2=jItr2.next;
+
+                    if (value2image1>value2image2){//end val of image 1 is greater so move image 2 fwd
+                        jItr2=jItr2.next;
+                        jItr2=jItr2.next;
+
+                    }
+                    else{//both equal case or reverse
+                        jItr1=jItr1.next;
+                        jItr1=jItr1.next;
+                    }
+
 
                 }
 
@@ -1349,12 +1388,7 @@ public class LinkedListImage implements CompressedImageInterface {
             }
             jItr3.data=-1;
             jItr3.next = null;
-            if (i<this.ll.gridHeight-1) {//will not happen on the last iteration
-                iItr1=iItr1.nextHead;
-                iItr2=iItr2.nextHead;
-                imageOR.ll.addBelow(iItr3,-1);
-                iItr3=iItr3.nextHead;
-            }
+
         }
 
         //you need to implement this
@@ -1772,13 +1806,13 @@ public class LinkedListImage implements CompressedImageInterface {
 
 
         try {
-            img11.performOr(img22);
+            img11.performXor(img22);
         } catch (BoundsMismatchException e) {
             System.out.println("ErrorrrrrrrrSSSSSSS");
         }
         String str2=img11.toStringCompressed();
-        if(str2.equals(orer.toStringCompressed())) {
-            System.out.println("ORR Working:::::::::::::::::::::::::::::::::::::::YO");
+        if(str2.equals(xorer.toStringCompressed())) {
+            System.out.println("XOR Working:::::::::::::::::::::::::::::::::::::::YO");
         }
 
 
