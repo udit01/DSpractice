@@ -1,0 +1,84 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Wed Sep 20 19:25:54 2017
+# Process ID: 2597
+# Current directory: /media/udit01/files/practice/DSpractice/A2
+# Command line: vivado
+# Log file: /media/udit01/files/practice/DSpractice/A2/vivado.log
+# Journal file: /media/udit01/files/practice/DSpractice/A2/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.xpr
+update_compile_order -fileset sources_1
+import_files -force -norecurse {{/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/carry_lookahead_adder4.vhd} {/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/lab4_seven_segment_display.vhd} {/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/full_adder.vhd} {/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/multiplier3.vhd} {/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/multiplier1.vhd} {/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/lab6_multiplier.vhd} {/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/multiplier2.vhd}}
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -force -norecurse {{/media/udit01/files/IITD Course Materials/Sem3/mine/current/col215Udit/LAB6/lab6_tb.vhd}}
+set_property is_enabled false [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/lab6_multiplier.vhd]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property is_enabled false [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/lab4_seven_segment_display.vhd]
+set_property is_enabled false [get_files  {/media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier3.vhd /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier2.vhd}]
+set_property is_enabled false [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/carry_lookahead_adder4.vhd]
+launch_runs synth_1 -jobs 2
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -name timing_1
+launch_runs impl_1 -jobs 2
+wait_on_run impl_1
+close_design
+set_property is_enabled false [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier1.vhd]
+set_property is_enabled true [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier2.vhd]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 2
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -name timing_2
+launch_runs impl_1 -jobs 2
+wait_on_run impl_1
+set_property is_enabled false [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier2.vhd]
+set_property is_enabled true [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier3.vhd]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+set_property is_enabled true [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/carry_lookahead_adder4.vhd]
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 2
+wait_on_run synth_1
+close_design
+open_run synth_1 -name synth_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -name timing_3
+launch_runs impl_1 -jobs 2
+wait_on_run impl_1
+close_design
+open_run impl_1
+close_design
+set_property is_enabled true [get_files  /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/lab4_seven_segment_display.vhd]
+update_compile_order -fileset sources_1
+set_property is_enabled true [get_files  {/media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/lab6_multiplier.vhd /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier1.vhd /media/udit01/files/practice/digitalLogicLabs/lab6_multiplier/lab6_multiplier.srcs/sources_1/imports/LAB6/multiplier2.vhd}]
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top lab6_multiplier [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1
+add_files -fileset constrs_1 -norecurse /home/udit01/Desktop/lab6_multiplier.xdc
+import_files -fileset constrs_1 /home/udit01/Desktop/lab6_multiplier.xdc
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+wait_on_run impl_1

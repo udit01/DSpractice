@@ -152,7 +152,8 @@ public class LinkedListImage implements CompressedImageInterface {
             }
 
         }catch (Exception e) {
-            e.printStackTrace();
+          System.out.println("Incorrect file path or file format.");
+            // e.printStackTrace();
         }
 
         // new LinkedListImage(grid,width,height);//I WANTED  THIS TO RUN
@@ -1535,6 +1536,12 @@ public class LinkedListImage implements CompressedImageInterface {
     {//YOU NEED TO CHECK THESE
         //you need to implement this
         StringBuilder str = new StringBuilder();
+        if(this.ll.gridHeight==0){
+            str.append(this.ll.gridWidth);
+            str.append(" ");
+            str.append(this.ll.gridHeight);
+            return str.toString();
+        }
         str.append(this.ll.gridWidth);
         str.append(" ");
         str.append(this.ll.gridHeight);
@@ -1585,7 +1592,12 @@ public class LinkedListImage implements CompressedImageInterface {
         ListNodeHead iItr = ll.head;
         ListNodeHead jItr = iItr;
         StringBuilder str = new StringBuilder();
-
+        if(this.ll.gridHeight==0){
+            str.append(this.ll.gridWidth);
+            str.append(" ");
+            str.append(this.ll.gridHeight);
+            return str.toString();
+        }
 //        str += ll.gridHeight + " "+ ll.gridWidth + ",";
         str.append(this.ll.gridWidth);
         str.append(" ");
@@ -1853,7 +1865,7 @@ public class LinkedListImage implements CompressedImageInterface {
             System.out.println("ALL TESTS SUCCESSFUL! YAYY!");
         success = true;
 
-//        int xxx=2000;
+//        int xxx=0;
 //
 //        boolean[][] grid1=new boolean[xxx][xxx];
 //        boolean[][] grid2=new boolean[xxx][xxx];
@@ -1865,8 +1877,8 @@ public class LinkedListImage implements CompressedImageInterface {
 //
 //        for (int i=0; i<xxx; i++ ) {
 //            for (int j=0; j<xxx; j++ ) {
-////                 grid1[i][j]=true;
-////                 grid2[i][j]=true;
+// //                 grid1[i][j]=true;
+// //                 grid2[i][j]=true;
 //
 //                grid1[i][j]=((Math.random() * 1)>0.75);
 //                grid2[i][j]=((Math.random() * 1)>0.25);
@@ -1898,12 +1910,12 @@ public class LinkedListImage implements CompressedImageInterface {
 //        //           }
 //        //         }
 //        // }
-////        System.out.println(img11.numberOfBlackPixels()[15]);
+// //        System.out.println(img11.numberOfBlackPixels()[15]);
 //
 //        LinkedListImage  i11 = (LinkedListImage)(img11);
 //
-////        img11.invert();
-////                i11.ll.printLLdo();
+// //        img11.invert();
+// //                i11.ll.printLLdo();
 //
 //        int [] a =  img11.numberOfBlackPixels();
 //
@@ -1919,7 +1931,7 @@ public class LinkedListImage implements CompressedImageInterface {
 //        }
 //
 //        System.out.println();
-////        System.out.println(img11.numberOfBlackPixels()[15]);
+// //        System.out.println(img11.numberOfBlackPixels()[15]);
 //        img11.invert();
 //        if(str1.equals(img11.toStringCompressed()))
 //            System.out.println("Invert Working");
@@ -1936,11 +1948,11 @@ public class LinkedListImage implements CompressedImageInterface {
 //            System.out.println("XOR Working:::::::::::::::::::::::::::::::::::::::YO");
 //        }
 //
+//
 
 
 
-
-        int xxx=1500;
+        int xxx=0;
         boolean[][] grid1=new boolean[xxx][xxx];
         boolean[][] grid2=new boolean[xxx][xxx];
         boolean[][] xor=new boolean[xxx][xxx];
@@ -1975,7 +1987,7 @@ public class LinkedListImage implements CompressedImageInterface {
         CompressedImageInterface ander=new LinkedListImage(and,xxx,xxx);
         CompressedImageInterface inverter1=new LinkedListImage(invert1,xxx,xxx);
 
-        String str1=img11.toStringCompressed();
+        String str1=img11.toStringUnCompressed();
 
         for (int i=0; i<xxx; i++ ) {
             for (int j=0; j<xxx; j++ ) {
@@ -1997,7 +2009,7 @@ public class LinkedListImage implements CompressedImageInterface {
 
         }
         // System.out.println(img11.toStringUnCompressed());
-
+        System.out.println(str1);
         System.out.println(img11.toStringCompressed().equals(inverter1.toStringCompressed()));
 
 
