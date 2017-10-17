@@ -1,0 +1,56 @@
+4
+insert a b
+insert a c
+print
+[a=b, a=c]
+insert b a
+insert b c
+insert b d
+insert b e
+insert b g
+print
+[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g]]
+insert c a
+insert c b
+insert c d
+print
+[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g, c=a], c=b, [c=d]]
+insert d b
+insert d c
+insert d e
+insert d f
+print
+[[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g, c=a]], c=b, [[c=d, d=b], d=c, [d=e, d=f]]]
+insert e b
+insert e d
+insert e f
+insert e g
+insert e h
+print
+[[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g, c=a]], c=b, [[c=d, d=b], d=c, [d=e, d=f], e=b, [e=d, e=f], e=g, [e=h]]]
+insert f d
+insert f e
+print
+[[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g, c=a]], c=b, [[c=d, d=b], d=c, [d=e, d=f], e=b, [e=d, e=f], e=g, [e=h, f=d, f=e]]]
+insert g b
+insert g e
+print
+[[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g, c=a]], c=b, [[c=d, d=b], d=c, [d=e, d=f], e=b, [e=d, e=f]], e=g, [[e=h, f=d], f=e, [g=b, g=e]]]
+insert h e
+insert h i
+insert i h
+print
+[[[a=b, a=c], b=a, [b=c, b=d], b=e, [b=g, c=a]], c=b, [[c=d, d=b], d=c, [d=e, d=f], e=b, [e=d, e=f]], e=g, [[e=h, f=d], f=e, [g=b, g=e], h=e, [h=i, i=h]]]
+search e
+[b, d, f, g, h]
+search a
+[b, c]
+search b
+[a, c, d, e, g]
+search f
+[d, e]
+search i
+[h]
+search d
+[b, c, e, f]
+exit
