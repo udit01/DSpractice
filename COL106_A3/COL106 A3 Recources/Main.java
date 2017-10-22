@@ -49,6 +49,7 @@ public class Main {
                         break;
                     case "size":
                         System.out.println(tree.size());
+                        break;
                     case "height":
                         System.out.println(tree.height());
                         break;
