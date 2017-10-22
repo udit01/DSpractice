@@ -16,6 +16,7 @@ public class Main {
                         System.exit(0);
                     case "insert":
                         tree.insert(s.next(), s.next());
+                        System.out.println(tree);
                         break;
                     case "delete":
                         tree.delete(s.next());
@@ -33,7 +34,7 @@ public class Main {
                         System.out.println(tree.search(s.next()));
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }

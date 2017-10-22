@@ -2,7 +2,6 @@ package col106.a3;
 
 import javafx.util.Pair;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.lang.Comparable;
 
@@ -10,7 +9,7 @@ public class Node <Key extends Comparable<Key>, Value>{
 
     public ArrayList<Pair<Key,Value>> elements ;//= new ArrayList<Pair<Key,Value>>();
     public ArrayList<Node<Key,Value>> children ;//= new ArrayList<Node>();
-    public int B;
+    public static int B;
     public Node parent;
     //no need as can be checked directly by numChildren == 0;
 //    public Boolean isLeaf ;//= (this.children.size()==0);//but by this, every new node will be leaf
@@ -62,30 +61,45 @@ public class Node <Key extends Comparable<Key>, Value>{
             }
         }
 
-        if ((minIndex>maxIndex) ||  ( (minIndex==0)&&(maxIndex == 0)&&(this.elements.get(0).getKey().compareTo(k)!=0) ) || ( (minIndex==this.elements.size()-1)&&(maxIndex == this.elements.size()-1)&&(this.elements.get(this.elements.size()-1).getKey().compareTo(k)!=0) )  ){
-            return list;//is this really good?
-        }
+//        if ((minIndex>maxIndex) ||  ( (minIndex==0)&&(maxIndex == 0)&&(this.elements.get(0).getKey().compareTo(k)!=0) ) || ( (minIndex==this.elements.size()-1)&&(maxIndex == this.elements.size()-1)&&(this.elements.get(this.elements.size()-1).getKey().compareTo(k)!=0) )  ){
+//            return list;//is this really good?
+//        }
 
-//        ArrayList<Value> [] arrayOfLists = new ArrayList<Value>[maxIndex-minIndex+2];
-        ArrayList<ArrayList<Value>> arrayOfLists = new ArrayList<ArrayList<Value>>(maxIndex-minIndex+2);
-        //are the elements of array lists of array lists , automatically initialized
-        // do we have to re-initialize each and every list ?
-        for (int i=minIndex;i<=maxIndex+1;i++){//check indices as we're going on children
-            if ((i<this.elements.size())&&(i>=0)) {
-                if (this.elements.get(i).getKey().compareTo(k) == 0) {
-                    list.add(this.elements.get(i).getValue());
+        if (this.children.size()!=0) {
+            //        ArrayList<Value> [] arrayOfLists = new ArrayList<Value>[maxIndex-minIndex+2];
+            ArrayList<ArrayList<Value>> arrayOfLists = new ArrayList<ArrayList<Value>>(this.children.size());
+            int t=0;
+            //are the elements of array lists of array lists , automatically initialized
+            // do we have to re-initialize each and every list ?
+            for (int i = minIndex; i <= maxIndex + 1; i++) {//check indices as we're going on children
+                if ((i < this.elements.size()) && (i >= 0)) {
+                    if (this.elements.get(i).getKey().compareTo(k) == 0) {
+                        list.add(this.elements.get(i).getValue());
+                    }
+                }
+                //is the below line needed ?
+
+                if ((i < this.children.size()) && (i >= 0)) {
+                    // problem in the below line
+                    arrayOfLists.add (new ArrayList<Value>());
+//                arrayOfLists[i] = new ArrayList<Value>();
+                    list.addAll(this.children.get(i).searchNode(k, arrayOfLists.get(t)));
+                    t++;
+                    //could i have done directly search(k,list) above ?
                 }
             }
-            //is the below line needed ?
-
-            if ((i<this.children.size())&&(i>=0)) {
-//                arrayOfLists[i] = new ArrayList<Value>();
-                arrayOfLists.set(i,new ArrayList<Value>());
-
-                list.addAll(this.children.get(i).searchNode(k, arrayOfLists.get(i)));//but i didn't specify capacity etc.
-                //could i have done directly search(k,list) above ?
+        }
+        else {
+            for (int i = minIndex; i <= maxIndex + 1; i++) {//check indices as we're going on children
+                if ((i < this.elements.size()) && (i >= 0)) {
+                    if (this.elements.get(i).getKey().compareTo(k) == 0) {
+                        list.add(this.elements.get(i).getValue());
+                    }
+                }
             }
         }
+
+
         return list;
     }
 
@@ -105,8 +119,8 @@ public class Node <Key extends Comparable<Key>, Value>{
 
         }
         else {
-            for (int i=0; i<= this.children.size();i++){
-                s.append(this.children.get(i).toString());//what if the children is null? handled above
+            for (int i=0; i< this.children.size();i++){
+                s.append(this.children.get(i).toStringNode());//what if the children is null? handled above
                 if (i<this.elements.size()){
                     s.append(", ");
                     s.append(this.elements.get(i).getKey());
@@ -128,18 +142,26 @@ public class Node <Key extends Comparable<Key>, Value>{
             n.elements.add(new Pair<Key,Value>(this.elements.get(i).getKey(),this.elements.get(i).getValue()));
 //            this.chil.get(i)
         }
-        for (int i=leftIndex;i<=rightIndex+1;i++){//adjusting parents of children
-            this.children.get(i).parent = n;
+
+        if (this.children.size()!=0) {
+//            System.out.println("INSIDE COPY NODE LINE 133");
+//            System.out.println("leftIndex = " + leftIndex + "ALSO rightIndex = " + rightIndex);
+//        System.out.println(this.children.subList(leftIndex,rightIndex+1).toString());
+//        System.out.println("LINE133");
+
+            for (int j = leftIndex; j <= rightIndex + 1; j++) {//adjusting parents of children
+                this.children.get(j).parent = n;
+            }
+            n.children.addAll(this.children.subList(leftIndex, rightIndex + 2));
         }
         //directly copying references of children
-        n.children.addAll(this.children.subList(leftIndex,rightIndex+1));
         return n;
     }
 
     public Node (int num,Node p){
         elements = new ArrayList<Pair<Key,Value>>(num-1);//although flexible ..but i am still fixing the intital capacity
         children = new ArrayList<Node<Key,Value>>(num);
-        B = num;
+//        B = b;
         parent = p;
     }
     public Node (int num){
@@ -153,7 +175,6 @@ public class Node <Key extends Comparable<Key>, Value>{
 
         if (this.elements.size()>=B-1) {//leaf or internal but full
             //as we are following the top down approach... scatter as soon as we see a just bursting node
-            //try redistribute
 //            this.parent will not be null
             Node<Key, Value> p = this.parent;
             int i = 0;
@@ -164,62 +185,119 @@ public class Node <Key extends Comparable<Key>, Value>{
                     break;
                 }
             }
-            //
-            if (i > 0) {
 
-                if (p.children.get(i - 1).elements.size() < B - 1) {
-                    //do left shift yo!
-                    Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
-                    Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
-                    Node<Key, Value> hChild = p.children.get(i).children.get(0);
-                    // . . . .  up  . . .
-                    // . . . .  i-1  i . .
-                    //. . .  . left right
-                    p.children.get(i - 1).elements.add(up);
-                    p.children.get(i - 1).children.add(hChild);
-                    hChild.parent = p.children.get(i - 1);
-                    //left node has grown
-                    p.elements.set(i - 1, right);
+            //try redistribute
+            if (p.children.get(i).children.size()!=0) {//not a leaf to rebalance
+                if (i > 0) {
+
+                    if (p.children.get(i - 1).elements.size() < B - 1) {
+                        //do left shift yo!
+                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
+                        Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
+                        Node<Key, Value> hChild = p.children.get(i).children.get(0);
+                        // . . . .  up  . . .
+                        // . . . .  i-1  i . .
+                        //. . .  . left right
+                        p.children.get(i - 1).elements.add(up);
+                        p.children.get(i - 1).children.add(hChild);
+                        hChild.parent = p.children.get(i - 1);
+                        //left node has grown
+                        p.elements.set(i - 1, right);
 //                    p is set
-                    p.children.get(i).elements.remove(0);
-                    p.children.get(i).children.remove(0);
-                    //right node is set
-                    // now recall insertElement Node on what ?
-                    this.insertElementNode(key, val);
-                    //is it okay ?
-                    return;
+                        p.children.get(i).elements.remove(0);
+                        p.children.get(i).children.remove(0);
+                        //right node is set
+                        // now recall insertElement Node on what ?
+                        this.insertElementNode(key, val);
+                        //is it okay ?
+                        return;
+                    }
+                }
+                if (i < p.children.size() - 1) {
+                    if (p.children.get(i + 1).elements.size() < B - 1) {
+                        // doing right shift
+                        Node<Key, Value> leftN = p.children.get(i);
+                        Node<Key, Value> rightN = p.children.get(i + 1);
+
+                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
+                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
+                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+                        // . . . .  up  . . .
+                        // . . . .  i   i+1 . .
+                        //. . .  . left right
+
+                        rightN.elements.add(0, up);
+                        rightN.children.add(0, hChild);
+                        hChild.parent = rightN;
+                        //right node has grown
+                        p.elements.set(i, left);
+                        //p is set
+                        leftN.elements.remove(leftN.elements.size() - 1);
+                        leftN.children.remove(leftN.children.size() - 1);
+                        //left node ie this is also set
+                        //call insert on leftN ie this
+                        this.insertElementNode(key, val);
+                        return;
+                    }
                 }
             }
-            if (i < p.children.size() - 1) {
-                if (p.children.get(i + 1).elements.size() < B - 1) {
-                    // doing right shift
-                    Node<Key, Value> leftN = p.children.get(i);
-                    Node<Key, Value> rightN = p.children.get(i + 1);
+            else{// a leaf to rebalance
+                if (i > 0) {//left shift
 
-                    Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
-                    Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
-                    Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
-                    // . . . .  up  . . .
-                    // . . . .  i   i+1 . .
-                    //. . .  . left right
+                    if (p.children.get(i - 1).elements.size() < B - 1) {
+                        //do left shift yo!
+                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
+                        Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
+//                        Node<Key, Value> hChild = p.children.get(i).children.get(0);
+                        // . . . .  up  . . .
+                        // . . . .  i-1  i . .
+                        //. . .  . left right
+                        p.children.get(i - 1).elements.add(up);
+//                        p.children.get(i - 1).children.add(hChild);
+//                        hChild.parent = p.children.get(i - 1);
+                        //left node has grown
+                        p.elements.set(i - 1, right);
+//                    p is set
+                        p.children.get(i).elements.remove(0);
+//                        p.children.get(i).children.remove(0);
+                        //right node is set
+                        // now recall insertElement Node on what ?
+                        this.insertElementNode(key, val);
+                        //is it okay ?
+                        return;
+                    }
+                }
+                if (i < p.children.size() - 1) {//right shift
+                    if (p.children.get(i + 1).elements.size() < B - 1) {
+                        // doing right shift
+                        Node<Key, Value> leftN = p.children.get(i);
+                        Node<Key, Value> rightN = p.children.get(i + 1);
 
-                    rightN.elements.add(0, up);
-                    rightN.children.add(0, hChild);
-                    hChild.parent = rightN;
-                    //right node has grown
-                    p.elements.set(i, left);
-                    //p is set
-                    leftN.elements.remove(leftN.elements.size() - 1);
-                    leftN.children.remove(leftN.children.size() - 1);
-                    //left node ie this is also set
-                    //call insert on leftN ie this
-                    this.insertElementNode(key, val);
-                    return;
+                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
+                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
+//                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+                        // . . . .  up  . . .
+                        // . . . .  i   i+1 . .
+                        //. . .  . left right
+
+                        rightN.elements.add(0, up);
+//                        rightN.children.add(0, hChild);
+//                        hChild.parent = rightN;
+                        //right node has grown
+                        p.elements.set(i, left);
+                        //p is set
+                        leftN.elements.remove(leftN.elements.size() - 1);
+//                        leftN.children.remove(leftN.children.size() - 1);
+                        //left node ie this is also set
+                        //call insert on leftN ie this
+                        this.insertElementNode(key, val);
+                        return;
+                    }
                 }
             }
 
             //do split as redistribution didn't work
-            int median = (this.elements.size() + 1) / 2;
+            int median = (this.elements.size()) / 2;
 
             p.elements.add(i, new Pair<Key, Value>(this.elements.get(median).getKey(), this.elements.get(median).getValue()));
             Node lChild = this.copyNode(0, median - 1);//therefore parent is same as root ie null
@@ -259,34 +337,76 @@ public class Node <Key extends Comparable<Key>, Value>{
                 this.elements.add(i, new Pair<Key, Value>(key, val));//add at that position and shift others to the right
             }
             else {//not full, not leaf
-                int i=0,idx1=this.elements.size()-1,idx2=0;
+                int minIndexW = this.elements.size();
+                int maxIndexW = -1;
+                for (int a = 0 ; a<this.elements.size();a++){
+                    if (this.elements.get(a).getKey().compareTo(key)==0){
+                        if (a>maxIndexW){
+                            maxIndexW = a;
+                        }
+                        if (a<minIndexW){
+                            minIndexW = a;
+                        }
+                    }
+                }
+
+                if (minIndexW<=maxIndexW){//atleast one k is present
+                    //example element array
+                    // k k k K+1 ....
+                    // ...... k-1 k k
+                    // 0 0 0 ... k-1 k-1 k-1   k  k  k  k   k+1 k+1 k+1 ...CASE2
+                    this.children.get(minIndexW+1).insertElementNode(key,val);
+                    return;
+                }
+                // if we have reached here therfore k is not present so we have to find the breaking point
+
+                //example element array
+                // k+1 ....
+                //............ k-1
+                //...................... idx1 . . .idx2........
+                //0 0 0 0 ... k-1  k-1   k+1 ....type ?CASE1
+                //................idx2...idx1.....
+                //now i can insert between any of the idx1 to idx2 +1 indexed children!!
+
+                int i=0,idx1=this.elements.size(),idx2=-1;//initially out of bound indices
                 for (i=0;i<this.elements.size();i++){
-                    if (this.elements.get(i).getKey().compareTo(key)>=0){
+                    if (this.elements.get(i).getKey().compareTo(key)>0){
                         idx1=i;
                         break;
                     }
                 }
 
                 for (i=this.elements.size()-1;i>=0;i--){
-                    if (this.elements.get(i).getKey().compareTo(key)<=0){
+                    if (this.elements.get(i).getKey().compareTo(key)<0){
                         idx2 = i;
                         break;
                     }
                 }
-                //example element array
-                // 0 0 0 ... k-1 k-1 k-1   k  k  k  k   k+1 k+1 k+1 ...CASE2
-                //...................... idx1 . . .idx2........
-                //0 0 0 0 ... k-1  k-1   k+1 ....type ?CASE1
-                //................idx2...idx1.....
-                //now i can insert between any of the idx1 to idx2 +1 indexed children!!
-                if(idx2<idx1){//CASE1
-                    this.children.get(idx2+1).insertElementNode(key,val);//inserting in the middle child
+
+                if (idx1 == this.elements.size()){
+                    //first for loop doesnt run and therefore all elements are < k
+                    this.children.get(this.children.size()-1).insertElementNode(key,val);
+                    return;
                 }
-                else{//CASE2
-//                for ()
-                    this.children.get(idx1+1).insertElementNode(key,val);
+                else if (idx2 == -1){
+                    // 2nd for loop doesnt run and therefore all elements are > k
+                    this.children.get(0).insertElementNode(key,val);
+                    return;
                 }
+                else{//both loops so .run ..
+                    this.children.get(idx2+1).insertElementNode(key,val);
+                    return;
+                }
+
+//                if(idx2<idx1){//CASE1
+//                    this.children.get(idx2+1).insertElementNode(key,val);//inserting in the middle child
+//                }
+//                else{//CASE2
+////                for ()
+//                    this.children.get(idx1+1).insertElementNode(key,val);
+//                }
                 //search where to be inserted , call insert node there ,
+                // search where to be inserted , call insert node there ,
             }
         }
         return;

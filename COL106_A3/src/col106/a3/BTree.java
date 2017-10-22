@@ -9,7 +9,7 @@ import java.util.List;
 public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<Key,Value> {
 
     public Node<Key,Value> root ;
-    public int B;
+    public static int B;
     public BTree(int b) throws bNotEvenException {  /* Initializes an empty b-tree. Assume b is even. */
         if (b%2==1){
             throw new bNotEvenException();
@@ -17,6 +17,7 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
         else {
             B = b;
             root = new Node<Key,Value>(b);
+            Node.B = b;
         }
 
 //        throw new RuntimeException("Not Implemented");
@@ -58,7 +59,7 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
 
             Node<Key,Value> r2 = new Node<Key,Value>(B);//null parent just like the root
 
-            int median = (root.elements.size()+1)/(2);
+            int median = (root.elements.size())/(2);
             //okay for 0 sized too ? probably
 
 
@@ -75,7 +76,8 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
 
             this.root = r2;//now r2 is the new root
             //and the prev root is lost as it should be
-
+//            System.out.println("LINE78 BTREE insert");
+//            System.out.println(root.toStringNode().toString());
             //root is split and brand new, now where (which child )to go to  ?
             if (root.elements.get(0).getKey().compareTo(key)==0){
                 //insert in the right child
@@ -101,33 +103,74 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
                 root.elements.add(i, new Pair<Key, Value>(key, val));//add at that position and shift others to the right
             }
             else {//not full, not leaf
-                int i=0,idx1=root.elements.size()-1,idx2=0;
+                int minIndexW = root.elements.size();
+                int maxIndexW = -1;
+                for (int a = 0 ; a<root.elements.size();a++){
+                    if (root.elements.get(a).getKey().compareTo(key)==0){
+                        if (a>maxIndexW){
+                            maxIndexW = a;
+                        }
+                        if (a<minIndexW){
+                            minIndexW = a;
+                        }
+                    }
+                }
+
+                if (minIndexW<=maxIndexW){//atleast one k is present
+                    //example element array
+                    // k k k K+1 ....
+                    // ...... k-1 k k
+                    // 0 0 0 ... k-1 k-1 k-1   k  k  k  k   k+1 k+1 k+1 ...CASE2
+                    root.children.get(minIndexW+1).insertElementNode(key,val);
+                    return;
+                }
+                // if we have reached here therfore k is not present so we have to find the breaking point
+
+                //example element array
+                // k+1 ....
+                //............ k-1
+                //...................... idx1 . . .idx2........
+                //0 0 0 0 ... k-1  k-1   k+1 ....type ?CASE1
+                //................idx2...idx1.....
+                //now i can insert between any of the idx1 to idx2 +1 indexed children!!
+
+                int i=0,idx1=root.elements.size(),idx2=-1;//initially out of bound indices
                 for (i=0;i<root.elements.size();i++){
-                    if (root.elements.get(i).getKey().compareTo(key)>=0){
+                    if (root.elements.get(i).getKey().compareTo(key)>0){
                         idx1=i;
                         break;
                     }
                 }
 
                 for (i=root.elements.size()-1;i>=0;i--){
-                    if (root.elements.get(i).getKey().compareTo(key)<=0){
+                    if (root.elements.get(i).getKey().compareTo(key)<0){
                         idx2 = i;
                         break;
                     }
                 }
-                //example element array
-                // 0 0 0 ... k-1 k-1 k-1   k  k  k  k   k+1 k+1 k+1 ...CASE2
-                //...................... idx1 . . .idx2........
-                //0 0 0 0 ... k-1  k-1   k+1 ....type ?CASE1
-                //................idx2...idx1.....
-                //now i can insert between any of the idx1 to idx2 +1 indexed children!!
-                if(idx2<idx1){//CASE1
-                    root.children.get(idx2+1).insertElementNode(key,val);//inserting in the middle child
+
+                if (idx1 == root.elements.size()){
+                    //first for loop doesnt run and therefore all elements are < k
+                    root.children.get(root.children.size()-1).insertElementNode(key,val);
+                    return;
                 }
-                else{//CASE2
-//                for ()
-                    root.children.get(idx1+1).insertElementNode(key,val);
+                else if (idx2 == -1){
+                    // 2nd for loop doesnt run and therefore all elements are > k
+                    root.children.get(0).insertElementNode(key,val);
+                    return;
                 }
+                else{//both loops so .run ..
+                    root.children.get(idx2+1).insertElementNode(key,val);
+                    return;
+                }
+
+//                if(idx2<idx1){//CASE1
+//                    root.children.get(idx2+1).insertElementNode(key,val);//inserting in the middle child
+//                }
+//                else{//CASE2
+////                for ()
+//                    root.children.get(idx1+1).insertElementNode(key,val);
+//                }
                 //search where to be inserted , call insert node there ,
             }
 
