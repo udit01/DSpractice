@@ -412,7 +412,95 @@ public class Node <Key extends Comparable<Key>, Value>{
         return;
     }
 
-//    public deleteElement(){}
+    public void deleteElement(Key k){
+        int flag = 0;
+        int i=0;
+        for (i=0;i<this.elements.size();i++){
+            if (this.elements.get(i).getKey().compareTo(k)==0){
+                flag=1;
+                break;//at the first occurence
+            }
+        }
+        if (flag==1){
+            if (this.children.size()==0){//its a leaf
+                this.elements.remove(i);//just remove that pair yo!
+            }
+            else {
+//                if (i>0){//delete in predecessor
+//                }
+                if (this.children.get(i).elements.size()>=(B/2)){
+//                    findPredecessor k' of k in subtree rooted at this child ?
+                    // then recursivley delete k' and replace k by k' in x (we can find and delete k' in single downward pass)
+                    //HOW EXACTLY IS THIS DONE?
+                    return;
+                }
+                else if(this.children.get(i+1).elements.size()>=B/2){
+                    //findSuccessor k' of k in subtree rooted at this child ?
+                    // then recursivley delete k' and replace k by k' in x (we can find and delete k' in single downward pass)
+                    //HOW EXACTLY IS THIS DONE?
+                }
+                else{//both side children have (B/2)-1 keys only
+                //merge both into i with B-1 keys , bring down that //key to be deleted..
+                //recursively delete k from the merged node
+                }
+
+
+            }
+        }
+
+        else{//not found in this node,//flag is 0
+            //to find which are the closest ?
+            int t = 0,leftIndex=-1,rightIndex = this.elements.size();
+            for (t=0; t< this.elements.size();t++){
+                if (this.elements.get(t).getKey().compareTo(k)>0){
+                    if (rightIndex>t){
+                        rightIndex = t;
+                    }
+                }
+                if (this.elements.get(t).getKey().compareTo(k)<0){
+                    if (leftIndex<t){
+                        leftIndex = t;
+                    }
+                }
+            }
+
+            if (leftIndex==-1){//all values are > k
+                //target subtree from which to delete is this.children.get(0) tree
+                //ensure that it has atleast t keys
+                //by one of the following methods (if deficient)
+                //1 take from right sibling --anticlockwise rotation
+                //2 merge the right and this sibling if also deficient
+
+                //then delete from the remaining subchild
+            }
+            else if (rightIndex==this.elements.size()){ // all values are less than k
+                //target subtree from which to delete is this.children.get(this.children.size()-1) tree
+                //ensure that it has atleast t keys
+
+                //by one of the following methods (if deficient)
+                //1 take from left sibling --clockwise rotation
+                //2 merge the left and this sibling if also deficient
+
+                //then delete from the remaining subchild
+            }
+            else{//some values less and some greater
+                //target subtree from which to delete is this.children.get(leftIndex+1) tree
+                //ensure that it has atleast t keys
+
+                //by one of the following methods (if deficient)
+                //1 take from left sibling --clockwise rotation
+                //2 take from right sibling --anticlockwise rotation
+
+                //3 merge the left and this sibling if also deficient
+                //4 merge the right and this sibling if also deficient
+
+                //then delete from the remaining subchild
+            }
+        }
+
+        return;
+
+    }
 
 //    public static void main(String args[]){
 //        Node<Integer,Integer> n1 = new Node<Integer,Integer>();

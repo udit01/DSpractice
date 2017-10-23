@@ -47,13 +47,20 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
         //when to throw illegal key exception?
         //if key doesn't extend comparable then throw illegal key exception ?
         ArrayList<Value> list = new ArrayList<Value>();
-        root.searchNode(key,list);
+        if (root.isEmptyNode()){
+            return list;
+        }
+        else {
+            root.searchNode(key, list);
+        }
         return list;
 //        throw new RuntimeException("Not Implemented");
     }
 
     @Override
     public void insert(Key key, Value val) {
+//        what if root is empty?or null
+        //how did i handle that ?
         if (root.elements.size()>=B-1){//leaf or internal but full
             //create a new root , split the root where required ,and make the two splits children of the root,
 
@@ -181,7 +188,16 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
 
     @Override
     public void delete(Key key) throws IllegalKeyException {
-        throw new RuntimeException("Not Implemented");
+        //when to throw illegal key exception ?
+        List<Value> l = new ArrayList<Value>();
+        l = this.search(key);
+        while(l.size()!=0){
+            root.deleteElement(key);
+            //trim root to remove empty root or such root
+
+            l = this.search(key);
+        }
+//        throw new RuntimeException("Not Implemented");
     }
 //    @Override
     public String toString(){
