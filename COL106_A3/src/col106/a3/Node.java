@@ -4,6 +4,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.lang.Comparable;
+import java.util.Calendar;
 
 public class Node <Key extends Comparable<Key>, Value>{
 
@@ -421,35 +422,90 @@ public class Node <Key extends Comparable<Key>, Value>{
                 break;//at the first occurence
             }
         }
-        if (flag==1){
+        if (flag==1){//key is present in the node at  i position
             if (this.children.size()==0){//its a leaf
                 this.elements.remove(i);//just remove that pair yo!
+                //check for balancing ? not in CLRS but why not ? because you have to no longer delte below
             }
-            else {
-//                if (i>0){//delete in predecessor
-//                }
-                if (this.children.get(i).elements.size()>=(B/2)){
-//                    findPredecessor k' of k in subtree rooted at this child ?
+            else {//internal node with  the key to delete at ith position
+
+                if (this.children.get(i).elements.size()>=(B/2)){//left node is good to go
+                    //findPredecessor k' of k in subtree rooted at this child ?
+
+                    Pair<Key,Value> current_copy = new Pair<>(this.elements.get(i).getKey(),this.elements.get(i).getValue());
+
+                    Node<Key,Value> ptr = this.children.get(i);//the root of left subtree
+
+                    while(ptr.children.size()!=0){
+                        ptr = ptr.children.get(ptr.children.size()-1);//get the right most child
+                    }
+
+                    //final ptr will be a leaf and get it's right-most element
+                    Pair<Key,Value> p = ptr.elements.get(ptr.elements.size()-1);
+                    Pair<Key,Value> k0_copy = new Pair<Key,Value>(p.getKey(),p.getValue());//immediate predecessor
+
                     // then recursivley delete k' and replace k by k' in x (we can find and delete k' in single downward pass)
-                    //HOW EXACTLY IS THIS DONE?
+                    /////////breakdown 1) swap k0 and current and then delete current from left subree
+                    this.elements.set(i,k0_copy);
+                    ptr.elements.set(ptr.elements.size()-1,current_copy);
+
+                    this.children.get(i).deleteElement(k);
+
                     return;
                 }
-                else if(this.children.get(i+1).elements.size()>=B/2){
+                else if(this.children.get(i+1).elements.size()>=B/2){//this child will exist as key here is existing
                     //findSuccessor k' of k in subtree rooted at this child ?
+
+                    Pair<Key,Value> current_copy = new Pair<>(this.elements.get(i).getKey(),this.elements.get(i).getValue());
+
+                    Node<Key,Value> ptr = this.children.get(i+1);//the root of left subtree
+
+                    while(ptr.children.size()!=0){
+                        ptr = ptr.children.get(0);//get the right most child
+                    }
+
+                    Pair<Key,Value> p = ptr.elements.get(0);
+                    Pair<Key,Value> k0_copy = new Pair<Key,Value>(p.getKey(),p.getValue());//immediate predecessor
+
                     // then recursivley delete k' and replace k by k' in x (we can find and delete k' in single downward pass)
-                    //HOW EXACTLY IS THIS DONE?
+                    //see above breakdown
+                    this.elements.set(i,k0_copy);
+                    ptr.elements.set(0,current_copy);
+
+                    this.children.get(i+1).deleteElement(k);
+                    return;
                 }
+
                 else{//both side children have (B/2)-1 keys only
-                //merge both into i with B-1 keys , bring down that //key to be deleted..
-                //recursively delete k from the merged node
+                    //merge both into i with B-1 keys , bring down that //key to be deleted..
+                    Pair<Key,Value> current_copy = new Pair<>(this.elements.get(i).getKey(),this.elements.get(i).getValue());
+                    Node<Key,Value> leftN = this.children.get(i);
+                    Node<Key,Value> rightN = this.children.get(i+1);
+                    ArrayList<Pair<Key,Value>> arrayOfPairs = new ArrayList<Pair<Key,Value>>();
+
+                    this.elements.remove(i);
+                    this.children.remove(i+1);
+                    leftN.elements.add(current_copy);// adding middle element to left
+
+                    for (int b = 0 ; b<rightN.elements.size();b++){//adding other elements to left
+                        leftN.elements.add(new Pair<Key,Value>(rightN.elements.get(b).getKey(),rightN.elements.get(b).getValue()));
+                    }
+
+                    leftN.children.addAll(rightN.children);//copying all the children refrences
+//                    leftN.parent = this;//redundant
+
+                    //recursively delete k from the merged node
+                    leftN.deleteElement(k);
+                    return;
                 }
-
-
             }
         }
 
         else{//not found in this node,//flag is 0
             //to find which are the closest ?
+            if (this.children.size()==0){//not found inside and this is leaf therefore it's not here and just return instead of deleting
+                return;
+            }
             int t = 0,leftIndex=-1,rightIndex = this.elements.size();
             for (t=0; t< this.elements.size();t++){
                 if (this.elements.get(t).getKey().compareTo(k)>0){
@@ -466,35 +522,213 @@ public class Node <Key extends Comparable<Key>, Value>{
 
             if (leftIndex==-1){//all values are > k
                 //target subtree from which to delete is this.children.get(0) tree
+                Node<Key,Value> toDel = this.children.get(0);
                 //ensure that it has atleast t keys
+
+                if (toDel.elements.size()<(B/2)){//less than critical keys
+                    if (this.children.get(1).elements.size()>=(B/2)){//take it! right is plump
+//left shift
+                        Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(0).getKey(), this.elements.get(0).getValue());
+                        Pair<Key, Value> right = new Pair<Key, Value>(this.children.get(1).elements.get(0).getKey(), this.children.get(1).elements.get(0).getValue());
+                        Node<Key, Value> hChild = this.children.get(1).children.get(0);
+                        // . . . .  up  . . .
+                        // . . . .  0    1 . .
+                        //. . .  . left right
+                        this.children.get(0).elements.add(up);
+                        this.children.get(0).children.add(hChild);
+                        hChild.parent = this.children.get(0);
+                        //left node has grown
+                        this.elements.set(0, right);
+                        //p is set
+                        this.children.get(1).elements.remove(0);
+                        this.children.get(1).children.remove(0);
+                        //right node is set
+                        // now recall insertElement Node on what ?
+                        this.children.get(0).deleteElement(k);
+                        //is it okay ?
+                        return;
+                    }
+                    else{//both have (B/2)-1 elements and therfore merge!!
+                        Pair<Key,Value> current_copy = new Pair<Key,Value>(this.elements.get(0).getKey(),this.elements.get(0).getValue());
+                        Node<Key,Value> leftN = this.children.get(0);
+                        Node<Key,Value> rightN = this.children.get(1);
+                        ArrayList<Pair<Key,Value>> arrayOfPairs = new ArrayList<Pair<Key,Value>>();
+
+                        this.elements.remove(0);
+                        this.children.remove(1);
+                        leftN.elements.add(current_copy);// adding middle element to left
+
+                        for (int b = 0 ; b<rightN.elements.size();b++){//adding other elements to left
+                            leftN.elements.add(new Pair<Key,Value>(rightN.elements.get(b).getKey(),rightN.elements.get(b).getValue()));
+                        }
+
+                        leftN.children.addAll(rightN.children);//copying all the children refrences
+//                    leftN.parent = this;//redundant
+
+                        //recursively delete k from the merged node
+                        leftN.deleteElement(k);
+                        return;
+                    }
+                }
                 //by one of the following methods (if deficient)
                 //1 take from right sibling --anticlockwise rotation
                 //2 merge the right and this sibling if also deficient
-
                 //then delete from the remaining subchild
+
+                else{//size is greater equal to critial t leaves
+                    toDel.deleteElement(k);
+                    return;
+                }
             }
             else if (rightIndex==this.elements.size()){ // all values are less than k
                 //target subtree from which to delete is this.children.get(this.children.size()-1) tree
+                Node<Key,Value> toDel = this.children.get(this.children.size()-1);
                 //ensure that it has atleast t keys
+                if (toDel.elements.size()<(B/2)){
+                    if (this.children.get(this.children.size()-2).elements.size()>=(B/2)){//left sibling is plump so take it//right shift
+                        // doing right shift
+                        Node<Key, Value> leftN = this.children.get(this.children.size()-2);
+                        Node<Key, Value> rightN = this.children.get(this.children.size()-1);
 
+                        Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(this.elements.size()-1).getKey(), this.elements.get(this.elements.size()-1).getValue());
+                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
+                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+                        // . . . .  up  . . .
+                        // . . . .  end-1   end . .
+                        //. . .  . left    right
+
+                        rightN.elements.add(0, up);
+                        rightN.children.add(0, hChild);
+                        hChild.parent = rightN;
+                        //right node has grown
+                        this.elements.set(this.elements.size()-1, left);
+                        //p is set
+                        leftN.elements.remove(leftN.elements.size() - 1);
+                        leftN.children.remove(leftN.children.size() - 1);
+                        //left node ie this is also set
+                        rightN.deleteElement(k);
+                        return;
+
+                    }
+                    else{// both are deficient sooo merge!
+                        Pair<Key,Value> current_copy = new Pair<Key,Value>(this.elements.get(this.elements.size()-1).getKey(),this.elements.get(this.elements.size()-1).getValue());
+                        Node<Key,Value> leftN = this.children.get(this.children.size()-2);
+                        Node<Key,Value> rightN = this.children.get(this.children.size()-1);
+                        ArrayList<Pair<Key,Value>> arrayOfPairs = new ArrayList<Pair<Key,Value>>();
+
+                        this.elements.remove(this.elements.size()-1);
+                        this.children.remove(this.children.size()-1);
+                        leftN.elements.add(current_copy);// adding middle element to left
+
+                        for (int b = 0 ; b<rightN.elements.size();b++){//adding other elements to left
+                            leftN.elements.add(new Pair<Key,Value>(rightN.elements.get(b).getKey(),rightN.elements.get(b).getValue()));
+                        }
+
+                        leftN.children.addAll(rightN.children);//copying all the children refrences
+//                    leftN.parent = this;//redundant
+
+                        //recursively delete k from the merged node
+                        leftN.deleteElement(k);//right node is no longer there!
+                        return;
+                    }
+                }
                 //by one of the following methods (if deficient)
                 //1 take from left sibling --clockwise rotation
                 //2 merge the left and this sibling if also deficient
 
                 //then delete from the remaining subchild
+                else{//peaceful node as good enough size
+                    toDel.deleteElement(k);
+                    return;
+                }
             }
             else{//some values less and some greater
                 //target subtree from which to delete is this.children.get(leftIndex+1) tree
+                Node<Key,Value> toDel = this.children.get(leftIndex+1);
                 //ensure that it has atleast t keys
-
                 //by one of the following methods (if deficient)
-                //1 take from left sibling --clockwise rotation
-                //2 take from right sibling --anticlockwise rotation
+                if (toDel.elements.size()<(B/2)){
 
-                //3 merge the left and this sibling if also deficient
-                //4 merge the right and this sibling if also deficient
+                    //1 take from left sibling --clockwise rotation
+                    if (this.children.get(leftIndex).elements.size()>=(B/2)){//take it from the plump left child//right shift
+
+                        Node<Key, Value> leftN = this.children.get(leftIndex);
+                        Node<Key, Value> rightN = this.children.get(leftIndex+1);
+
+                        Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(leftIndex).getKey(), this.elements.get(leftIndex).getValue());
+                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
+                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+                        // . . . .  up  . . .
+                        // . . . .  end-1   end . .
+                        //. . .  . left    right
+
+                        rightN.elements.add(0, up);
+                        rightN.children.add(0, hChild);
+                        hChild.parent = rightN;
+                        //right node has grown
+                        this.elements.set(leftIndex, left);
+                        //p is set
+                        leftN.elements.remove(leftN.elements.size() - 1);
+                        leftN.children.remove(leftN.children.size() - 1);
+                        //left node ie this is also set
+                        rightN.deleteElement(k);//as now right is plump
+                        return;
+                    }
+
+                    //2 take from right sibling --anticlockwise rotation
+                    else if (this.children.get(leftIndex+2).elements.size() >= (B/2)){//left shift
+                        Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(leftIndex+1).getKey(), this.elements.get(leftIndex+1).getValue());
+                        Pair<Key, Value> right = new Pair<Key, Value>(this.children.get(leftIndex+2).elements.get(0).getKey(), this.children.get(leftIndex+2).elements.get(0).getValue());
+                        Node<Key, Value> hChild = this.children.get(leftIndex+2).children.get(0);
+                        // . . . .     up  . . . . . .  .
+                        // . . . .  leftIndex+1 . .leftIndex+2 . .
+                        //. . .  . . . left . . . . . right
+                        this.children.get(leftIndex+1).elements.add(up);
+                        this.children.get(leftIndex+1).children.add(hChild);
+                        hChild.parent = this.children.get(leftIndex+1);
+                        //left node has grown
+                        this.elements.set(leftIndex+1, right);
+                        //p is set
+                        this.children.get(leftIndex+2).elements.remove(0);
+                        this.children.get(leftIndex+2).children.remove(0);
+                        //right node is set
+                        // now recall insertElement Node on what ?
+                        this.children.get(leftIndex+1).deleteElement(k);
+                        //is it okay ?
+                        return;
+                    }
+
+                    //3 merge the left and this sibling if also deficient
+                    //4 merge the right and this sibling if also deficient(this must not be needed)
+                    else{//both siblings are deficient so merge ... with whom ? anyone .. i doing with left...
+                        Pair<Key,Value> current_copy = new Pair<Key,Value>(this.elements.get(leftIndex).getKey(),this.elements.get(leftIndex).getValue());
+                        Node<Key,Value> leftN = this.children.get(leftIndex);
+                        Node<Key,Value> rightN = this.children.get(leftIndex+1);//to del
+                        ArrayList<Pair<Key,Value>> arrayOfPairs = new ArrayList<Pair<Key,Value>>();
+
+                        this.elements.remove(leftIndex);
+                        this.children.remove(leftIndex+1);//r node vanish
+                        leftN.elements.add(current_copy);// adding middle element to left
+
+                        for (int b = 0 ; b<rightN.elements.size();b++){//adding other elements to left
+                            leftN.elements.add(new Pair<Key,Value>(rightN.elements.get(b).getKey(),rightN.elements.get(b).getValue()));
+                        }
+
+                        leftN.children.addAll(rightN.children);//copying all the children refrences
+//                    leftN.parent = this;//redundant
+
+                        //recursively delete k from the merged node
+                        leftN.deleteElement(k);//right node is no longer there!
+                        return;
+                    }
+                }
 
                 //then delete from the remaining subchild
+
+                else{//peaceful plump child
+                    toDel.deleteElement(k);
+                    return;
+                }
             }
         }
 

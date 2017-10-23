@@ -190,11 +190,20 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
     public void delete(Key key) throws IllegalKeyException {
         //when to throw illegal key exception ?
         List<Value> l = new ArrayList<Value>();
+        //or yet better make a present function
         l = this.search(key);
+        if (l.size()==0){
+            throw new IllegalKeyException();
+        }
+
         while(l.size()!=0){
             root.deleteElement(key);
             //trim root to remove empty root or such root
-
+            if (root.elements.size()==0){
+                //it must have the 0th child
+                root = root.children.get(0);
+                root.parent = null;
+            }
             l = this.search(key);
         }
 //        throw new RuntimeException("Not Implemented");
