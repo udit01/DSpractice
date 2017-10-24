@@ -36,7 +36,7 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
 
     @Override
     public int height() {
-        return root.heightNode();//if to compute true max height
+        return root.heightNodeEfficient();//if to compute true max height
 //        throw new RuntimeException("Not Implemented");
     }
 
@@ -44,12 +44,12 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
     public List<Value> search(Key key) throws IllegalKeyException {
         //when to throw illegal key exception?
         //if key doesn't extend comparable then throw illegal key exception ?
-        ArrayList<Value> list = new ArrayList<Value>();
+        ArrayList<Value> list = new ArrayList<Value>();//empty list
         if (root.isEmptyNode()){
             return list;
         }
         else {
-            root.searchNode(key, list);
+            list = root.searchNode(key);
         }
         return list;
 //        throw new RuntimeException("Not Implemented");
@@ -189,6 +189,9 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
         //when to throw illegal key exception ?
         boolean l = false;
         //or yet better make a present function
+        if (root.elements.size()==0){//althought i handled this in isPresent
+            throw new IllegalKeyException();
+        }
         l = this.root.isPresent(key);
         if (l==false){
             throw new IllegalKeyException();

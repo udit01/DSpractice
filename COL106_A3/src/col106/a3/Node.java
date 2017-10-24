@@ -1,10 +1,8 @@
 package col106.a3;
 
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.lang.Comparable;
-import java.util.Calendar;
 
 public class Node <Key extends Comparable<Key>, Value>{
 
@@ -26,6 +24,9 @@ public class Node <Key extends Comparable<Key>, Value>{
     public int sizeNode(){
         int sum=0;
         sum += this.elements.size();
+        if (this.children.size()==0){//althought the case is handled
+            return sum;
+        }
         for (int i=0;i<this.children.size();i++){
             sum+=this.children.get(i).sizeNode();
         }
@@ -47,11 +48,13 @@ public class Node <Key extends Comparable<Key>, Value>{
         if (this.children.size()==0)
             return 0;
         else
-            return this.children.get(0).heightNodeEfficient()+1;
+            return ( this.children.get(0).heightNodeEfficient() )+1;
     }
 
     public boolean isPresent(Key k){//retrun true if present anywhere in this subree
-
+        if (this.elements.size()==0){
+            return false;
+        }
         for (int i=0 ; i<this.elements.size();i++){
             if (this.elements.get(i).getKey().compareTo(k)==0){
                 return true;
@@ -73,8 +76,9 @@ public class Node <Key extends Comparable<Key>, Value>{
 
     }
 
-    public ArrayList<Value> searchNode(Key k , ArrayList<Value> list){//check this function...
+    public ArrayList<Value> searchNode(Key k ){//check this function...
         int maxIndex = 0, minIndex = this.elements.size()-1;
+        ArrayList<Value> listI = new ArrayList<Value>();
 
         for (int i=0;i<this.elements.size();i++){
             if (elements.get(i).getKey().compareTo(k)>=0){
@@ -91,40 +95,40 @@ public class Node <Key extends Comparable<Key>, Value>{
 
         if (this.children.size()!=0) {
             //        ArrayList<Value> [] arrayOfLists = new ArrayList<Value>[maxIndex-minIndex+2];
-            ArrayList<ArrayList<Value>> arrayOfLists = new ArrayList<ArrayList<Value>>(this.children.size());
-            int t=0;
+//            ArrayList<ArrayList<Value>> arrayOfLists = new ArrayList<ArrayList<Value>>(this.children.size());
+//            int t=0;
             //are the elements of array lists of array lists , automatically initialized
             // do we have to re-initialize each and every list ?
             for (int i = minIndex; i <= maxIndex + 1; i++) {//check indices as we're going on children
                 if ((i < this.elements.size()) && (i >= 0)) {
                     if (this.elements.get(i).getKey().compareTo(k) == 0) {
-                        list.add(this.elements.get(i).getValue());
+                        listI.add(this.elements.get(i).getValue());
                     }
                 }
                 //is the below line needed ?
 
                 if ((i < this.children.size()) && (i >= 0)) {
                     // problem in the below line
-                    arrayOfLists.add (new ArrayList<Value>());
+//                    arrayOfLists.add (new ArrayList<Value>());
 //                arrayOfLists[i] = new ArrayList<Value>();
-                    list.addAll(this.children.get(i).searchNode(k, arrayOfLists.get(t)));
-                    t++;
+                    listI.addAll(this.children.get(i).searchNode(k));
+//                    t++;
                     //could i have done directly search(k,list) above ?
                 }
             }
+            return listI;
         }
         else {
             for (int i = minIndex; i <= maxIndex + 1; i++) {//check indices as we're going on children
                 if ((i < this.elements.size()) && (i >= 0)) {
                     if (this.elements.get(i).getKey().compareTo(k) == 0) {
-                        list.add(this.elements.get(i).getValue());
+                        listI.add(this.elements.get(i).getValue());
                     }
                 }
             }
+            return listI;
         }
-
-
-        return list;
+//        return listI;
     }
 
 
@@ -182,15 +186,15 @@ public class Node <Key extends Comparable<Key>, Value>{
         return n;
     }
 
-    public Node (int num,Node p){
+    public Node (int num){
         elements = new ArrayList<Pair<Key,Value>>(num-1);//although flexible ..but i am still fixing the intital capacity
         children = new ArrayList<Node<Key,Value>>(num);
 //        B = b;
-        parent = p;
+//        parent = p;
     }
-    public Node (int num){
-        this(num,null);
-    }
+//    public Node (int num){
+//        this(num,null);
+//    }
     //        new Node(10);//default capacity of arrayList
     //    }
     //    public Node (){
@@ -433,7 +437,7 @@ public class Node <Key extends Comparable<Key>, Value>{
                 // search where to be inserted , call insert node there ,
             }
         }
-        return;
+//        return;
     }
 
     public void deleteElement(Key k){

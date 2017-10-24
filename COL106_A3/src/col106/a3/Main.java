@@ -16,14 +16,16 @@ public class Main {
                         System.exit(0);
                     case "insert":
                         tree.insert(s.next(), s.next());
-                        System.out.println(tree);
+//                        System.out.println(tree);
                         break;
                     case "delete":
                         tree.delete(s.next());
-                        System.out.println(tree);
+//                        System.out.println(tree);
                         break;
                     case "print":
                         System.out.println(tree);
+//                        StringFormatChecker sfc = new StringFormatChecker(tree.toString(),n);
+//                        System.out.println(sfc.verify() +" "+sfc.getMessage());
                         break;
                     case "height":
                         System.out.println(tree.height());
