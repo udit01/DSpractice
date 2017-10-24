@@ -1,4 +1,4 @@
-package col106.a3.ta;
+package col106.a3;
 
 public class StringFormatChecker {
     String argument;

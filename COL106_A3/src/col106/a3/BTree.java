@@ -1,8 +1,6 @@
 package col106.a3;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,27 +187,33 @@ public class BTree<Key extends Comparable<Key>,Value> implements DuplicateBTree<
     @Override
     public void delete(Key key) throws IllegalKeyException {
         //when to throw illegal key exception ?
-        List<Value> l = new ArrayList<Value>();
+        boolean l = false;
         //or yet better make a present function
-        l = this.search(key);
-        if (l.size()==0){
+        l = this.root.isPresent(key);
+        if (l==false){
             throw new IllegalKeyException();
         }
 
-        while(l.size()!=0){
+        while(l==true){
             root.deleteElement(key);
             //trim root to remove empty root or such root
             if (root.elements.size()==0){
                 //it must have the 0th child
-                root = root.children.get(0);
-                root.parent = null;
+                if (root.children.size()>0) {
+                    root = root.children.get(0);
+                    root.parent = null;
+                }//otherwise it's just an empty tree
+
             }
-            l = this.search(key);
+            l = this.root.isPresent(key);
         }
 //        throw new RuntimeException("Not Implemented");
     }
 //    @Override
     public String toString(){
+        if (root.elements.size()==0){
+            return ("[]");
+        }
         return root.toStringNode().toString();
     }
 }

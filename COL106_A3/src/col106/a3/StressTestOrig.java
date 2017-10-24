@@ -1,4 +1,4 @@
-package col106.a3.ta;
+package col106.a3;
 
 import col106.a3.BTree;
 import col106.a3.DuplicateBTree;
@@ -11,8 +11,8 @@ public class StressTest {
     public static void main(String argv[]) throws Exception {
         long startTime=System.currentTimeMillis();
         DuplicateBTree<Integer, Integer> graph = new BTree<>(4);
-        int V = 1000;
-        int E = 10000;
+        int V = 100;
+        int E = 100;
         ArrayList<ArrayList<Integer>> g = new ArrayList<>(V);
         Random r = new Random();
         for (int i = 0; i < V; i++)

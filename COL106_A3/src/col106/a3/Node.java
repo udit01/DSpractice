@@ -50,6 +50,29 @@ public class Node <Key extends Comparable<Key>, Value>{
             return this.children.get(0).heightNodeEfficient()+1;
     }
 
+    public boolean isPresent(Key k){//retrun true if present anywhere in this subree
+
+        for (int i=0 ; i<this.elements.size();i++){
+            if (this.elements.get(i).getKey().compareTo(k)==0){
+                return true;
+            }
+        }
+
+        if (this.children.size()==0){
+            return false;
+        }
+        else{
+            for (int j = 0 ;j < this.children.size();j++){
+                if (this.children.get(j).isPresent(k)==true){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
     public ArrayList<Value> searchNode(Key k , ArrayList<Value> list){//check this function...
         int maxIndex = 0, minIndex = this.elements.size()-1;
 
@@ -527,21 +550,26 @@ public class Node <Key extends Comparable<Key>, Value>{
 
                 if (toDel.elements.size()<(B/2)){//less than critical keys
                     if (this.children.get(1).elements.size()>=(B/2)){//take it! right is plump
-//left shift
+                        //left shift
                         Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(0).getKey(), this.elements.get(0).getValue());
                         Pair<Key, Value> right = new Pair<Key, Value>(this.children.get(1).elements.get(0).getKey(), this.children.get(1).elements.get(0).getValue());
-                        Node<Key, Value> hChild = this.children.get(1).children.get(0);
+                        try {
+                            Node<Key, Value> hChild = this.children.get(1).children.get(0);
+                            this.children.get(0).children.add(hChild);
+                            hChild.parent = this.children.get(0);
+                            this.children.get(1).children.remove(0);
+                        }
+                        catch (Exception e){
+                            //do nothing
+                        }
                         // . . . .  up  . . .
                         // . . . .  0    1 . .
                         //. . .  . left right
                         this.children.get(0).elements.add(up);
-                        this.children.get(0).children.add(hChild);
-                        hChild.parent = this.children.get(0);
                         //left node has grown
                         this.elements.set(0, right);
                         //p is set
                         this.children.get(1).elements.remove(0);
-                        this.children.get(1).children.remove(0);
                         //right node is set
                         // now recall insertElement Node on what ?
                         this.children.get(0).deleteElement(k);
@@ -592,19 +620,25 @@ public class Node <Key extends Comparable<Key>, Value>{
 
                         Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(this.elements.size()-1).getKey(), this.elements.get(this.elements.size()-1).getValue());
                         Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
-                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+
+                        try {
+                            Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+                            rightN.children.add(0, hChild);
+                            hChild.parent = rightN;
+                            leftN.children.remove(leftN.children.size() - 1);
+                        }
+                        catch (Exception e){
+                            //do nothing
+                        }
                         // . . . .  up  . . .
                         // . . . .  end-1   end . .
                         //. . .  . left    right
 
                         rightN.elements.add(0, up);
-                        rightN.children.add(0, hChild);
-                        hChild.parent = rightN;
                         //right node has grown
                         this.elements.set(this.elements.size()-1, left);
                         //p is set
                         leftN.elements.remove(leftN.elements.size() - 1);
-                        leftN.children.remove(leftN.children.size() - 1);
                         //left node ie this is also set
                         rightN.deleteElement(k);
                         return;
@@ -657,19 +691,25 @@ public class Node <Key extends Comparable<Key>, Value>{
 
                         Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(leftIndex).getKey(), this.elements.get(leftIndex).getValue());
                         Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
-                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+
+                        try {
+                            Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+                            rightN.children.add(0, hChild);
+                            hChild.parent = rightN;
+                            leftN.children.remove(leftN.children.size() - 1);
+                        }
+                        catch (Exception e){
+                            //nothing?
+                        }
                         // . . . .  up  . . .
                         // . . . .  end-1   end . .
                         //. . .  . left    right
 
                         rightN.elements.add(0, up);
-                        rightN.children.add(0, hChild);
-                        hChild.parent = rightN;
                         //right node has grown
                         this.elements.set(leftIndex, left);
                         //p is set
                         leftN.elements.remove(leftN.elements.size() - 1);
-                        leftN.children.remove(leftN.children.size() - 1);
                         //left node ie this is also set
                         rightN.deleteElement(k);//as now right is plump
                         return;
@@ -679,18 +719,25 @@ public class Node <Key extends Comparable<Key>, Value>{
                     else if (this.children.get(leftIndex+2).elements.size() >= (B/2)){//left shift
                         Pair<Key, Value> up = new Pair<Key, Value>(this.elements.get(leftIndex+1).getKey(), this.elements.get(leftIndex+1).getValue());
                         Pair<Key, Value> right = new Pair<Key, Value>(this.children.get(leftIndex+2).elements.get(0).getKey(), this.children.get(leftIndex+2).elements.get(0).getValue());
-                        Node<Key, Value> hChild = this.children.get(leftIndex+2).children.get(0);
                         // . . . .     up  . . . . . .  .
                         // . . . .  leftIndex+1 . .leftIndex+2 . .
                         //. . .  . . . left . . . . . right
+
+                        try {
+                            Node<Key, Value> hChild = this.children.get(leftIndex + 2).children.get(0);
+                            this.children.get(leftIndex + 1).children.add(hChild);
+                            hChild.parent = this.children.get(leftIndex + 1);
+                            this.children.get(leftIndex + 2).children.remove(0);
+                        }
+                        catch (Exception e){
+                            //nothing?
+                        }
+
                         this.children.get(leftIndex+1).elements.add(up);
-                        this.children.get(leftIndex+1).children.add(hChild);
-                        hChild.parent = this.children.get(leftIndex+1);
                         //left node has grown
                         this.elements.set(leftIndex+1, right);
                         //p is set
                         this.children.get(leftIndex+2).elements.remove(0);
-                        this.children.get(leftIndex+2).children.remove(0);
                         //right node is set
                         // now recall insertElement Node on what ?
                         this.children.get(leftIndex+1).deleteElement(k);

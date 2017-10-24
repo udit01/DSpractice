@@ -20,6 +20,7 @@ public class Main {
                         break;
                     case "delete":
                         tree.delete(s.next());
+                        System.out.println(tree);
                         break;
                     case "print":
                         System.out.println(tree);
