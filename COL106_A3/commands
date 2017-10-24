@@ -130,3 +130,18 @@ insert 3 3
 
 delete 1
 delete 2
+
+
+4
+insert 0 2
+insert 2 1
+insert 2 0
+insert 0 2
+insert 0 1
+
+insert 1 0
+
+insert 0 1
+insert 0 1
+insert 1 0
+

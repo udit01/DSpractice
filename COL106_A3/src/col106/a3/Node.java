@@ -139,8 +139,7 @@ public class Node <Key extends Comparable<Key>, Value>{
                     s.append(", ");
             }
 //            remove the last extra comma and space
-            s.delete(s.length() - 2 ,s.length()-1);//?? will this work ?
-
+            s.delete(s.length() - 2 ,s.length());//?? will this work ?
         }
         else {
             for (int i=0; i< this.children.size();i++){
@@ -153,6 +152,7 @@ public class Node <Key extends Comparable<Key>, Value>{
                     s.append(", ");
                 }
             }
+//            s.append("]");
         }
         s.append("]");
 
@@ -211,114 +211,114 @@ public class Node <Key extends Comparable<Key>, Value>{
             }
 
             //try redistribute
-            if (p.children.get(i).children.size()!=0) {//not a leaf to rebalance
-                if (i > 0) {
-
-                    if (p.children.get(i - 1).elements.size() < B - 1) {
-                        //do left shift yo!
-                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
-                        Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
-                        Node<Key, Value> hChild = p.children.get(i).children.get(0);
-                        // . . . .  up  . . .
-                        // . . . .  i-1  i . .
-                        //. . .  . left right
-                        p.children.get(i - 1).elements.add(up);
-                        p.children.get(i - 1).children.add(hChild);
-                        hChild.parent = p.children.get(i - 1);
-                        //left node has grown
-                        p.elements.set(i - 1, right);
-//                    p is set
-                        p.children.get(i).elements.remove(0);
-                        p.children.get(i).children.remove(0);
-                        //right node is set
-                        // now recall insertElement Node on what ?
-                        this.insertElementNode(key, val);
-                        //is it okay ?
-                        return;
-                    }
-                }
-                if (i < p.children.size() - 1) {
-                    if (p.children.get(i + 1).elements.size() < B - 1) {
-                        // doing right shift
-                        Node<Key, Value> leftN = p.children.get(i);
-                        Node<Key, Value> rightN = p.children.get(i + 1);
-
-                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
-                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
-                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
-                        // . . . .  up  . . .
-                        // . . . .  i   i+1 . .
-                        //. . .  . left right
-
-                        rightN.elements.add(0, up);
-                        rightN.children.add(0, hChild);
-                        hChild.parent = rightN;
-                        //right node has grown
-                        p.elements.set(i, left);
-                        //p is set
-                        leftN.elements.remove(leftN.elements.size() - 1);
-                        leftN.children.remove(leftN.children.size() - 1);
-                        //left node ie this is also set
-                        //call insert on leftN ie this
-                        this.insertElementNode(key, val);
-                        return;
-                    }
-                }
-            }
-            else{// a leaf to rebalance
-                if (i > 0) {//left shift
-
-                    if (p.children.get(i - 1).elements.size() < B - 1) {
-                        //do left shift yo!
-                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
-                        Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
+//            if (p.children.get(i).children.size()!=0) {//not a leaf to rebalance
+//                if (i > 0) {
+//
+//                    if (p.children.get(i - 1).elements.size() < B - 1) {
+//                        //do left shift yo!
+//                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
+//                        Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
 //                        Node<Key, Value> hChild = p.children.get(i).children.get(0);
-                        // . . . .  up  . . .
-                        // . . . .  i-1  i . .
-                        //. . .  . left right
-                        p.children.get(i - 1).elements.add(up);
+//                        // . . . .  up  . . .
+//                        // . . . .  i-1  i . .
+//                        //. . .  . left right
+//                        p.children.get(i - 1).elements.add(up);
 //                        p.children.get(i - 1).children.add(hChild);
 //                        hChild.parent = p.children.get(i - 1);
-                        //left node has grown
-                        p.elements.set(i - 1, right);
-//                    p is set
-                        p.children.get(i).elements.remove(0);
+//                        //left node has grown
+//                        p.elements.set(i - 1, right);
+////                    p is set
+//                        p.children.get(i).elements.remove(0);
 //                        p.children.get(i).children.remove(0);
-                        //right node is set
-                        // now recall insertElement Node on what ?
-                        this.insertElementNode(key, val);
-                        //is it okay ?
-                        return;
-                    }
-                }
-                if (i < p.children.size() - 1) {//right shift
-                    if (p.children.get(i + 1).elements.size() < B - 1) {
-                        // doing right shift
-                        Node<Key, Value> leftN = p.children.get(i);
-                        Node<Key, Value> rightN = p.children.get(i + 1);
-
-                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
-                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
+//                        //right node is set
+//                        // now recall insertElement Node on what ?
+//                        this.insertElementNode(key, val);
+//                        //is it okay ?
+//                        return;
+//                    }
+//                }
+//                if (i < p.children.size() - 1) {
+//                    if (p.children.get(i + 1).elements.size() < B - 1) {
+//                        // doing right shift
+//                        Node<Key, Value> leftN = p.children.get(i);
+//                        Node<Key, Value> rightN = p.children.get(i + 1);
+//
+//                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
+//                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
 //                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
-                        // . . . .  up  . . .
-                        // . . . .  i   i+1 . .
-                        //. . .  . left right
-
-                        rightN.elements.add(0, up);
+//                        // . . . .  up  . . .
+//                        // . . . .  i   i+1 . .
+//                        //. . .  . left right
+//
+//                        rightN.elements.add(0, up);
 //                        rightN.children.add(0, hChild);
 //                        hChild.parent = rightN;
-                        //right node has grown
-                        p.elements.set(i, left);
-                        //p is set
-                        leftN.elements.remove(leftN.elements.size() - 1);
+//                        //right node has grown
+//                        p.elements.set(i, left);
+//                        //p is set
+//                        leftN.elements.remove(leftN.elements.size() - 1);
 //                        leftN.children.remove(leftN.children.size() - 1);
-                        //left node ie this is also set
-                        //call insert on leftN ie this
-                        this.insertElementNode(key, val);
-                        return;
-                    }
-                }
-            }
+//                        //left node ie this is also set
+//                        //call insert on leftN ie this
+//                        this.insertElementNode(key, val);
+//                        return;
+//                    }
+//                }
+//            }
+//            else{// a leaf to rebalance
+//                if (i > 0) {//left shift
+//
+//                    if (p.children.get(i - 1).elements.size() < B - 1) {
+//                        //do left shift yo!
+//                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i - 1).getKey(), p.elements.get(i - 1).getValue());
+//                        Pair<Key, Value> right = new Pair<Key, Value>(p.children.get(i).elements.get(0).getKey(), p.children.get(i).elements.get(0).getValue());
+////                        Node<Key, Value> hChild = p.children.get(i).children.get(0);
+//                        // . . . .  up  . . .
+//                        // . . . .  i-1  i . .
+//                        //. . .  . left right
+//                        p.children.get(i - 1).elements.add(up);
+////                        p.children.get(i - 1).children.add(hChild);
+////                        hChild.parent = p.children.get(i - 1);
+//                        //left node has grown
+//                        p.elements.set(i - 1, right);
+////                    p is set
+//                        p.children.get(i).elements.remove(0);
+////                        p.children.get(i).children.remove(0);
+//                        //right node is set
+//                        // now recall insertElement Node on what ?
+//                        this.insertElementNode(key, val);
+//                        //is it okay ?
+//                        return;
+//                    }
+//                }
+//                if (i < p.children.size() - 1) {//right shift
+//                    if (p.children.get(i + 1).elements.size() < B - 1) {
+//                        // doing right shift
+//                        Node<Key, Value> leftN = p.children.get(i);
+//                        Node<Key, Value> rightN = p.children.get(i + 1);
+//
+//                        Pair<Key, Value> up = new Pair<Key, Value>(p.elements.get(i).getKey(), p.elements.get(i).getValue());
+//                        Pair<Key, Value> left = new Pair<Key, Value>(leftN.elements.get(leftN.elements.size() - 1).getKey(), leftN.elements.get(leftN.elements.size() - 1).getValue());
+////                        Node<Key, Value> hChild = leftN.children.get(leftN.children.size() - 1);//hanging child
+//                        // . . . .  up  . . .
+//                        // . . . .  i   i+1 . .
+//                        //. . .  . left right
+//
+//                        rightN.elements.add(0, up);
+////                        rightN.children.add(0, hChild);
+////                        hChild.parent = rightN;
+//                        //right node has grown
+//                        p.elements.set(i, left);
+//                        //p is set
+//                        leftN.elements.remove(leftN.elements.size() - 1);
+////                        leftN.children.remove(leftN.children.size() - 1);
+//                        //left node ie this is also set
+//                        //call insert on leftN ie this
+//                        this.insertElementNode(key, val);
+//                        return;
+//                    }
+//                }
+//            }
 
             //do split as redistribution didn't work
             int median = (this.elements.size()) / 2;
