@@ -6,8 +6,9 @@ public class Anagram {
     public static int P=19961;//better if we find a prime number closer to the size of vocabulary
     public static int minLength=3;//keep it > 0
     public static int maxLength=12;//
-    public static int debug=1;
-    public static Node[][] a = new Node[maxLength-minLength+1][P];
+    public static int debug=0;
+    public static int totalCount=0;
+    public static Node[][] a = new Node[maxLength-minLength+1][P+1];
     //---------------------------------------------------------------------------------20th
     public static int[] Primes = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,
             131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257, 263,269,271};
@@ -38,7 +39,6 @@ public class Anagram {
             scannerInput = new Scanner(fileInput);
             storeVocab(scannerVocab);
             vocabProcessedTime = System.currentTimeMillis()-startTime;
-            System.out.println("Vocabulary processed in: "+vocabProcessedTime+"ms");
             sizeInput = scannerInput.nextInt();
             for (int i=0;i<sizeInput;i++){
                 st = scannerInput.next();
@@ -61,7 +61,9 @@ public class Anagram {
 
             }
             inputProcessedTime = System.currentTimeMillis()-startTime;
+            System.out.println("Vocabulary processed in: "+vocabProcessedTime+"ms");
             System.out.println("Input processed till: "+inputProcessedTime+"ms");
+            System.out.println("Total anagrams printed out(don't include lines containing -1): "+totalCount);
 
         }catch (Exception e) {
 
@@ -76,10 +78,11 @@ public class Anagram {
     public static void  merge3AndPrint(ArrayList<String> a1,ArrayList<String> a2,ArrayList<String> a3){
         int i=0,j=0,k=0;//assuming a3 is largest
         ArrayList<String> merged = new ArrayList<String>();
-        System.out.println("A1 size in merge = " + a1.size() );
-        System.out.println("A2 size in merge = " + a2.size() );
-        System.out.println("A3 size in merge = " + a3.size() );
-        if (debug == 1){
+
+        if (debug == 1){//debuging the 2nd list ie, find2grams
+            System.out.println("A1 size in merge = " + a1.size() );
+            System.out.println("A2 size in merge = " + a2.size() );
+            System.out.println("A3 size in merge = " + a3.size() );
             for (int count=0;count<a2.size();count++){
                 System.out.println(a2.get(count));
             }
@@ -117,6 +120,7 @@ public class Anagram {
             //print a3 and go out
             for (int a=0 ; a<a3.size() ; a++){
                 System.out.println(a3.get(a));
+                totalCount++;
             }
             return;
         }
@@ -124,6 +128,7 @@ public class Anagram {
             //print merged and go out
             for (int a=0 ; a<merged.size() ; a++){
                 System.out.println(merged.get(a));
+                totalCount++;
             }
             return;
         }
@@ -133,6 +138,7 @@ public class Anagram {
 //                merged.addAll(j,a2);
                     for (k = j; k < a3.size(); k++) {
                         System.out.println(a3.get(k));
+                        totalCount++;
                     }
                     break;
                 }
@@ -140,6 +146,7 @@ public class Anagram {
 //                merged.addAll(i,a2);
                     for (k = i; k < merged.size(); k++) {
                         System.out.println(merged.get(k));
+                        totalCount++;
                     }
                     break;
                 }
@@ -147,10 +154,13 @@ public class Anagram {
 //                merged.add(merged.get(i));
                     System.out.println(merged.get(i));
                     i++;
+                    totalCount++;
+
                 } else {// a3's current element < merged's current element
 //                merged.add(a2.get(j));
                     System.out.println(a3.get(j));
                     j++;
+                    totalCount++;
                 }
             }
         }

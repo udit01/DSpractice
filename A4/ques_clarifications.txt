@@ -1,2 +1,7 @@
 
 What if a word appears 2wice in vocabulary .. do we have to preserve it's multipicity?
+::currently yes I am doing it
+
+i know that string in between are length 3 to 12 but anagrams should also be constraind in this setting?
+or they can be of 1 to 12 lenght --ie the splits can be of length 1 + 11 of a 12 letter string .. is this allowed?
+:: i think they should be the same
