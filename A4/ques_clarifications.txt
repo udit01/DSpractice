@@ -1,0 +1,2 @@
+
+What if a word appears 2wice in vocabulary .. do we have to preserve it's multipicity?

@@ -154,10 +154,8 @@ public class Anagram {
         int idx1=0,idx2=0;
         Node n;
         String str;//= null;//new String ();
-        int flag;
         for (int i=0;i<sizeVocab;i++){
 //            System.out.println(i);
-            flag = 0;
             str = sc.next();
             if (checkString(str)==true){
                 idx1 = str.length() - minLength;
@@ -172,13 +170,11 @@ public class Anagram {
                         idx2%=Anagram.P;
                         n = a[idx1][++idx2];//could use 2 skip method or exponential skip method to prevent
                         //accumulation and clustering
-                        flag = 1;
                         if (n==null){
                             break;
                         }
                     }
                 }
-                idx2 = flag==1?idx2-1:idx2;
 //                idx2--;
                 n = a[idx1][idx2];
 //                idx2 = idx2>1?idx2-1:idx2;
@@ -187,12 +183,12 @@ public class Anagram {
                 if (n==null){
                     a[idx1][idx2] = new Node();
                     a[idx1][idx2].add(str);
-                    a[idx1][idx2].printNode();
+//                    a[idx1][idx2].printNode();
                 }
                 else{//checkanagram is true and we are set!
 //                    try {
                     a[idx1][idx2].add(str);//this addition will preserve the lex order
-                    a[idx1][idx2].printNode();
+//                    a[idx1][idx2].printNode();
 
 //                    }
 //                    catch (Exception e){
@@ -222,21 +218,18 @@ public class Anagram {
         idx1 = str.length() - minLength;
         idx2 = getHash(str);
         n = a[idx1][idx2];
-        int flag=0;
         if (n!=null){
             while ((checkAnagram(str, n.list.get(0)) == false)) {
                 //till it's not an anagram go to next
                 idx2%=Anagram.P;
                 n = a[idx1][++idx2];//could use 2 skip method or exponential skip method to prevent
                 //accumulation and clustering
-                flag = 1;
                 if (n==null){
                     break;
                 }
             }
 //            idx2--;
         }
-        idx2 = flag==1?idx2-1:idx2;
 
         n = a[idx1][idx2];
 //

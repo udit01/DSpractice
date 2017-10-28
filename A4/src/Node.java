@@ -12,11 +12,11 @@ public class Node {
         list.sort(String::compareTo);
     }
     public void printNode(){
-        if (list.size()>1) {//custom adjustment
+//        if (list.size()>1) {//custom adjustment
             System.out.println("Printing node: " + this);
             for (int i = 0; i < list.size(); i++) {
                 System.out.println(list.get(i));
             }
-        }
+//        }
     }
 }
