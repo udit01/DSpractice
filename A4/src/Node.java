@@ -11,4 +11,12 @@ public class Node {
         //can optimize here for better insertion O(n) if already sorted
         list.sort(String::compareTo);
     }
+    public void printNode(){
+        if (list.size()>1) {//custom adjustment
+            System.out.println("Printing node: " + this);
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i));
+            }
+        }
+    }
 }

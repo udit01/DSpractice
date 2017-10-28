@@ -3,9 +3,9 @@ import java.util.*;
 
 public class Anagram {
     public static int sizeVocab ;
-    public static int P=19961;
-    public static int minLength=1;
-    public static int maxLength=12;
+    public static int P=19961;//better if we find a prime number closer to the size of vocabulary
+    public static int minLength=3;//keep it > 0
+    public static int maxLength=12;//
     public static Node[][] a = new Node[maxLength-minLength+1][P];
     //---------------------------------------------------------------------------------20th
     public static int[] Primes = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,
@@ -187,10 +187,13 @@ public class Anagram {
                 if (n==null){
                     a[idx1][idx2] = new Node();
                     a[idx1][idx2].add(str);
+                    a[idx1][idx2].printNode();
                 }
                 else{//checkanagram is true and we are set!
 //                    try {
-                        a[idx1][idx2].add(str);//this addition will preserve the lex order
+                    a[idx1][idx2].add(str);//this addition will preserve the lex order
+                    a[idx1][idx2].printNode();
+
 //                    }
 //                    catch (Exception e){
 //                        System.out.println(str);
