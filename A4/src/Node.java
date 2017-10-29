@@ -7,9 +7,13 @@ public class Node {
     }
     public void add(String str){//this method will add and preserve the lex order
         //adds this string in lex order in this node
+//        for (int j=0 ; j<list.size();j++){
+//            if ()
+//        }
         list.add(str);
+
         //can optimize here for better insertion O(n) if already sorted
-        list.sort(String::compareTo);
+//        list.sort(String::compareTo);
     }
     public void printNode(){
 //        if (list.size()>1) {//custom adjustment

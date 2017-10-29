@@ -28,12 +28,13 @@ public class Anagram {
         long startTime;
         long vocabProcessedTime;
         long inputProcessedTime;
+        ArrayList<String> list;
         try {
             startTime = System.currentTimeMillis();
-            String vocabFilePath = args[0];
-            String inputFilePath = args[1];
-            fileVocab = new File(vocabFilePath);
-            fileInput = new File(inputFilePath);
+//            String vocabFilePath = args[0];
+//            String inputFilePath = args[1];
+            fileVocab = new File(args[0]);
+            fileInput = new File(args[1]);
 //            System.out.println(inputFilePath);
             scannerVocab = new Scanner(fileVocab);
             scannerInput = new Scanner(fileInput);
@@ -44,6 +45,7 @@ public class Anagram {
                 st = scannerInput.next();
                 if (checkString(st)==true){
 //                    System.out.println(st);
+
                     //a list will be returned
                     //does this put more strain on the heap and memory ?
                     charArr = st.toCharArray();
@@ -55,7 +57,13 @@ public class Anagram {
 //                    System.out.println(strSorted);
 //
 //                    find2grams(strSorted);
-                    merge3AndPrint(find1grams(strSorted),find2grams(strSorted),find3grams(strSorted));
+                    list = new ArrayList<String>();
+                    list.addAll(find1grams(strSorted));
+                    list.addAll(find2grams(strSorted));
+                    list.addAll(find3grams(strSorted));
+                    list.sort(String::compareTo);
+                    removeDuplicatesAndPrint(list);
+//                    merge3AndPrint(find1grams(strSorted),find2grams(strSorted),find3grams(strSorted));
                     //YOU CAN STORE THIS ANAGRAM IN MEMORY IF THIS SUB-WORD IS AGAIN ENCOUNTERED
                 }
                 System.out.println(-1);
@@ -76,24 +84,46 @@ public class Anagram {
 //        return;
     }
 
-    public static void printList(ArrayList a){
+//    public static void printList(ArrayList a){
+//
+//        for (int count=0;count<a.size();count++){
+//            System.out.println(a.get(count));
+//        }
+//        return;
+//    }
 
-        for (int count=0;count<a.size();count++){
-            System.out.println(a.get(count));
+    public static void removeDuplicatesAndPrint(ArrayList<String> a){//assuming duplicates are close in a sorted list
+//        ArrayList<String> b = new ArrayList<String>();
+        if (a==null){
+            return;
         }
-        return;
+        if (a.size()==0){
+            return;
+        }
+        System.out.println(a.get(0));
+//        b.add(a.get(0));
+        for (int i=1;i<a.size();i++){
+            if (a.get(i).equals(a.get(i-1))){
+                continue;
+            }
+            else {
+                System.out.println(a.get(i));
+            }
+        }
+//        return b;
     }
+
     public static void  merge3AndPrint(ArrayList<String> a1,ArrayList<String> a2,ArrayList<String> a3){
         int i=0,j=0,k=0;//assuming a3 is largest
         ArrayList<String> merged = new ArrayList<String>();
 
-        if (debug == 1){//debuging the 2nd list ie, find2grams
-            System.out.println("A1 size in merge = " + a1.size() );
-            System.out.println("A2 size in merge = " + a2.size() );
-            System.out.println("A3 size in merge = " + a3.size() );
-            printList(a2);
-            return;
-        }
+//        if (debug == 1){//debuging the 2nd list ie, find2grams
+//            System.out.println("A1 size in merge = " + a1.size() );
+//            System.out.println("A2 size in merge = " + a2.size() );
+//            System.out.println("A3 size in merge = " + a3.size() );
+//            printList(a2);
+//            return;
+//        }
         //can write a faster algorithm
         if ((a2==null)){
             merged = a1;//null or not
@@ -261,7 +291,7 @@ public class Anagram {
             return new ArrayList<String>();//or empty list ?
         }
         else{//checkanagram is true and we are set!
-            return a[idx1][idx2].list;//already sorted!
+            return a[idx1][idx2].list;
         }
     }
 
@@ -340,53 +370,9 @@ public class Anagram {
             list.addAll(crossProduct(a1,a2));//auto sorted? NOOO
 
         }
-        list.sort(String::compareTo);
-        return list;
-//        //if memory is exhausted then find combos in the function itself in temp variables then discard
-////        ArrayList<String>[] list=new ArrayList<String>()[4];//or an array?
-//        ArrayList<ArrayList<String>> list=new ArrayList<ArrayList<String>>(4);//or an array?
-//        //LIST WILL ALWAYS REMAIN SORTEED WILL BE THE LOOP INVARIENT
-//        //of length k such that ..
-//
-//        //will the below statement work?
-//        String [][][] l =new String[4][][];//will have comb of 3 and |S|-3
-////        3 dimensional array with first dimenstion as SPLITS LENGTH
-//        //second dimenstion as N the number of such splits
-//        // third dimension is 2 for each pair
-//        for (int k=0;k<4;k++){
-//            l[k] = findNcomb(str,k+3);//will have comb of 3 and |S|-3
-//            if (l[k]==null){
-//                continue;
-//            }
-//            ArrayList<String> a1;
-//            ArrayList<String> a2;
-//            for (int i=0;i<l[k].length;i++){
-//                a1 = find1grams(l[k][i][0]);//basically a pointer inside the node
-//                if (a1 == null){ continue; }
-//
-//                a2 = find1grams(l[k][i][1]);
-//                if (a2 == null){ continue; }
-//
-//                //somehow do ordered addition of cross products to do very fast sorting
-//                //add the cross prod.in the kth list which was already sorted
-//                //do addSpecial like MERGER SORT BY COPYING IN A NEW ARRAY
-//
-//                //or maybe every time copying the whole array is bad and we just sort at the end
-//
-//                //------------------------------------------------------------------------------
-//                //what about all a2 cross a1?
-//                list.get(k).addAll(crossProduct(a1,a2));//cross product will do the cross of lists
-////            basically the pointers inside nodes
-//                //1 more special sort here
-//                //basically add a sorted list to another sorted list;
-//            }
-//            list.get(k).sort(String::compareTo);
-//            //or a special add
-//        }
-//
-//        ArrayList<String> listAppended =  specialSort(list);//4 lists to merge very faassssttt
-//        //can make another function for sorting wich does like the top level of merge sort
-//        return listAppended;
+//        list.sort(String::compareTo);
+
+        return (list);
     }
 
     public static ArrayList<String> find3grams(String str){
@@ -455,8 +441,8 @@ public class Anagram {
             list.addAll(crossProduct(a1,a2));//auto sorted?
 
         }
-        list.sort(String::compareTo);
-        return list;
+//        list.sort(String::compareTo);
+        return (list);
 //        ArrayList<ArrayList<String>> list=new ArrayList<ArrayList<String>>(4);//or an array?
 //        //LIST WILL ALWAYS REMAIN SORTEED WILL BE THE LOOP INVARIENT
 //        //of length k such that ..
@@ -502,17 +488,17 @@ public class Anagram {
 //        return listAppended;
     }
 
-    public static void printBinary(int i){
-        ArrayList<Integer> a = new ArrayList<Integer>();
-        ArrayList<Integer> b = new ArrayList<Integer>();
-        while(i!=0){
-            a.add(i%2);
-        }
-        for (int j = 0 ;j<a.size();j++){
-            b.add(a.get(a.size()-1-j));
-        }
-        printList(b);
-    }
+    //    public static void printBinary(int i){
+//        ArrayList<Integer> a = new ArrayList<Integer>();
+//        ArrayList<Integer> b = new ArrayList<Integer>();
+//        while(i!=0){
+//            a.add(i%2);
+//        }
+//        for (int j = 0 ;j<a.size();j++){
+//            b.add(a.get(a.size()-1-j));
+//        }
+//        printList(b);
+//    }
 
     public static ArrayList<String> crossProduct(ArrayList<String> a1, ArrayList<String>a2){
         //find ways to optimize this

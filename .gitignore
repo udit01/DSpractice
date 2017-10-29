@@ -3,6 +3,7 @@
 .tags*
 
 all_out.txt
+outVocab.txt
 all_out.tar.xz
 uditOut.txt
 *.swp
