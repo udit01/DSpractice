@@ -12,7 +12,7 @@ public class Anagram {
     public static int totalCount=0;
     public static Node[][] a = new Node[maxLength-minLength+1][P+1];
 //    public static Node[][] a = new Node[maxLength-minLength+1][100000000];
-    public static int collisons;
+//    public static int collisons;
     public static OutputStream oStream;
 //    public static long hashTime=0;
 //    public static long t0;
@@ -43,7 +43,7 @@ public class Anagram {
         BufferedReader readerI;
 
         try {
-            collisons = 0;
+//            collisons = 0;
 //            startTime = System.currentTimeMillis();
 //            String vocabFilePath = args[0];
 //            String inputFilePath = args[1];
@@ -259,15 +259,14 @@ public class Anagram {
                     while ((checkAnagram(str, n.list.get(0)) == false)) {
                         //till it's not an anagram go to next
                         idx2%=Anagram.P;
-                        collisons++;
+//                        collisons++;
                         n = a[idx1][++idx2];//could use 2 skip method or exponential skip method to prevent
                         //accumulation and clustering
                         if (n==null){
-                            collisons--;
+//                            collisons--;
                             break;
                         }
                     }
-//                    collisons--;
                 }
 //                idx2--;
                 n = a[idx1][idx2];
@@ -370,7 +369,7 @@ public class Anagram {
                 count++;
             }
             //count has its true value
-            if ((count<minLength)||(count>maxLength)){
+            if ((count<minLength)||(count>maxLength)||(tl-count<minLength)||(tl-count>maxLength)){
                 continue;
             }
             //clear them
@@ -451,7 +450,7 @@ public class Anagram {
                 count++;
             }
             //count has it's true value
-            if ((count<minLength)||(count>maxLength)){
+            if ((count<minLength)||(count>maxLength)||(tl-count<minLength)||(tl-count>maxLength)){
                 continue;
             }
             //clear them
