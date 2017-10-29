@@ -1,3 +1,8 @@
 .idea/
 *.class
 .tags*
+
+all_out.txt
+all_out.tar.xz
+uditOut.txt
+*.swp
