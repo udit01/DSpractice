@@ -1,14 +1,19 @@
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 public class Anagram {
     public static int sizeVocab ;
-    public static int P=19961;//better if we find a prime number closer to the size of vocabulary
+//    public static int P;//better if we find a prime number closer to the size of vocabulary
+    public static int P=49943;//better if we find a prime number closer to the size of vocabulary
+//    public static int P=(19961/4)-1;//better if we find a prime number closer to the size of vocabulary
     public static int minLength=3;//keep it > 0
     public static int maxLength=12;//
     public static int debug=0;
     public static int totalCount=0;
     public static Node[][] a = new Node[maxLength-minLength+1][P+1];
+//    public static Node[][] a = new Node[maxLength-minLength+1][100000000];
+    public static int collisons;
+    public static OutputStream oStream;
     //---------------------------------------------------------------------------------20th
     public static int[] Primes = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,
             131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257, 263,269,271};
@@ -16,44 +21,52 @@ public class Anagram {
 
     public static void main (String args[]){
         //you need to implement this
-        Scanner scannerVocab;// = null;
-        Scanner scannerInput;// = null;
-        File fileVocab;// = null;
-        File fileInput;// = null;
+//        Scanner scannerVocab;// = null;
+//        Scanner scannerInput;// = null;
+//        File fileVocab;// = null;
+//        File fileInput;// = null;
         int sizeInput = 0;
         char[] charArr;
         String strSorted;
 //        ArrayList<String> s;
         String st;
         long startTime;
-        long vocabProcessedTime;
-        long inputProcessedTime;
+        long time1;
+        long time2;
+        oStream = new BufferedOutputStream(System.out);
         ArrayList<String> list;
+        BufferedReader readerV;
+        BufferedReader readerI;
+
         try {
+            collisons = 0;
             startTime = System.currentTimeMillis();
 //            String vocabFilePath = args[0];
 //            String inputFilePath = args[1];
-            fileVocab = new File(args[0]);
-            fileInput = new File(args[1]);
+//            fileVocab = new File(args[0]);
+//            fileInput = new File(args[1]);
 //            System.out.println(inputFilePath);
-            scannerVocab = new Scanner(fileVocab);
-            scannerInput = new Scanner(fileInput);
-            storeVocab(scannerVocab);
-            vocabProcessedTime = System.currentTimeMillis()-startTime;
-            sizeInput = scannerInput.nextInt();
+            readerV = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])) );
+            readerI = new BufferedReader(new InputStreamReader(new FileInputStream(args[1])));
+            storeVocab(readerV);
+            time1 = System.currentTimeMillis();
+
+            sizeInput = Integer.parseInt(readerI.readLine());
             for (int i=0;i<sizeInput;i++){
-                st = scannerInput.next();
+                st = readerI.readLine();
                 if (checkString(st)==true){
 //                    System.out.println(st);
 
                     //a list will be returned
                     //does this put more strain on the heap and memory ?
                     charArr = st.toCharArray();
+
                     //----------------------------------------------------------------find another sorting method-------------DOUBT-----
                     Arrays.sort(charArr);//will it use the appropriate comparator ?
                     StringBuilder sb = new StringBuilder();
                     sb.append(charArr);
                     strSorted = sb.toString();
+//                    strSorted = charArr.toString();
 //                    System.out.println(strSorted);
 //
 //                    find2grams(strSorted);
@@ -66,13 +79,19 @@ public class Anagram {
 //                    merge3AndPrint(find1grams(strSorted),find2grams(strSorted),find3grams(strSorted));
                     //YOU CAN STORE THIS ANAGRAM IN MEMORY IF THIS SUB-WORD IS AGAIN ENCOUNTERED
                 }
-                System.out.println(-1);
+                oStream.write(("-1\n").getBytes());
+//                System.out.println(-1);
 
             }
-            inputProcessedTime = System.currentTimeMillis()-startTime;
-            System.out.println("Vocabulary processed in: "+vocabProcessedTime+"ms");
-            System.out.println("Input processed till: "+inputProcessedTime+"ms");
-            System.out.println("Total anagrams printed out(don't include lines containing -1): "+totalCount);
+            time2 = System.currentTimeMillis();
+            oStream.write(("Vocabulary processed in: "+(time1-startTime)+"ms\n").getBytes());
+            oStream.write(("Input processed in: "+(time2-time1)+"ms\n").getBytes());
+            oStream.write((collisons+" is the number of collisons\n").getBytes());
+            oStream.flush();
+            oStream.close();
+//            System.out.println("Vocabulary processed in: "+vocabProcessedTime+"ms");
+//            System.out.println("Input processed till: "+inputProcessedTime+"ms");
+//            System.out.println("Total anagrams printed out(don't include lines containing -1): "+totalCount);
 
         }catch (Exception e) {
 
@@ -100,116 +119,132 @@ public class Anagram {
         if (a.size()==0){
             return;
         }
-        System.out.println(a.get(0));
-//        b.add(a.get(0));
-        for (int i=1;i<a.size();i++){
-            if (a.get(i).equals(a.get(i-1))){
-                continue;
+        try {
+            oStream.write((a.get(0)+"\n").getBytes());
+
+    //        System.out.println(a.get(0));
+    //        b.add(a.get(0));
+            for (int i=1;i<a.size();i++){
+                if (a.get(i).equals(a.get(i-1))){
+                    continue;
+                }
+                else {
+    //                System.out.println(a.get(i));
+                    oStream.write((a.get(i)+"\n").getBytes());
+                }
             }
-            else {
-                System.out.println(a.get(i));
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 //        return b;
     }
 
-    public static void  merge3AndPrint(ArrayList<String> a1,ArrayList<String> a2,ArrayList<String> a3){
-        int i=0,j=0,k=0;//assuming a3 is largest
-        ArrayList<String> merged = new ArrayList<String>();
-
-//        if (debug == 1){//debuging the 2nd list ie, find2grams
-//            System.out.println("A1 size in merge = " + a1.size() );
-//            System.out.println("A2 size in merge = " + a2.size() );
-//            System.out.println("A3 size in merge = " + a3.size() );
-//            printList(a2);
+//    public static void  merge3AndPrint(ArrayList<String> a1,ArrayList<String> a2,ArrayList<String> a3){
+//        int i=0,j=0,k=0;//assuming a3 is largest
+//        ArrayList<String> merged = new ArrayList<String>();
+//
+////        if (debug == 1){//debuging the 2nd list ie, find2grams
+////            System.out.println("A1 size in merge = " + a1.size() );
+////            System.out.println("A2 size in merge = " + a2.size() );
+////            System.out.println("A3 size in merge = " + a3.size() );
+////            printList(a2);
+////            return;
+////        }
+//        //can write a faster algorithm
+//        if ((a2==null)){
+//            merged = a1;//null or not
+//        }
+//        else if (a1 ==null){
+//            merged = a2;//null or not
+//        }
+//        else {
+//            while (true) {
+//                if (i >= a1.size() ) {//a1 is expired
+//                    merged.addAll(j, a2);
+//                    break;
+//                }
+//                if (j >= a2.size() ) {//a2 is expired
+//                    merged.addAll(i, a2);
+//                    break;
+//                }
+//                if (a1.get(i).compareTo(a2.get(j)) <= 0) {
+//                    merged.add(a1.get(i));
+//                    i++;
+//                } else {
+//                    merged.add(a2.get(j));
+//                    j++;
+//                }
+//            }
+//        }
+//
+//        i=0;j=0;
+//        if (merged==null){
+//            //print a3 and go out
+//            for (int a=0 ; a<a3.size() ; a++){
+//                System.out.println(a3.get(a));
+//                totalCount++;
+//            }
 //            return;
 //        }
-        //can write a faster algorithm
-        if ((a2==null)){
-            merged = a1;//null or not
-        }
-        else if (a1 ==null){
-            merged = a2;//null or not
-        }
-        else {
-            while (true) {
-                if (i >= a1.size() ) {//a1 is expired
-                    merged.addAll(j, a2);
-                    break;
-                }
-                if (j >= a2.size() ) {//a2 is expired
-                    merged.addAll(i, a2);
-                    break;
-                }
-                if (a1.get(i).compareTo(a2.get(j)) <= 0) {
-                    merged.add(a1.get(i));
-                    i++;
-                } else {
-                    merged.add(a2.get(j));
-                    j++;
-                }
-            }
-        }
+//        else if (a3 == null){
+//            //print merged and go out
+//            for (int a=0 ; a<merged.size() ; a++){
+//                System.out.println(merged.get(a));
+//                totalCount++;
+//            }
+//            return;
+//        }
+//        else {
+//            while (true) {
+//                if (i >= merged.size() ) {//merged is expired
+////                merged.addAll(j,a2);
+//                    for (k = j; k < a3.size(); k++) {
+//                        System.out.println(a3.get(k));
+//                        totalCount++;
+//                    }
+//                    break;
+//                }
+//                if (j >= a3.size() ) {//a3 is expired
+////                merged.addAll(i,a2);
+//                    for (k = i; k < merged.size(); k++) {
+//                        System.out.println(merged.get(k));
+//                        totalCount++;
+//                    }
+//                    break;
+//                }
+//                if (merged.get(i).compareTo(a3.get(j)) <= 0) {
+////                merged.add(merged.get(i));
+//                    System.out.println(merged.get(i));
+//                    i++;
+//                    totalCount++;
+//
+//                } else {// a3's current element < merged's current element
+////                merged.add(a2.get(j));
+//                    System.out.println(a3.get(j));
+//                    j++;
+//                    totalCount++;
+//                }
+//            }
+//        }
+//    }
 
-        i=0;j=0;
-        if (merged==null){
-            //print a3 and go out
-            for (int a=0 ; a<a3.size() ; a++){
-                System.out.println(a3.get(a));
-                totalCount++;
-            }
-            return;
-        }
-        else if (a3 == null){
-            //print merged and go out
-            for (int a=0 ; a<merged.size() ; a++){
-                System.out.println(merged.get(a));
-                totalCount++;
-            }
-            return;
-        }
-        else {
-            while (true) {
-                if (i >= merged.size() ) {//merged is expired
-//                merged.addAll(j,a2);
-                    for (k = j; k < a3.size(); k++) {
-                        System.out.println(a3.get(k));
-                        totalCount++;
-                    }
-                    break;
-                }
-                if (j >= a3.size() ) {//a3 is expired
-//                merged.addAll(i,a2);
-                    for (k = i; k < merged.size(); k++) {
-                        System.out.println(merged.get(k));
-                        totalCount++;
-                    }
-                    break;
-                }
-                if (merged.get(i).compareTo(a3.get(j)) <= 0) {
-//                merged.add(merged.get(i));
-                    System.out.println(merged.get(i));
-                    i++;
-                    totalCount++;
+    public static void storeVocab(BufferedReader readerV) throws IOException{//my HashT Implementation
 
-                } else {// a3's current element < merged's current element
-//                merged.add(a2.get(j));
-                    System.out.println(a3.get(j));
-                    j++;
-                    totalCount++;
-                }
-            }
-        }
-    }
-
-    public static void storeVocab(Scanner sc){//my HashT Implementation
-        sizeVocab = sc.nextInt();
+        sizeVocab = Integer.parseInt(readerV.readLine());
+//        generatePrimes.getPrime(sizeVocab);
+//        try {
+//            oStream.write(("P is: "+P).getBytes());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         int idx1=0,idx2=0;
+//        BufferedReader readerV = new BufferedReader();
         Node n;
         String str;//= null;//new String ();
         for (int i=0;i<sizeVocab;i++){
 //            System.out.println(i);
-            str = sc.next();
+            str = readerV.readLine();
+
             if (checkString(str)==true){
                 idx1 = str.length() - minLength;
                 idx2 = getHash(str);
@@ -221,12 +256,15 @@ public class Anagram {
                     while ((checkAnagram(str, n.list.get(0)) == false)) {
                         //till it's not an anagram go to next
                         idx2%=Anagram.P;
+                        collisons++;
                         n = a[idx1][++idx2];//could use 2 skip method or exponential skip method to prevent
                         //accumulation and clustering
                         if (n==null){
+                            collisons--;
                             break;
                         }
                     }
+//                    collisons--;
                 }
 //                idx2--;
                 n = a[idx1][idx2];
@@ -622,3 +660,60 @@ public class Anagram {
 ////        System.out.println(total);
 //    }
 }
+
+class Node {
+    public ArrayList<String> list = null;
+    public Node(){
+        list = new ArrayList<String>();
+    }
+    public void add(String str){//this method will add and preserve the lex order
+        //adds this string in lex order in this node
+//        for (int j=0 ; j<list.size();j++){
+//            if ()
+//        }
+        list.add(str);
+
+        //can optimize here for better insertion O(n) if already sorted
+//        list.sort(String::compareTo);
+    }
+    public void printNode(){
+//        if (list.size()>1) {//custom adjustment
+        System.out.println("Printing node: " + this);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+//        }
+    }
+}
+
+//class generatePrimes {
+//    public static void getPrime(int N){
+//        int d=2;
+//        int flag=0;
+////        int maxPrime =2;
+////        N = 25000;
+////        Scanner sc = new Scanner(System.in);
+////        N = sc.nextInt();
+//
+////        System.out.println("The "+1+"st prime is = "+ 2);
+////        k++;
+//        int i;
+//        for (i=N ; i>2;i--){
+//            flag =1;
+//            for (d = 2; d<=(int)Math.sqrt(i) ;d++){
+////                System.out.println();
+//                if (i%d==0){
+//                    flag = 0 ;
+//                    break;
+//                }
+//            }
+//            if (flag==1){
+//                break;
+////                if (maxPrime<i){
+////                    maxPrime = i;
+////                }
+//            }
+//        }
+//        Anagram.P = i;
+//    }
+//}

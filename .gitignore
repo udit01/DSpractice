@@ -1,9 +1,13 @@
 .idea/
 *.class
 .tags*
+ignore/
+out.txt
 
 all_out.txt
 outVocab.txt
 all_out.tar.xz
 uditOut.txt
 *.swp
+before
+after
