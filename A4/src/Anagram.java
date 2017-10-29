@@ -14,6 +14,10 @@ public class Anagram {
 //    public static Node[][] a = new Node[maxLength-minLength+1][100000000];
     public static int collisons;
     public static OutputStream oStream;
+//    public static long hashTime=0;
+//    public static long t0;
+//    public static long iStart;
+//    public static long iEnd;
     //---------------------------------------------------------------------------------20th
     public static int[] Primes = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,
             131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257, 263,269,271};
@@ -30,9 +34,9 @@ public class Anagram {
         String strSorted;
 //        ArrayList<String> s;
         String st;
-        long startTime;
-        long time1;
-        long time2;
+//        long startTime;
+//        long time1;
+//        long time2;
         oStream = new BufferedOutputStream(System.out);
         ArrayList<String> list;
         BufferedReader readerV;
@@ -40,7 +44,7 @@ public class Anagram {
 
         try {
             collisons = 0;
-            startTime = System.currentTimeMillis();
+//            startTime = System.currentTimeMillis();
 //            String vocabFilePath = args[0];
 //            String inputFilePath = args[1];
 //            fileVocab = new File(args[0]);
@@ -49,10 +53,11 @@ public class Anagram {
             readerV = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])) );
             readerI = new BufferedReader(new InputStreamReader(new FileInputStream(args[1])));
             storeVocab(readerV);
-            time1 = System.currentTimeMillis();
+//            time1 = System.currentTimeMillis();
 
             sizeInput = Integer.parseInt(readerI.readLine());
             for (int i=0;i<sizeInput;i++){
+//                iStart = System.nanoTime();
                 st = readerI.readLine();
                 if (checkString(st)==true){
 //                    System.out.println(st);
@@ -63,10 +68,10 @@ public class Anagram {
 
                     //----------------------------------------------------------------find another sorting method-------------DOUBT-----
                     Arrays.sort(charArr);//will it use the appropriate comparator ?
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(charArr);
-                    strSorted = sb.toString();
-//                    strSorted = charArr.toString();
+//                    StringBuilder sb = new StringBuilder();
+//                    sb.append(charArr);
+//                    strSorted = sb.toString();
+                    strSorted = new String(charArr);
 //                    System.out.println(strSorted);
 //
 //                    find2grams(strSorted);
@@ -76,28 +81,25 @@ public class Anagram {
                     list.addAll(find3grams(strSorted));
                     list.sort(String::compareTo);
                     removeDuplicatesAndPrint(list);
-//                    merge3AndPrint(find1grams(strSorted),find2grams(strSorted),find3grams(strSorted));
+
                     //YOU CAN STORE THIS ANAGRAM IN MEMORY IF THIS SUB-WORD IS AGAIN ENCOUNTERED
                 }
-                oStream.write(("-1\n").getBytes());
-//                System.out.println(-1);
 
+//                iEnd = System.nanoTime();
+//                oStream.write(((iEnd-iStart)/1000000.0+" ms on "+i+"th word\n").getBytes());
             }
-            time2 = System.currentTimeMillis();
-            oStream.write(("Vocabulary processed in: "+(time1-startTime)+"ms\n").getBytes());
-            oStream.write(("Input processed in: "+(time2-time1)+"ms\n").getBytes());
-            oStream.write((collisons+" is the number of collisons\n").getBytes());
             oStream.flush();
+
+//            time2 = System.currentTimeMillis();
+//            oStream.write(("Vocabulary processed in: "+(time1-startTime)+"ms\n").getBytes());
+//            oStream.write(("Input processed in: "+(time2-time1)+"ms\n").getBytes());
+//            oStream.write(("Hashing took time "+(hashTime/1000000)+"ms\n").getBytes());
+//            oStream.write((collisons+" is the number of collisons\n").getBytes());
             oStream.close();
-//            System.out.println("Vocabulary processed in: "+vocabProcessedTime+"ms");
-//            System.out.println("Input processed till: "+inputProcessedTime+"ms");
-//            System.out.println("Total anagrams printed out(don't include lines containing -1): "+totalCount);
 
         }catch (Exception e) {
 
-//            System.out.println(vocabProcessedTime);
-//            System.out.println(inputProcessedTime);
-            e.printStackTrace();
+//            e.printStackTrace();
 //            System.out.println("Incorrect file path or file format.");
         }
 //        return;
@@ -133,6 +135,7 @@ public class Anagram {
                     oStream.write((a.get(i)+"\n").getBytes());
                 }
             }
+            oStream.write(("-1\n").getBytes());//important
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -571,12 +574,16 @@ public class Anagram {
     }
 
     public static int getHash(String str){
+//        t0 = System.nanoTime();
         //thinking about prime product modulo P
         int res = 1;
         //OR I COULD ALSO ADD 71^CODE OF CHAR AND SUM THEM UP!
         for (int i=0;i<str.length();i++){
             res = ((res)*Anagram.Primes[getCode(str.charAt(i))])%P;
         }
+
+//        hashTime += System.nanoTime()-t0;
+
         return res;
     }
 
@@ -586,7 +593,7 @@ public class Anagram {
         int [] counter = new int[]{0,0,0,0,0,0,0,0,0,
                                    0,0,0,0,0,0,0,0,0,
                                    0,0,0,0,0,0,0,0,0,
-                                   0,0,0,0,0,0,0,0,0,0} ;  //'a-z'+'0-9'+'''
+                                   0,0,0,0,0,0,0,0,0,0,0} ;  //'a-z'+'0-9'+'''+some other maybe?
         //initialize all to zero
         if (a.length()!=b.length()){
             return false;
@@ -617,8 +624,8 @@ public class Anagram {
 //            return ('9'-'0')+('z'-'a')+2;//should be 36
             return 36;//should be 36
         }
-        else {
-            return -1;//error code //shouldnt be this
+        else {//errcode
+            return 37;//error code //shouldnt be this
         }
     }
 

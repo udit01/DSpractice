@@ -1,0 +1,14 @@
+117.058485 ms on 0th word
+21.042552 ms on 1th word
+16.013752 ms on 2th word
+32.791999 ms on 3th word
+30.201417 ms on 4th word
+20.52421 ms on 5th word
+24.739886 ms on 6th word
+26.474705 ms on 7th word
+51.560386 ms on 8th word
+126.323599 ms on 9th word
+Vocabulary processed in: 42ms
+Input processed in: 470ms
+Hashing took time 38ms
+72 is the number of collisons
