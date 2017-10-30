@@ -5,13 +5,10 @@ public class Anagram {
     public static int sizeVocab ;
 //    public static int P;//better if we find a prime number closer to the size of vocabulary
     public static int P=49943;//better if we find a prime number closer to the size of vocabulary
-//    public static int P=(19961/4)-1;//better if we find a prime number closer to the size of vocabulary
     public static int minLength=3;//keep it > 0
     public static int maxLength=12;//
-    public static int debug=0;
     public static int totalCount=0;
     public static Node[][] a = new Node[maxLength-minLength+1][P+1];
-//    public static Node[][] a = new Node[maxLength-minLength+1][100000000];
 //    public static int collisons;
     public static OutputStream oStream;
 //    public static long hashTime=0;
@@ -415,7 +412,7 @@ public class Anagram {
         return (list);
     }
 
-    public static ArrayList<String> find3grams(String str){
+    public static ArrayList<String> find3grams(String str) {
         //assume the string is sorted
         //will find 1 and 2 grams here..
 
@@ -433,112 +430,57 @@ public class Anagram {
 ////        str.sort(String::compareTo);
 
 
-        int i=0,j=0;
-        int count=0;
-        boolean bit ;
+        int i = 0, j = 0;
+        int count = 0;
+        boolean bit;
         ArrayList<String> a1;
         ArrayList<String> a2;
-        ArrayList<String> list=new ArrayList<String>();
-        StringBuilder b1 ;//= new StringBuilder();
-        StringBuilder b2 ;//= new StringBuilder();
-        int t=0;
-        for (i=0 ; i < Math.pow(2,tl) ; i++){
+        ArrayList<String> list = new ArrayList<String>();
+        StringBuilder b1;//= new StringBuilder();
+        StringBuilder b2;//= new StringBuilder();
+        int t = 0;
+        for (i = 0; i < Math.pow(2, tl); i++) {
             t = i;
-            count=0;
-            while(t!=0){//O(logn)
-                t = t&(t-1);
+            count = 0;
+            while (t != 0) {//O(logn)
+                t = t & (t - 1);
                 count++;
             }
             //count has it's true value
-            if ((count<minLength)||(count>maxLength)||(tl-count<minLength)||(tl-count>maxLength)){
+            if ((count < minLength) || (count > maxLength) || (tl - count < minLength) || (tl - count > maxLength)) {
                 continue;
             }
             //clear them
             b1 = new StringBuilder();
             b2 = new StringBuilder();
-            for ( j=0 ; j<tl;j++){
-                bit = ((i>>j)&1)==1;//?true:false;
-                if (bit){//bit is 1
+            for (j = 0; j < tl; j++) {
+                bit = ((i >> j) & 1) == 1;//?true:false;
+                if (bit) {//bit is 1
                     b2.append(str.charAt(j));
-                }
-                else{//bit is 0
+                } else {//bit is 0
                     b1.append(str.charAt(j));
                 }
             }
             //now builder 1 and 2 are good to go
             a1 = find1grams(b1.toString());
-            if ( (a1==null)||(a1.size()==0) ){//i am relying on that java will not evaluate the 2nd condition if first is true
+            if ((a1 == null) || (a1.size() == 0)) {//i am relying on that java will not evaluate the 2nd condition if first is true
                 continue;
             }
             a2 = find2grams(b2.toString());
-            if ( (a2==null)||(a2.size()==0) ){
+            if ((a2 == null) || (a2.size() == 0)) {
                 continue;
             }
             //now lists are good to go
             //and this list therefore will already be sorted and will also contain a1 cross a2 and sometime
 //            a2Xa1 will come in due time
 
-            list.addAll(crossProduct(a1,a2));//auto sorted?
+            list.addAll(crossProduct(a1, a2));//auto sorted?
 
         }
 //        list.sort(String::compareTo);
         return (list);
-//        ArrayList<ArrayList<String>> list=new ArrayList<ArrayList<String>>(4);//or an array?
-//        //LIST WILL ALWAYS REMAIN SORTEED WILL BE THE LOOP INVARIENT
-//        //of length k such that ..
-//
-//        //will the below statement work?
-//        String [][][] l =new String[4][][];//will have comb of 3 and |S|-3
-////        3 dimensional array with first dimenstion as SPLITS LENGTH
-//        //second dimenstion as N the number of such splits
-//        // third dimension is 2 for each pair
-//        for (int k=0;k<4;k++){
-//            l[k] = findNcomb(str,k+3);//will have comb of 3 and |S|-3
-//            if (l[k]==null){
-//                continue;
-//            }
-//            ArrayList<String> a1;
-//            ArrayList<String> a2;
-//            for (int i=0;i<l[k].length;i++){
-////                /---------------------------
-//                //also do opposite // ie find 1 grams of a2 and 2 grams of a1
-//                a1 = find1grams(l[k][i][0]);//basically a pointer inside the node
-//                if (a1 == null){ continue; }
-//
-//                a2 = find2grams(l[k][i][1]);//very very cautious
-//                if (a2 == null){ continue; }
-//
-//                //somehow do orderd addition of cross products to do very fast sorting
-//                //add the cross prod.in the kth list which was already sorted
-//                //do addSpecial like MERGER SORT BY COPYING IN A NEW ARRAY
-//                //BE CAUTIOUS//cross will put a space automatically
-//
-//                //or maybe every time copying the whole array is bad and we just sort at the end
-//
-//                list.get(k).addSpecial(crossProduct(a1,a2));//cross product will do the cross of lists
-////            basically the pointers inside nodes
-//                //1 more speccial sort here
-//                //basically add a sorted list to another sorted list;
-//            }
-//            //or a special add
-//        }
-//
-//        ArrayList<String> listAppended =  specialSort(list);//4 lists to merge very faassssttt
-//        //can make another function for sorting wich does like the top level of merge sort
-//        return listAppended;
+        //removed the comments
     }
-
-    //    public static void printBinary(int i){
-//        ArrayList<Integer> a = new ArrayList<Integer>();
-//        ArrayList<Integer> b = new ArrayList<Integer>();
-//        while(i!=0){
-//            a.add(i%2);
-//        }
-//        for (int j = 0 ;j<a.size();j++){
-//            b.add(a.get(a.size()-1-j));
-//        }
-//        printList(b);
-//    }
 
     public static ArrayList<String> crossProduct(ArrayList<String> a1, ArrayList<String>a2){
         //find ways to optimize this
@@ -628,43 +570,6 @@ public class Anagram {
         }
     }
 
-    //    public static String[][] findNcomb(String query,int length){
-//        //splits of length k and n-k
-//        int min = Math.min(length,query.length()-length);//will give function overhead
-//        if ( (2*min>query.length()) || (min<3) ){
-//            return null;
-//        }
-//        char[] seq = query.toCharArray();
-//        StringBuilder builder = new StringBuilder();
-//
-//        for (int j = 0; j<length;j++)
-//            builder = builder.append(" ");
-//
-//        //now builder is "____" length spaces
-//
-//        int[] pos = new int[length];
-//        int total = (int) Math.pow(query.length(), length);
-//        for (int i = 0; i < total; i++) {
-//            for (int x = 0; x < length; x++) {
-//                if (pos[x] == seq.length) {
-//                    pos[x] = 0;
-//                    if (x + 1 < length) {
-//                        pos[x + 1]++;
-//                    }
-//                }
-//                builder.setCharAt(x, seq[pos[x]]);
-//            }
-//            pos[0]++;
-//            String [] s = new String [2];
-//            s[0] = builder.toString();
-////            s[1]  ;//the complement//;builder.toString();
-//
-//            System.out.println(s);
-//        }
-//
-//        return ;//a k*2 dimensional array with valid combinations
-////        System.out.println(total);
-//    }
 }
 
 class Node {
