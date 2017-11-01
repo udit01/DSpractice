@@ -3,15 +3,15 @@ import java.util.*;
 
 public class Anagram {
     public static int sizeVocab ;
-    //    public static int P;//better if we find a prime number closer to the size of vocabulary
+//    public static int P;//better if we find a prime number closer to the size of vocabulary
     public static int P=49943;//better if we find a prime number closer to the size of vocabulary
     public static int minLength=3;//keep it > 0
     public static int maxLength=12;//
     public static int totalCount=0;
     public static Node[][] a = new Node[maxLength-minLength+1][P+1];
-    //    public static int collisons;
+//    public static int collisons;
     public static OutputStream oStream;
-    //    public static long hashTime=0;
+//    public static long hashTime=0;
 //    public static long t0;
 //    public static long iStart;
 //    public static long iEnd;
@@ -121,14 +121,14 @@ public class Anagram {
         try {
             oStream.write((a.get(0)+"\n").getBytes());
 
-            //        System.out.println(a.get(0));
-            //        b.add(a.get(0));
+    //        System.out.println(a.get(0));
+    //        b.add(a.get(0));
             for (int i=1;i<a.size();i++){
                 if (a.get(i).equals(a.get(i-1))){
                     continue;
                 }
                 else {
-                    //                System.out.println(a.get(i));
+    //                System.out.println(a.get(i));
                     oStream.write((a.get(i)+"\n").getBytes());
                 }
             }
@@ -532,9 +532,9 @@ public class Anagram {
         //array of 37 zeroes ie indices are 0 to 36
         //is this faster than for loop ?
         int [] counter = new int[]{0,0,0,0,0,0,0,0,0,
-                0,0,0,0,0,0,0,0,0,
-                0,0,0,0,0,0,0,0,0,
-                0,0,0,0,0,0,0,0,0,0,0} ;  //'a-z'+'0-9'+'''+some other maybe?
+                                   0,0,0,0,0,0,0,0,0,
+                                   0,0,0,0,0,0,0,0,0,
+                                   0,0,0,0,0,0,0,0,0,0,0} ;  //'a-z'+'0-9'+'''+some other maybe?
         //initialize all to zero
         if (a.length()!=b.length()){
             return false;
