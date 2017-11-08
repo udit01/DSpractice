@@ -8,20 +8,20 @@ public class Puzzle {
         long time1;
         long time2;
         int t=0;
-        oStream = new BufferedOutputStream(System.out);
         BufferedReader readerI;//input reader
-        BufferedReader readerO;
+//        BufferedWriter writerO;
 
         try {
             startTime = System.currentTimeMillis();
             readerI = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])) );
-            readerO = new BufferedReader(new InputStreamReader(new FileInputStream(args[1])));
+            oStream = new BufferedOutputStream(new FileOutputStream(args[1]));
             time1 = System.currentTimeMillis();
 
             t = Integer.parseInt(readerI.readLine());
             for(int i=0;i<t;i++){
-                
+
             }
+
             oStream.flush();
 
             time2 = System.currentTimeMillis();
