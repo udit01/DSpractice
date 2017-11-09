@@ -56,12 +56,73 @@ public class Puzzle {
                 break;
             }
         }
-        int[] shifts = {-3,-1,1,3};
-        for(int i=0;i<4;i++){
-            if ((pos+shifts[i]<s.length())&&(pos+shifts[i]>=0)){//can hardcode values of s.length()etx
-                list.add(swappedString(s,pos,pos+shifts[i]));
+        //what is more generalized?
+        int r = pos%3;//col
+        int q = pos/3;//row
+        if ((pos%3)==0){//left column
+            list.add(swappedString(s,pos,pos+1));
+            if (q==0){//top row
+                list.add(swappedString(s,pos,pos+3));
+            }
+            else if(q==2){//bottom row
+                list.add(swappedString(s,pos,pos-3));
+            }
+            else{//middle row
+                list.add(swappedString(s,pos,pos-3));
+                list.add(swappedString(s,pos,pos+3));
             }
         }
+        else if((pos%3)==2){//rigth col
+            list.add(swappedString(s,pos,pos-1));
+            if (q==0){//top row
+                list.add(swappedString(s,pos,pos+3));
+            }
+            else if(q==2){//bottom row
+                list.add(swappedString(s,pos,pos-3));
+            }
+            else{//middle row
+                list.add(swappedString(s,pos,pos-3));
+                list.add(swappedString(s,pos,pos+3));
+            }
+        }
+        else{//pos%3==1//middle column
+            list.add(swappedString(s,pos,pos-1));
+            list.add(swappedString(s,pos,pos+1));
+            if (q==0){//top row
+                list.add(swappedString(s,pos,pos+3));
+            }
+            else if(q==2){//bottom row
+                list.add(swappedString(s,pos,pos-3));
+            }
+            else{//middle row
+                list.add(swappedString(s,pos,pos-3));
+                list.add(swappedString(s,pos,pos+3));
+            }
+        }
+
+        //wrong answer, correct approach
+//        int[] shifts = {-3,3,-1,1};
+//        for(int i=0;i<4;i++){
+//            if (i<2) {
+//                if ((pos + shifts[i] < s.length()) ) {//can hardcode values of s.length()etx
+//                    list.add(swappedString(s, pos, pos + shifts[i]));
+//                }
+//                if ( (pos + shifts[i] >= 0)){
+//                    list.add(swappedString(s,pos))
+//                }
+//            }
+//            else{
+//                if ((pos%3)==0){
+//                    list.add();
+//                }
+//                else if(pos%3==1){
+//
+//                }
+//                else{
+//
+//                }
+//            }
+//        }
         return list;
     //
 //        Pair<Integer[][],Pair<Integer,Integer>> p = strToGrid(s);//decoding
