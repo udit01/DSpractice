@@ -1,41 +1,62 @@
 import javafx.util.Pair;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Puzzle {
-    HashMap<String,ArrayList<String>> graph;
+    static HashMap<String,ArrayList<String>> graph;
 //    private Pair<Integer[][], Pair<Integer, Integer>> ;
 
 //    HashMap<Node,ArrayList<Node>> gr;
+    static Integer[] weights = { 0, 0, 0, 0,
+                                 0, 0, 0, 0};
 
+    public static OutputStream oStream;
     public static void main(String args[]){
         //you need to implement this
-        OutputStream oStream;
         long startTime;
         long time1;
         long time2;
         int t=0;
+        String[] splice;
+        String[] w;
         BufferedReader readerI;//input reader
 //        BufferedWriter writerO;
         try {
             startTime = System.currentTimeMillis();
             readerI = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])) );
             oStream = new BufferedOutputStream(new FileOutputStream(args[1]));
+
             time1 = System.currentTimeMillis();
-
-            t = Integer.parseInt(readerI.readLine());
-            for(int i=0;i<t;i++){
-
-            }
+//-------------test code
+//            ArrayList<String> dummy = new ArrayList<String>();
+//            dummy.add("random");
+//            dummy.add("random2");
+//            dummy.add("random3");
+//            graph.put("12345678G",dummy);
+//            printGraph();
+//
+            graph = new HashMap<String, ArrayList<String>>();
+            constructGraph();
+            printGraph();
+//            t = Integer.parseInt(readerI.readLine());
+//
+//
+//            for(int i=0;i<t;i++){
+//                splice = readerI.readLine().split(" ");
+//                //splice[0] contatins the start and other end
+//                w = readerI.readLine().split(" ");
+//                for (int k=0;k<8;k++){
+//                    weights[k]=Integer.parseInt(w[k]);
+//                }
+////                constructGraph();//once per the t test cases or
+//
+//            }
 
             oStream.flush();
 
             time2 = System.currentTimeMillis();
-//            oStream.write(("Vocabulary processed in: "+(time1-startTime)+"ms\n").getBytes());
-//            oStream.write(("Input processed in: "+(time2-time1)+"ms\n").getBytes());
-//            oStream.write((collisons+" is the number of collisons\n").getBytes());
+            oStream.write((time2-time1));
             oStream.close();
 
         }catch (Exception e) {
@@ -44,8 +65,44 @@ public class Puzzle {
 //            System.out.println("Incorrect file path or file format.");
         }
     }
-    public static void constructGraph(){//will make changes in the global graph variable
 
+    public static void constructGraph(){//will make changes in the global graph variable
+        String s = "12345678G";
+        Queue<String> q = new ArrayDeque<String>();//can be faster?
+        q.add(s);
+        String current;
+        ArrayList<String> nbors;
+
+        while(!q.isEmpty()){//this can be made much faster by marking
+            current = q.remove();
+            if (graph.containsKey(current)){
+                continue;
+            }
+            nbors = generateNeigbours(current);//can be made faster
+            graph.put(current,nbors);
+
+            q.addAll(nbors);
+        }
+    }
+    public static void printGraph(){
+//        Set<String> kSet =  graph.keySet();
+        ArrayList<String> l;
+        try {
+            for (String key : graph.keySet()) {
+                l = graph.get(key);
+                oStream.write(("String:" + key + " Neighbours:{").getBytes());
+                for (String nbr:l){
+                    oStream.write((nbr+", ").getBytes());
+                }
+                oStream.write((" }\n").getBytes());
+
+            }
+            oStream.flush();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return;
     }
     public static ArrayList<String> generateNeigbours(String s){
         ArrayList<String> list = new ArrayList<>();
@@ -53,12 +110,14 @@ public class Puzzle {
         for (int i=0;i<s.length();i++){
             if(s.charAt(i)=='G'){
                 pos=i;
+                //should we replace G by 0 here?
                 break;
             }
         }
         //what is more generalized?
         int r = pos%3;//col
         int q = pos/3;//row
+        //all those below have G
         if ((pos%3)==0){//left column
             list.add(swappedString(s,pos,pos+1));
             if (q==0){//top row
@@ -124,7 +183,7 @@ public class Puzzle {
 //            }
 //        }
         return list;
-    //
+        //
 //        Pair<Integer[][],Pair<Integer,Integer>> p = strToGrid(s);//decoding
 //        Integer [][]rep = p.getKey();
 //        int row = p.getValue().getKey();
