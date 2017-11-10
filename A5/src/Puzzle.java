@@ -23,7 +23,7 @@ public class Puzzle {
         BufferedReader readerI;//input reader
 //        BufferedWriter writerO;
         try {
-            startTime = System.currentTimeMillis();
+//            startTime = System.currentTimeMillis();
             readerI = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])) );
             oStream = new BufferedOutputStream(new FileOutputStream(args[1]));
 
@@ -53,10 +53,10 @@ public class Puzzle {
 //
 //            }
 
-            oStream.flush();
 
             time2 = System.currentTimeMillis();
-            oStream.write((time2-time1));
+            oStream.write(("(Partial?)Graph formed in: "+(time2-time1)+"ms\n").getBytes());
+            oStream.flush();
             oStream.close();
 
         }catch (Exception e) {
