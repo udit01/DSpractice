@@ -68,8 +68,10 @@ public class Puzzle {
 
     public static void constructGraph(){//will make changes in the global graph variable
         String s = "12345678G";
+        String sM = "321654G87";
         Queue<String> q = new ArrayDeque<String>();//can be faster?
-        q.add(s);
+//        q.add(s);
+        q.add(sM);
         String current;
         ArrayList<String> nbors;
 
