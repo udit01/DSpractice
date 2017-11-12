@@ -1,3 +1,4 @@
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -5,17 +6,21 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class Puzzle {
-    static HashMap<String,ArrayList<String>> graph;
-    static HashMap<String,ArrayList<String>> graphM;
-    static ArrayList<Pair<Integer,String>> heap;
+    public static HashMap<String,ArrayList<String>> graph;
+    public static HashMap<String,ArrayList<String>> graphM;
+    public static ArrayList<Pair<Integer,String>> heap;
+    public static int heapSize ;
+    public static HashMap<String,Integer> indiceMap;// = new HashMap<String, Integer>();
+    public static HashMap<String,String> parentMap;// = new HashMap<String,Integer>();
 
 //    private Pair<Integer[][], Pair<Integer, Integer>> ;
 
 //    HashMap<Node,ArrayList<Node>> gr;
-    static Integer[] weights = { 0, 0, 0, 0,
-                                 0, 0, 0, 0};
+    public static int[] weights = { 0, 0, 0, 0,
+                             0, 0, 0, 0};
 
     public static OutputStream oStream;
+
     public static void main(String args[]){
         //you need to implement this
         long startTime;
@@ -54,7 +59,7 @@ public class Puzzle {
                 splice = readerI.readLine().split(" ");
                 //splice[0] contatins the start and other end
                 w = readerI.readLine().split(" ");
-                for (int k=0;k<8;k++){
+                for (int k=0;k<8;k++){//weight[0] is actually weight of moving 1 to GAP
                     weights[k]=Integer.parseInt(w[k]) + 1;//remember as we don't want 0 paths to trouble us and we will subtract after
                     //these are actually pseudo weights
                 }
@@ -102,29 +107,29 @@ public class Puzzle {
         //hash map for parent pointers and hash map for storing indices in the array
 
         HashMap<String,ArrayList<String>>g = (c==1)?graph:graphM;
-        HashMap<String,Integer> indiceMap = new HashMap<String, Integer>();
-        HashMap<String,Integer> parentIndice = new HashMap<String,Integer>();
+        indiceMap = new HashMap<String, Integer>();
+        parentMap= new HashMap<String,String>();
         //
         heap = new ArrayList<Pair<Integer, String>>(181440);
-
         ArrayList<String> tempNeighbours = g.get(start);//optimization
         g.remove(start);//OPTIMIZATION?remove first then
 
         int l = 0;
         heap.add(new Pair<Integer, String>(0,start));//added it at the 0th postion
         indiceMap.put(start,0);
-        parentIndice.put(start,null);//start has no parent
+        parentMap.put(start,null);//start has no parent or itself ?
         ++l;
         for (String k : g.keySet() ){//initialization
             //no need to check as we are adding 0th initially
             heap.add(new Pair<Integer, String>(Integer.MAX_VALUE,k));//yay//unmarked nodes
             indiceMap.put(k,l);
-            parentIndice.put(k,null);//null integer
+            parentMap.put(k,null);//null integer
             //now all nodes are in heap
             ++l;
         }
 
         g.put(start,tempNeighbours);//reinserting after
+        heapSize = 181440;
         //constructed the outside of the cloud
         //some kind of parent pointer
         int w = 0;
@@ -132,16 +137,18 @@ public class Puzzle {
         String node;
         int nodeDist=0;
         int neighbourDist=0;
-        while (!heap.isEmpty()){
-            //
-             current = deleteMin();//it will throw out what ?
-            node = current.getValue();
-            //current is int , string ie distance and node
+        while (heapSize>=0){
 
-            //if current is end then CHANDIII
+            current = deleteMin();//it will throw out distance and node
+            node = current.getValue();
 
             if(node.equals(end)){
-                //yippie! do something then break!
+                //then it is here to relax it's neigbours which we don't want // just exit
+//                pseudo distance is current.getkey() and - numMoves
+                //parent is also set and everything is good!
+                printPath(start,current);//current has end
+                oStream.flush();
+                return;
             }
 
             nodeDist = heap.get(indiceMap.get(node)).getKey();
@@ -152,15 +159,196 @@ public class Puzzle {
                 if (neighbourDist>nodeDist+w){
                     heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
                     percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
-                    //then percolate up or somthing ?
-                    parentIndice.put(neighbour,indiceMap.get(node));
+                    parentMap.put(neighbour,node);//because node is the new parent of indice
                 }
+                //else do nothing for that neighbour
             }
 
         }
-        //what do we need to do?
+        //what if it was never stopped inside the while loop and comes here? then its an error
+        oStream.write("THIS line should not be printed! (170)".getBytes());
+        oStream.flush();
+        return;
     }
+    public static void printPath(String start, Pair<Integer,String> endN) throws IOException{
+        //some kind of ordered set where we have the parent indices of end --> start
+        ArrayList<String> path = new ArrayList<String>();
+        int pseudoCost = endN.getKey();
+        String curr= endN.getValue();
+        //pray that it doesn't get stuck in an infinite loop
+        while (!(curr.equals(start))){
+            path.add(curr);
+            //shit but the heap is now empty
+            curr = parentMap.get(curr);//it will spit out the next element ie parent
+        }
+        path.add(start);//last cherry on the cake
+        int pathLength = path.size() - 1;//the number of edges is = V-1
+        int cost = pseudoCost - pathLength;//due to all the extra ones added
+        oStream.write((pathLength+" "+cost+"\n").getBytes());
+        for (int i=path.size()-1;i>0;i--){
+            oStream.write((getMove(path.get(i),path.get(i-1))).getBytes());//this method by default includes space
+        }
+        oStream.write("\n".getBytes());
+        oStream.flush();
+        return;
+    }
+    public static String getMove(String s1,String s2){//returns a 3 character string
 
+        //what to move to get from s1 -> s2 ?
+        int gPos1 = 0;
+        int gPos2 = 0;
+        for (int i=0;i<s1.length();i++){
+            if (s1.charAt(i)=='G'){
+                gPos1 = i;
+            }
+            if (s2.charAt(i)=='G'){
+                gPos2 = i;
+            }
+        }
+
+        StringBuilder sb =new StringBuilder();//same as s1.charAt(gPos2)
+        //will it append the character or the integer ?
+        sb.append(s2.charAt(gPos1));
+        //ex 12345678G then 1234567G8
+        int diff = gPos1 - gPos2;
+        switch (diff){
+            case -3:
+                //ex 123 4G5 678 then 123 475 6G8
+                sb.append("U");
+                break;
+            case -1:
+                //ex 123 4G5 678 then 123 45G 678
+                sb.append("L");
+                break;
+            case 1:
+                //ex 123 4G5 678 then 123 G45 678
+                sb.append("R");
+                break;
+            case 3:
+                //ex 123 4G5 678 then 1G3 425 678
+                sb.append("D");
+                break;
+            default:
+                sb.append("U");//append a normal character at the end
+                try {
+                    throw new Exception("Why in this case?");
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+        }
+        sb.append(" ");
+        return sb.toString();
+    }
+    public static void percolateUp(int idx){
+        // somthingis wrong at idx //we just have decreased the value now what ?
+        Pair<Integer,String>parent ;
+        Pair<Integer,String>curr;
+        int parentIndex=0;
+        while (idx>0){//if idx has reached 0 then the heap is equalized!
+            curr = heap.get(idx);
+            if((idx%2)==1){//current index is odd
+                parentIndex = (int)(idx/2);
+            }
+            else {//current idx is non 0 even +ive
+                parentIndex = ((int)(idx/2)) - 1;//draw and you'll see!
+            }
+            parent = heap.get(parentIndex);
+            if (parent.getKey()<= curr.getKey()){
+                //it's equalized ! yippie
+                //should is return or break?
+                return;
+            }
+            else{//parent is greater than the child
+                heap.set(parentIndex,curr);//now current is on the parent index
+                heap.set(idx,parent);//now parent is on the current index
+                idx = parentIndex;//is the new index
+                continue;
+            }
+        }
+        return;
+    }
+    public static Pair<Integer,String > deleteMin(){
+        Pair<Integer,String > toReturn = heap.get(0);//top and min element
+        //follow the alogrithm
+        heap.set(0,heap.get(heapSize-1));//now push this element down
+        heapSize--;//reducing heapsize is equivalent to deleting the last elemtn
+        //lazy deleting the last element
+        //SOMETHING BAD WILL HAPPEN WITH IDX==0 fixed! based on 0 index
+        int idx = 0;
+        Pair<Integer,String > lchild ;
+        Pair<Integer,String > rchild ;
+        Pair<Integer,String > cur;
+//        Pair<Integer,String > temp;//UNREQUIRED
+
+        while(idx<heapSize){//if idx = heap size then nothing left to equalize
+            cur = heap.get(idx);//will function both as temp and comparable
+
+            //if they it has 2 children what if they don't ?
+            if (((2*idx)+2)<=heapSize) {
+                lchild = heap.get((2 * idx) + 1);
+                rchild = heap.get((2 * idx) + 2);
+                if ((cur.getKey() <= lchild.getKey()) && (cur.getKey() <= lchild.getKey())) {//whats the symbol for and ?
+                    //do something
+                    //satisfied at this level therefore it's okay and done!
+                    break;
+                }
+                if (lchild.getKey() <= rchild.getKey()) { //left child is smaller
+                    //if code has reached this point then curr is > leftchild(min of the 2)
+//                    temp = cur;
+                    heap.set(idx, lchild);//now left child at curr position
+                    heap.set((2 * idx) + 1, cur);//now cur at left child postion
+                    //heap property is satisfied at this level
+                    idx = (2 * idx)+ 1 ;//now see that it should be satisfied at the next level
+                    continue;
+                } else {//right child is smaller
+                    //if code has reached this point then curr is > rightchild(min of the 2)
+//                    temp = cur;
+                    heap.set(idx, rchild);//now left child at curr position
+                    heap.set((idx * 2) + 2, cur);//now cur at left child postion
+                    //heap property is satisfied at this level
+                    idx = (idx * 2) + 2;//now see that it should be satisfied at the next level
+                    continue;
+                }
+            }
+            else if(((2 * idx)+1)<=heapSize){//only left child
+                lchild = heap.get((2 * idx)+1);
+                if (cur.getKey()>lchild.getKey()){//violation if it is bigger !
+//                    temp = cur;
+                    heap.set(idx,lchild);//put left child at current postion
+                    heap.set((2 * idx)+1,cur);//put  current at left child postion
+                }
+//                idx = 2*idx;//to be consistent but not required!
+//                as it had only 1 child therfore it is last of its generations
+                break;
+            }
+            else{//no children
+                //therefore  all are satisfied
+                break;
+            }
+
+        }
+        //now it's ordered and return the orignial first element please!
+        //do something?
+        return toReturn;
+    }
+    public static int  calculateCost(String s1,String s2){
+        for (int i=0;i<s1.length();i++){
+            if (s1.charAt(i)=='G'){
+                return weights[s2.charAt(i)-'1'];//as 0th weight is actually weight of sliding 1
+            }
+            if (s2.charAt(i)=='G'){
+                return weights[s1.charAt(i)-'1'];//as 0th weight is actually weight of sliding 1
+            }
+        }
+        try{
+            oStream.write("THiS line shouldn't be printed!".getBytes());
+        }
+        catch (Exception e){
+            e.printStackTrace();//or do nothing ?
+        }
+        return 0;//if it reaches here then error
+    }
     public static void constructGraphs(){//will make changes in the global graph variable
         String s = "12345678G";
         Queue<String> q = new ArrayDeque<String>();//can be faster?
@@ -430,20 +618,21 @@ public class Puzzle {
 //    }
 
 }
-class Node implements Comparable<Node> {
-    //what does it have ?
-    String node = null;
-    String parent = null;
-    //a marked boolean ?
-    Integer distance = Integer.MAX_VALUE;//by default until we override it ?
 
-//    Node(){
-//        //somthing?
+//class Node implements Comparable<Node> {
+//    //what does it have ?
+//    String node = null;
+//    String parent = null;
+//    //a marked boolean ?
+//    Integer distance = Integer.MAX_VALUE;//by default until we override it ?
+//
+////    Node(){
+////        //something?
+////    }
+//
+//    @Override
+//    public int compareTo(Node n){//what will be the order of dist ?
+//        return this.distance.compareTo(n.distance);
 //    }
-
-    @Override
-    public int compareTo(Node n){//what will be the order of dist ?
-        return this.distance.compareTo(n.distance);
-    }
-    //anything more ?
-}
+//    //anything more ?
+//}
