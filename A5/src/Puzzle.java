@@ -135,12 +135,13 @@ public class Puzzle {
         int w = 0;
         Pair<Integer,String> current;
         String node;
-        int nodeDist=0;
-        int neighbourDist=0;
+        int nodeDist;
+        int neighbourDist;
         while (heapSize>=0){
 
             current = deleteMin();//it will throw out distance and node
             node = current.getValue();
+            indiceMap.remove(node);//node is removed
 
             if(node.equals(end)){
                 //then it is here to relax it's neigbours which we don't want // just exit
@@ -151,11 +152,17 @@ public class Puzzle {
                 return;
             }
 
-            nodeDist = heap.get(indiceMap.get(node)).getKey();
+            nodeDist = current.getKey();
             for (String neighbour:g.get(node)){//getting the neighbours of node from graphs
                 //dist of neighbour = dist of current + calculate cost(s,current)
                 w = calculateCost(node,neighbour);
-                neighbourDist = heap.get(indiceMap.get(neighbour)).getKey();
+                //what if neigbhour not in the heap?
+                try {
+                    neighbourDist = heap.get(indiceMap.get(neighbour)).getKey();
+                }
+                catch (Exception e){
+                    continue;//On with the loop boys
+                }
                 if (neighbourDist>nodeDist+w){
                     heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
                     percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
@@ -177,6 +184,7 @@ public class Puzzle {
         String curr= endN.getValue();
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
+            oStream.write((curr+"Line 180\n").getBytes());
             path.add(curr);
             //shit but the heap is now empty
             curr = parentMap.get(curr);//it will spit out the next element ie parent
@@ -257,21 +265,24 @@ public class Puzzle {
             if (parent.getKey()<= curr.getKey()){
                 //it's equalized ! yippie
                 //should is return or break?
-                return;
+                break;
             }
             else{//parent is greater than the child
                 heap.set(parentIndex,curr);//now current is on the parent index
+                indiceMap.put(curr.getValue(),parentIndex);
                 heap.set(idx,parent);//now parent is on the current index
+                indiceMap.put(parent.getValue(),idx);
                 idx = parentIndex;//is the new index
                 continue;
             }
         }
-        return;
+        return ;
     }
     public static Pair<Integer,String > deleteMin(){
         Pair<Integer,String > toReturn = heap.get(0);//top and min element
         //follow the alogrithm
         heap.set(0,heap.get(heapSize-1));//now push this element down
+        indiceMap.put(heap.get(heapSize-1).getValue(),0);
         heapSize--;//reducing heapsize is equivalent to deleting the last elemtn
         //lazy deleting the last element
         //SOMETHING BAD WILL HAPPEN WITH IDX==0 fixed! based on 0 index
@@ -297,7 +308,9 @@ public class Puzzle {
                     //if code has reached this point then curr is > leftchild(min of the 2)
 //                    temp = cur;
                     heap.set(idx, lchild);//now left child at curr position
+                    indiceMap.put(lchild.getValue(),idx);
                     heap.set((2 * idx) + 1, cur);//now cur at left child postion
+                    indiceMap.put(cur.getValue(),(2*idx)+1);
                     //heap property is satisfied at this level
                     idx = (2 * idx)+ 1 ;//now see that it should be satisfied at the next level
                     continue;
@@ -305,7 +318,9 @@ public class Puzzle {
                     //if code has reached this point then curr is > rightchild(min of the 2)
 //                    temp = cur;
                     heap.set(idx, rchild);//now left child at curr position
+                    indiceMap.put(rchild.getValue(),idx);
                     heap.set((idx * 2) + 2, cur);//now cur at left child postion
+                    indiceMap.put(cur.getValue(),(2*idx)+2);
                     //heap property is satisfied at this level
                     idx = (idx * 2) + 2;//now see that it should be satisfied at the next level
                     continue;
@@ -316,7 +331,9 @@ public class Puzzle {
                 if (cur.getKey()>lchild.getKey()){//violation if it is bigger !
 //                    temp = cur;
                     heap.set(idx,lchild);//put left child at current postion
+                    indiceMap.put(lchild.getValue(),idx);
                     heap.set((2 * idx)+1,cur);//put  current at left child postion
+                    indiceMap.put(cur.getValue(),(2*idx)+1);
                 }
 //                idx = 2*idx;//to be consistent but not required!
 //                as it had only 1 child therfore it is last of its generations
