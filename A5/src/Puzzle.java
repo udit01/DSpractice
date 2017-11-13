@@ -1,4 +1,6 @@
 import javafx.util.Pair;
+import org.omg.CORBA.INTERNAL;
+
 import java.io.*;
 import java.util.*;
 
@@ -8,7 +10,7 @@ public class Puzzle {
     public static ArrayList<Pair<Integer,String>> heap;
 //    public static int heapSize ;
     public static HashMap<String,Integer> indiceMap;// = new HashMap<String, Integer>();
-    public static HashMap<String,String> parentMap;// = new HashMap<String,Integer>();
+    public static HashMap<String,Pair<String,Integer>> parentMap;// = new HashMap<String,Integer>();
     public static HashMap<String,Boolean> visitedMap;// = new HashMap<String,Integer>();
 
 //    private Pair<Integer[][], Pair<Integer, Integer>> ;
@@ -54,11 +56,12 @@ public class Puzzle {
 //
 //
             for(int i=0;i<t;i++){
+//                oStream.write(("(LINE57)Iteration:"+i+"\n").getBytes());
                 splice = readerI.readLine().split(" ");
                 //splice[0] contatins the start and other end
                 w = readerI.readLine().split(" ");
                 for (int k=0;k<8;k++){//weight[0] is actually weight of moving 1 to GAP
-                    weights[k]=Integer.parseInt(w[k]) + 1;//remember as we don't want 0 paths to trouble us and we will subtract after
+                    weights[k]=Integer.parseInt(w[k]);//remember as we don't want 0 paths to trouble us and we will subtract after
                     //these are actually pseudo weights
                 }
 
@@ -108,7 +111,7 @@ public class Puzzle {
 
         HashMap<String,ArrayList<String>>g = (c==1)?graph:graphM;
         indiceMap = new HashMap<String, Integer>();
-        parentMap= new HashMap<String,String>();
+        parentMap= new HashMap<String,Pair<String, Integer>>();
         visitedMap= new HashMap<String,Boolean>();
         heap = new ArrayList<Pair<Integer, String>>();
         //
@@ -143,8 +146,9 @@ public class Puzzle {
         String node;
         int nodeDist;
         int neighbourDist;
-        while (heap.size()>=0){//what if heap size = 0?
-
+        int l = 181440;
+        while (l>=0){//what if heap size = 0?
+            l--;
             current = deleteMin();//it will throw out distance and node and remove etc
             node = current.getValue();
             visitedMap.put(node,true);
@@ -176,7 +180,7 @@ public class Puzzle {
 //                        heapSize++;
                         percolateUp(heap.size()-1);//this value has decreased so required to be maintained
                         visitedMap.put(neighbour,false);
-                        parentMap.put(neighbour,node);//bec
+                        parentMap.put( neighbour,new Pair<>(node,1) );//bec
                     }
                     else{//visited is true ie it's already in the cloud!!
                         continue;//let 's see for another neighbour
@@ -184,11 +188,31 @@ public class Puzzle {
                 }
                 else{//its in the heap
                     neighbourDist = heap.get(idx).getKey();
+
                     if (neighbourDist>nodeDist+w){
                         heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
                         percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                         //do i need to put false everytime ?
-                        parentMap.put(neighbour,node);//because node is the new parent of indice
+                        parentMap.put(neighbour,new Pair<>(node,nodeDist+w));//because node is the new parent of indice
+                    }
+                    else if(neighbourDist == (nodeDist+w)){
+                        Pair<String,Integer> parentPair = parentMap.get(neighbour);//contains parent and path length till neighbour by previous parent
+                        Integer parentLengthPrev = parentPair.getValue();
+                        parentLengthPrev = parentLengthPrev == null ? 0 : parentLengthPrev;
+                        Integer nodeLengthSrc = parentMap.get(node).getValue();
+
+                        if ( (parentLengthPrev) > (nodeLengthSrc+1) ) {
+                            heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
+                            percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
+                            //do i need to put false everytime ?
+                            parentMap.put(neighbour, new Pair<>(node, nodeDist + w));//because node is the new parent of indice
+                        }
+                        else{
+                            heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
+                            percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
+                            //do i need to put false everytime ?
+                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), parentLengthPrev));//because node is the new parent of indice
+                        }
                     }
                 }
 
@@ -231,7 +255,7 @@ public class Puzzle {
     public static void printPath(String start, Pair<Integer,String> endN) throws IOException{
         //some kind of ordered set where we have the parent indices of end --> start
         ArrayList<String> path = new ArrayList<String>();
-        int pseudoCost = endN.getKey();
+//        int pseudoCost = endN.getKey();
         String curr= endN.getValue();
 //        System.out.println("Line 185:"+curr+"(current | start:)"+start+"\n");
 //        oStream.write(("Line 185:"+curr+"(current | start:)"+start+"\n").getBytes());
@@ -239,20 +263,22 @@ public class Puzzle {
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
 //            oStream.write((curr+"Line 180\n").getBytes());
-            System.out.println(curr);
+//            System.out.println(curr);
             path.add(curr);
             //shit but the heap is now empty
-            curr = parentMap.get(curr);//it will spit out the next element ie parent
+            curr = parentMap.get(curr).getKey();//it will spit out the next element ie parent
             if (curr==null){
                 break;
             }
         }
         path.add(start);//last cherry on the cake
-        for(int i=0;i<path.size();i++) {
-//            oStream.write(("LINE 200: i:"+i+" Node "+ path.get(i)+"\n").getBytes());
-        }
+//        for(int i=0;i<path.size();i++) {
+////            oStream.write(("LINE 200: i:"+i+" Node "+ path.get(i)+"\n").getBytes());
+//        }
         int pathLength = path.size() - 1;//the number of edges is = V-1
-        int cost = pseudoCost - pathLength;//due to all the extra ones added
+
+//        int cost = pseudoCost - pathLength;//due to all the extra ones added
+        int cost = endN.getKey();//due to all the extra ones added
         oStream.write((pathLength+" "+cost+"\n").getBytes());
         for (int i=path.size()-1;i>0;i--){
             oStream.write((getMove(path.get(i),path.get(i-1))).getBytes());//this method by default includes space
