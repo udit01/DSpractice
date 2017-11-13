@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
 
@@ -9,9 +10,10 @@ public class Puzzle {
     public static HashMap<String,ArrayList<String>> graph;
     public static HashMap<String,ArrayList<String>> graphM;
     public static ArrayList<Pair<Integer,String>> heap;
-    public static int heapSize ;
+//    public static int heapSize ;
     public static HashMap<String,Integer> indiceMap;// = new HashMap<String, Integer>();
     public static HashMap<String,String> parentMap;// = new HashMap<String,Integer>();
+    public static HashMap<String,Boolean> visitedMap;// = new HashMap<String,Integer>();
 
 //    private Pair<Integer[][], Pair<Integer, Integer>> ;
 
@@ -93,6 +95,7 @@ public class Puzzle {
             if (!graph.containsKey(end)){
                 //print something and then return nul
                 oStream.write("-1 -1\n\n".getBytes());
+                oStream.flush();
                 return;
             }
         }
@@ -101,6 +104,7 @@ public class Puzzle {
             if (!graphM.containsKey(end)){
                 //print something and then return nul
                 oStream.write("-1 -1\n\n".getBytes());
+                oStream.flush();
                 return;
             }
         }
@@ -109,39 +113,44 @@ public class Puzzle {
         HashMap<String,ArrayList<String>>g = (c==1)?graph:graphM;
         indiceMap = new HashMap<String, Integer>();
         parentMap= new HashMap<String,String>();
+        visitedMap= new HashMap<String,Boolean>();
+        heap = new ArrayList<Pair<Integer, String>>();
         //
-        heap = new ArrayList<Pair<Integer, String>>(181440);
-        ArrayList<String> tempNeighbours = g.get(start);//optimization
-        g.remove(start);//OPTIMIZATION?remove first then
+//        heap = new ArrayList<Pair<Integer, String>>(181440);
+//        ArrayList<String> tempNeighbours = g.get(start);//optimization
+//        g.remove(start);//OPTIMIZATION?remove first then
 
-        int l = 0;
+//        int l = 0;
         heap.add(new Pair<Integer, String>(0,start));//added it at the 0th postion
         indiceMap.put(start,0);
         parentMap.put(start,null);//start has no parent or itself ?
-        ++l;
-        for (String k : g.keySet() ){//initialization
-            //no need to check as we are adding 0th initially
-            heap.add(new Pair<Integer, String>(Integer.MAX_VALUE,k));//yay//unmarked nodes
-            indiceMap.put(k,l);
-            parentMap.put(k,null);//null integer
-            //now all nodes are in heap
-            ++l;
-        }
+//        ++l;
+//        for (String k : g.keySet() ){//initialization
+//            //no need to check as we are adding 0th initially
+//            heap.add(new Pair<Integer, String>(Integer.MAX_VALUE,k));//yay//unmarked nodes
+//            indiceMap.put(k,l);
+//            parentMap.put(k,null);//null integer
+//            //now all nodes are in heap
+//            ++l;
+//        }
 
-        g.put(start,tempNeighbours);//reinserting after
-        heapSize = 181440;
+//        g.put(start,tempNeighbours);//reinserting after
+//        heapSize = 1;
+//        heapSize = 181440;
         //constructed the outside of the cloud
         //some kind of parent pointer
-        int w = 0;
+        int w ;
+        Integer idx ;
         Pair<Integer,String> current;
         String node;
         int nodeDist;
         int neighbourDist;
-        while (heapSize>=0){
+        while (heap.size()>=0){//what if heap size = 0?
 
-            current = deleteMin();//it will throw out distance and node
+            current = deleteMin();//it will throw out distance and node and remove etc
             node = current.getValue();
-            indiceMap.remove(node);//node is removed
+            visitedMap.put(node,true);
+//            indiceMap.remove(node);//node is removed
 
             if(node.equals(end)){
                 //then it is here to relax it's neigbours which we don't want // just exit
@@ -157,41 +166,69 @@ public class Puzzle {
                 //dist of neighbour = dist of current + calculate cost(s,current)
                 w = calculateCost(node,neighbour);
                 //what if neigbhour not in the heap?
-                try {
-                    neighbourDist = heap.get(indiceMap.get(neighbour)).getKey();
+                idx = indiceMap.get(neighbour);
+                if (idx == null){//not in the heap
+
+                    //case if it's not in the heap its in the cloud ?
+                    Boolean b = visitedMap.get(neighbour);
+                    if ((b==null)||(b==false)){//not visited node//not in heap not in cloud
+                        heap.add(new Pair<>(nodeDist+w,neighbour));
+                        indiceMap.put(neighbour,heap.size());//appended at the end
+//                        heapSize++;
+                        percolateUp(heap.size()-1);//this value has decreased so required to be maintained
+                        visitedMap.put(neighbour,false);
+                        parentMap.put(neighbour,node);//bec
+                    }
+                    else{//visited is true ie it's already in the cloud!!
+                        continue;//let 's see for another neighbour
+                    }
                 }
-                catch (Exception e){
-                    continue;//On with the loop boys//if neighbour is not in the heap then it's in the cloud!
+                else{//its in the heap
+                    neighbourDist = heap.get(idx).getKey();
+                    if (neighbourDist>nodeDist+w){
+                        heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
+                        percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
+                        //do i need to put false everytime ?
+                        parentMap.put(neighbour,node);//because node is the new parent of indice
+                    }
                 }
-                if (neighbourDist>nodeDist+w){
-                    heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
-                    percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
-//                    oStream.write(("child/neighbour: "+neighbour+" node/parent: "+node+"seperated by: " + getMove(neighbour,node)+"new Dist(par+w):"+(nodeDist+w)+"oldDist(v.d):"+neighbourDist+"\n").getBytes());
-//                    printHeap();
-                    parentMap.put(neighbour,node);//because node is the new parent of indice
-                }
+
+//                try {
+//
+//                    neighbourDist = heap.get(indiceMap.get(neighbour)).getKey();
+//                }
+//                catch (Exception e){
+//                    continue;//On with the loop boys//if neighbour is not in the heap then it's in the cloud!
+//                }
+//                if (neighbourDist>nodeDist+w){
+//                    heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
+//                    percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
+////                    oStream.write(("child/neighbour: "+neighbour+" node/parent: "+node+"seperated by: " + getMove(neighbour,node)+"new Dist(par+w):"+(nodeDist+w)+"oldDist(v.d):"+neighbourDist+"\n").getBytes());
+////                    printHeap();
+//                    parentMap.put(neighbour,node);//because node is the new parent of indice
+//                }
                 //else do nothing for that neighbour
             }
 
         }
         //what if it was never stopped inside the while loop and comes here? then its an error
-        oStream.write("THIS line should not be printed! (170)".getBytes());
+        oStream.write("THIS line should not be printed! (213)".getBytes());
         oStream.flush();
         return;
     }
-//    public static void printHeap(){
-//        try {
-//            oStream.write(("PHeap: ").getBytes());
-//            for (int i = 0; i < 5; i++) {
-//                oStream.write((heap.get(i) + " ").getBytes());
-//            }
-//            oStream.write(("]\n").getBytes());
-//
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    public static void printHeap(){
+        try {
+            oStream.write(("PHeap: ").getBytes());
+            for (int i = 0; i < 5; i++) {
+                oStream.write((heap.get(i) + " ").getBytes());
+            }
+            oStream.write(("]\n").getBytes());
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public static void printPath(String start, Pair<Integer,String> endN) throws IOException{
         //some kind of ordered set where we have the parent indices of end --> start
         ArrayList<String> path = new ArrayList<String>();
@@ -203,6 +240,7 @@ public class Puzzle {
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
 //            oStream.write((curr+"Line 180\n").getBytes());
+            System.out.println(curr);
             path.add(curr);
             //shit but the heap is now empty
             curr = parentMap.get(curr);//it will spit out the next element ie parent
@@ -306,9 +344,10 @@ public class Puzzle {
     public static Pair<Integer,String > deleteMin(){
         Pair<Integer,String > toReturn = heap.get(0);//top and min element
         //follow the alogrithm
-        heap.set(0,heap.get(heapSize-1));//now push this element down
-        indiceMap.put(heap.get(heapSize-1).getValue(),0);
-        heapSize--;//reducing heapsize is equivalent to deleting the last elemtn
+        indiceMap.remove(heap.get(0).getValue());//0 indexed element is removed
+        heap.set(0,heap.get(heap.size()-1));//now push this element down
+        indiceMap.put(heap.get(heap.size()-1).getValue(),0);
+//        heapSize--;//reducing heapsize is equivalent to deleting the last elemtn
         //lazy deleting the last element
         //SOMETHING BAD WILL HAPPEN WITH IDX==0 fixed! based on 0 index
         int idx = 0;
@@ -317,11 +356,11 @@ public class Puzzle {
         Pair<Integer,String > cur;
 //        Pair<Integer,String > temp;//UNREQUIRED
 
-        while(idx<heapSize){//if idx = heap size then nothing left to equalize
+        while(idx<(heap.size()-1)){//if idx = heap size then nothing left to equalize
             cur = heap.get(idx);//will function both as temp and comparable
 
             //if they it has 2 children what if they don't ?
-            if (((2*idx)+2)<=heapSize) {
+            if (((2*idx)+2)<=(heap.size()-1)) {
                 lchild = heap.get((2 * idx) + 1);
                 rchild = heap.get((2 * idx) + 2);
                 if ((cur.getKey() <= lchild.getKey()) && (cur.getKey() <= rchild.getKey())) {//whats the symbol for and ?
@@ -351,7 +390,7 @@ public class Puzzle {
                     continue;
                 }
             }
-            else if(((2 * idx)+1)<=heapSize){//only left child
+            else if(((2 * idx)+1)<=(heap.size()-1)){//only left child
                 lchild = heap.get((2 * idx)+1);
                 if (cur.getKey()>lchild.getKey()){//violation if it is bigger !
 //                    temp = cur;
@@ -660,21 +699,3 @@ public class Puzzle {
 //    }
 
 }
-
-//class Node implements Comparable<Node> {
-//    //what does it have ?
-//    String node = null;
-//    String parent = null;
-//    //a marked boolean ?
-//    Integer distance = Integer.MAX_VALUE;//by default until we override it ?
-//
-////    Node(){
-////        //something?
-////    }
-//
-//    @Override
-//    public int compareTo(Node n){//what will be the order of dist ?
-//        return this.distance.compareTo(n.distance);
-//    }
-//    //anything more ?
-//}
