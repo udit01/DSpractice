@@ -1,9 +1,5 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.util.Pair;
-
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Puzzle {
@@ -124,7 +120,9 @@ public class Puzzle {
         heap.add(new Pair<Integer, String>(0,start));//added it at the 0th postion
         indiceMap.put(start,0);
         parentMap.put(start,null);//start has no parent or itself ?
-//        ++l;
+        visitedMap.put(start,false);
+//
+// ++l;
 //        for (String k : g.keySet() ){//initialization
 //            //no need to check as we are adding 0th initially
 //            heap.add(new Pair<Integer, String>(Integer.MAX_VALUE,k));//yay//unmarked nodes
@@ -162,6 +160,7 @@ public class Puzzle {
             }
 
             nodeDist = current.getKey();
+
             for (String neighbour:g.get(node)){//getting the neighbours of node from graphs
                 //dist of neighbour = dist of current + calculate cost(s,current)
                 w = calculateCost(node,neighbour);
@@ -173,7 +172,7 @@ public class Puzzle {
                     Boolean b = visitedMap.get(neighbour);
                     if ((b==null)||(b==false)){//not visited node//not in heap not in cloud
                         heap.add(new Pair<>(nodeDist+w,neighbour));
-                        indiceMap.put(neighbour,heap.size());//appended at the end
+                        indiceMap.put(neighbour,heap.size()-1);//appended at the end
 //                        heapSize++;
                         percolateUp(heap.size()-1);//this value has decreased so required to be maintained
                         visitedMap.put(neighbour,false);
@@ -262,8 +261,8 @@ public class Puzzle {
         oStream.flush();
         return;
     }
-    public static String getMove(String s1,String s2){//returns a 3 character string
-
+    public static String getMove(String s1,String s2){
+        //returns a 3 character string
         //what to move to get from s1 -> s2 ?
         int gPos1 = 0;
         int gPos2 = 0;
@@ -347,6 +346,7 @@ public class Puzzle {
         indiceMap.remove(heap.get(0).getValue());//0 indexed element is removed
         heap.set(0,heap.get(heap.size()-1));//now push this element down
         indiceMap.put(heap.get(heap.size()-1).getValue(),0);
+        heap.remove(heap.size()-1);
 //        heapSize--;//reducing heapsize is equivalent to deleting the last elemtn
         //lazy deleting the last element
         //SOMETHING BAD WILL HAPPEN WITH IDX==0 fixed! based on 0 index
@@ -442,7 +442,7 @@ public class Puzzle {
             if (graph.containsKey(current)){
                 continue;
             }
-            nbors = generateNeigbours(current);//can be made faster
+            nbors = generateNeighbours(current);//can be made faster
             graph.put(current,nbors);
 
             q.addAll(nbors);
@@ -459,7 +459,7 @@ public class Puzzle {
             if (graphM.containsKey(current)){
                 continue;
             }
-            nbors = generateNeigbours(current);//can be made faster
+            nbors = generateNeighbours(current);//can be made faster
             graphM.put(current,nbors);
 
             qM.addAll(nbors);
@@ -497,7 +497,7 @@ public class Puzzle {
         }
         return;
     }
-    public static ArrayList<String> generateNeigbours(String s){
+    public static ArrayList<String> generateNeighbours(String s){
         ArrayList<String> list = new ArrayList<>();
         int pos=0;
         for (int i=0;i<s.length();i++){
