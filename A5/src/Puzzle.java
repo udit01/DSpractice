@@ -161,11 +161,13 @@ public class Puzzle {
                     neighbourDist = heap.get(indiceMap.get(neighbour)).getKey();
                 }
                 catch (Exception e){
-                    continue;//On with the loop boys
+                    continue;//On with the loop boys//if neighbour is not in the heap then it's in the cloud!
                 }
                 if (neighbourDist>nodeDist+w){
                     heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
                     percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
+//                    oStream.write(("child/neighbour: "+neighbour+" node/parent: "+node+"seperated by: " + getMove(neighbour,node)+"new Dist(par+w):"+(nodeDist+w)+"oldDist(v.d):"+neighbourDist+"\n").getBytes());
+//                    printHeap();
                     parentMap.put(neighbour,node);//because node is the new parent of indice
                 }
                 //else do nothing for that neighbour
@@ -177,19 +179,41 @@ public class Puzzle {
         oStream.flush();
         return;
     }
+//    public static void printHeap(){
+//        try {
+//            oStream.write(("PHeap: ").getBytes());
+//            for (int i = 0; i < 5; i++) {
+//                oStream.write((heap.get(i) + " ").getBytes());
+//            }
+//            oStream.write(("]\n").getBytes());
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
     public static void printPath(String start, Pair<Integer,String> endN) throws IOException{
         //some kind of ordered set where we have the parent indices of end --> start
         ArrayList<String> path = new ArrayList<String>();
         int pseudoCost = endN.getKey();
         String curr= endN.getValue();
+//        System.out.println("Line 185:"+curr+"(current | start:)"+start+"\n");
+//        oStream.write(("Line 185:"+curr+"(current | start:)"+start+"\n").getBytes());
+//        oStream.flush();
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
-            oStream.write((curr+"Line 180\n").getBytes());
+//            oStream.write((curr+"Line 180\n").getBytes());
             path.add(curr);
             //shit but the heap is now empty
             curr = parentMap.get(curr);//it will spit out the next element ie parent
+            if (curr==null){
+                break;
+            }
         }
         path.add(start);//last cherry on the cake
+        for(int i=0;i<path.size();i++) {
+//            oStream.write(("LINE 200: i:"+i+" Node "+ path.get(i)+"\n").getBytes());
+        }
         int pathLength = path.size() - 1;//the number of edges is = V-1
         int cost = pseudoCost - pathLength;//due to all the extra ones added
         oStream.write((pathLength+" "+cost+"\n").getBytes());
@@ -239,6 +263,7 @@ public class Puzzle {
             default:
                 sb.append("U");//append a normal character at the end
                 try {
+//                    oStream.write(("Line 248: diff: "+diff+" s1: " + s1 + " s2: " + s2+"\n").getBytes());
                     throw new Exception("Why in this case?");
                 }
                 catch (Exception e){
@@ -299,7 +324,7 @@ public class Puzzle {
             if (((2*idx)+2)<=heapSize) {
                 lchild = heap.get((2 * idx) + 1);
                 rchild = heap.get((2 * idx) + 2);
-                if ((cur.getKey() <= lchild.getKey()) && (cur.getKey() <= lchild.getKey())) {//whats the symbol for and ?
+                if ((cur.getKey() <= lchild.getKey()) && (cur.getKey() <= rchild.getKey())) {//whats the symbol for and ?
                     //do something
                     //satisfied at this level therefore it's okay and done!
                     break;
