@@ -152,7 +152,7 @@ public class Puzzle {
             l--;
 //            printHeap();
 
-            printParents();
+//            printParents();
             current = deleteMin();//it will throw out distance and node and remove etc
             node = current.getValue();
             visitedMap.put(node,true);
@@ -173,6 +173,15 @@ public class Puzzle {
 //                System.out.println("Neighbours are:"+neighbour);
                 //what if neigbhour not in the heap?
                 idx = indiceMap.get(neighbour);
+//
+//                if (visitedMap.get(neighbour)){
+//                        //delete that element from the heap and the hash table
+//                        indiceMap.remove(neighbour);
+//                        continue;
+//                    }
+//                if (neighbour.equals(start)){
+//                    System.out.println("LLLAAA2 index is"+idx);
+//                }
                 if (idx == null){//not in the heap
 
                     //case if it's not in the heap its in the cloud ?
@@ -196,7 +205,12 @@ public class Puzzle {
                     }
                 }
                 else{//its in the heap
+//
+//                    if (neighbour.equals(start)){
+//                        System.out.println("LLLAAA");
+//                    }
                     neighbourDist = heap.get(idx).getKey();
+//                    neighbourDist = parentMap.get(neighbour).getValue();//heap.get(idx).getKey();
 
                     if (neighbourDist>nodeDist+w){
                         heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
@@ -244,7 +258,7 @@ public class Puzzle {
 
         }
         //what if it was never stopped inside the while loop and comes here? then its an error
-        oStream.write("THIS line should not be printed! (213)".getBytes());
+//        oStream.write("THIS line should not be printed! (213)".getBytes());
         oStream.flush();
         return;
     }
@@ -280,25 +294,25 @@ public class Puzzle {
 //        oStream.write(("Line 185:"+curr+"(current | start:)"+start+"\n").getBytes());
 //        oStream.flush();
         int cost = endN.getKey();//due to all the extra ones added
-        int flag=0;
-        if (cost == 1230){
-            flag = 1;
-        }
+//        int flag=0;
+//        if (cost == 1230){
+//            flag = 1;
+//        }
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
 //            oStream.write((curr+"Line 180\n").getBytes());
 //            System.out.println(curr);
             path.add(curr);
-            if (flag==1){
-                System.out.println("L274(parent=distance):"+ parentMap.get(curr));
-            }
+//            if (flag==1){
+//                System.out.println("L274(parent=distance):"+ parentMap.get(curr));
+//            }
             //shit but the heap is now empty
             curr = parentMap.get(curr).getKey();//it will spit out the next element ie parent
             if (curr==null){
                 break;
             }
         }
-        System.out.println(parentMap.get("5748G6231"));
+//        System.out.println(parentMap.get(start));
         path.add(start);//last cherry on the cake
 //        for(int i=0;i<path.size();i++) {
 ////            oStream.write(("LINE 200: i:"+i+" Node "+ path.get(i)+"\n").getBytes());
@@ -396,6 +410,11 @@ public class Puzzle {
     public static Pair<Integer,String > deleteMin(){
         Pair<Integer,String > toReturn = heap.get(0);//top and min element
         //follow the alogrithm
+        if (heap.size()==1){
+            indiceMap.remove(heap.get(0).getValue());//0 indexed element is removed
+            heap.remove(heap.size()-1);
+            return toReturn;
+        }
         indiceMap.remove(heap.get(0).getValue());//0 indexed element is removed
         heap.set(0,heap.get(heap.size()-1));//now push this element down
         indiceMap.put(heap.get(heap.size()-1).getValue(),0);
