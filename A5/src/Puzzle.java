@@ -1,3 +1,4 @@
+import com.sun.org.apache.xml.internal.dtm.ref.sax2dtm.SAX2DTM2;
 import javafx.util.Pair;
 import org.omg.CORBA.INTERNAL;
 
@@ -122,7 +123,7 @@ public class Puzzle {
 //        int l = 0;
         heap.add(new Pair<Integer, String>(0,start));//added it at the 0th postion
         indiceMap.put(start,0);
-        parentMap.put(start,null);//start has no parent or itself ?
+        parentMap.put(start,new Pair<String, Integer>(null,0));//start has no parent or itself ?
         visitedMap.put(start,false);
 //
 // ++l;
@@ -149,15 +150,16 @@ public class Puzzle {
         int l = 181440;
         while (l>=0){//what if heap size = 0?
             l--;
+//            printHeap();
+
+            printParents();
             current = deleteMin();//it will throw out distance and node and remove etc
             node = current.getValue();
             visitedMap.put(node,true);
 //            indiceMap.remove(node);//node is removed
-
+//            printHeap();
+//            System.out.println("Node is:"+node);
             if(node.equals(end)){
-                //then it is here to relax it's neigbours which we don't want // just exit
-//                pseudo distance is current.getkey() and - numMoves
-                //parent is also set and everything is good!
                 printPath(start,current);//current has end
                 oStream.flush();
                 return;
@@ -168,20 +170,27 @@ public class Puzzle {
             for (String neighbour:g.get(node)){//getting the neighbours of node from graphs
                 //dist of neighbour = dist of current + calculate cost(s,current)
                 w = calculateCost(node,neighbour);
+//                System.out.println("Neighbours are:"+neighbour);
                 //what if neigbhour not in the heap?
                 idx = indiceMap.get(neighbour);
                 if (idx == null){//not in the heap
 
                     //case if it's not in the heap its in the cloud ?
                     Boolean b = visitedMap.get(neighbour);
-                    if ((b==null)||(b==false)){//not visited node//not in heap not in cloud
+                    if ((b==null)||b==false){//not visited node//not in heap not in cloud//uninitialized node
                         heap.add(new Pair<>(nodeDist+w,neighbour));
                         indiceMap.put(neighbour,heap.size()-1);//appended at the end
-//                        heapSize++;
                         percolateUp(heap.size()-1);//this value has decreased so required to be maintained
                         visitedMap.put(neighbour,false);
-                        parentMap.put( neighbour,new Pair<>(node,1) );//bec
+                        parentMap.put( neighbour,new Pair<>(node,nodeDist+w) );//bec
                     }
+//                    else if((b==false)){//not visited node
+//                        heap.add(new Pair<>(nodeDist+w,neighbour));
+//                        indiceMap.put(neighbour,heap.size()-1);//appended at the end
+//                        percolateUp(heap.size()-1);//this value has decreased so required to be maintained
+//                        visitedMap.put(neighbour,false);
+////                        parentMap.put( neighbour,new Pair<>(node,parentMap.get(neighbour).getValue()) );
+//                    }
                     else{//visited is true ie it's already in the cloud!!
                         continue;//let 's see for another neighbour
                     }
@@ -211,7 +220,7 @@ public class Puzzle {
                             heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
                             percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                             //do i need to put false everytime ?
-                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), parentLengthPrev));//because node is the new parent of indice
+                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), nodeDist+w));//because node is the new parent of indice
                         }
                     }
                 }
@@ -239,13 +248,23 @@ public class Puzzle {
         oStream.flush();
         return;
     }
+    public static void printParents(){
+        System.out.print("PParentMap: ");
+        for (String p: parentMap.keySet()){
+            System.out.print(parentMap.get(p)+" ");
+        }
+        System.out.println();
+    }
     public static void printHeap(){
         try {
-            oStream.write(("PHeap: ").getBytes());
-            for (int i = 0; i < 5; i++) {
-                oStream.write((heap.get(i) + " ").getBytes());
+//            oStream.write(("PHeap: ").getBytes());
+            System.out.print(("PHeap: "));
+            for (int i = 0; i < heap.size(); i++) {
+//                oStream.write((heap.get(i) + " ").getBytes());
+                System.out.print((heap.get(i) + " "));
             }
-            oStream.write(("]\n").getBytes());
+            System.out.println();
+//            oStream.write(("]\n").getBytes());
 
         }
         catch (Exception e){
@@ -260,17 +279,26 @@ public class Puzzle {
 //        System.out.println("Line 185:"+curr+"(current | start:)"+start+"\n");
 //        oStream.write(("Line 185:"+curr+"(current | start:)"+start+"\n").getBytes());
 //        oStream.flush();
+        int cost = endN.getKey();//due to all the extra ones added
+        int flag=0;
+        if (cost == 1230){
+            flag = 1;
+        }
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
 //            oStream.write((curr+"Line 180\n").getBytes());
 //            System.out.println(curr);
             path.add(curr);
+            if (flag==1){
+                System.out.println("L274(parent=distance):"+ parentMap.get(curr));
+            }
             //shit but the heap is now empty
             curr = parentMap.get(curr).getKey();//it will spit out the next element ie parent
             if (curr==null){
                 break;
             }
         }
+        System.out.println(parentMap.get("5748G6231"));
         path.add(start);//last cherry on the cake
 //        for(int i=0;i<path.size();i++) {
 ////            oStream.write(("LINE 200: i:"+i+" Node "+ path.get(i)+"\n").getBytes());
@@ -278,7 +306,6 @@ public class Puzzle {
         int pathLength = path.size() - 1;//the number of edges is = V-1
 
 //        int cost = pseudoCost - pathLength;//due to all the extra ones added
-        int cost = endN.getKey();//due to all the extra ones added
         oStream.write((pathLength+" "+cost+"\n").getBytes());
         for (int i=path.size()-1;i>0;i--){
             oStream.write((getMove(path.get(i),path.get(i-1))).getBytes());//this method by default includes space
