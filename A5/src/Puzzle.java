@@ -1,6 +1,4 @@
-import com.sun.org.apache.xml.internal.dtm.ref.sax2dtm.SAX2DTM2;
 import javafx.util.Pair;
-import org.omg.CORBA.INTERNAL;
 
 import java.io.*;
 import java.util.*;
@@ -191,7 +189,7 @@ public class Puzzle {
                         indiceMap.put(neighbour,heap.size()-1);//appended at the end
                         percolateUp(heap.size()-1);//this value has decreased so required to be maintained
                         visitedMap.put(neighbour,false);
-                        parentMap.put( neighbour,new Pair<>(node,nodeDist+w) );//bec
+                        parentMap.put( neighbour,new Pair<>(node,parentMap.get(node).getValue() + 1) );//bec
                     }
 //                    else if((b==false)){//not visited node
 //                        heap.add(new Pair<>(nodeDist+w,neighbour));
@@ -216,7 +214,7 @@ public class Puzzle {
                         heap.set(indiceMap.get(neighbour),new Pair<>(nodeDist+w,neighbour));
                         percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                         //do i need to put false everytime ?
-                        parentMap.put(neighbour,new Pair<>(node,nodeDist+w));//because node is the new parent of indice
+                        parentMap.put(neighbour,new Pair<>(node,parentMap.get(node).getValue()+1 ));//because node is the new parent of indice
                     }
                     else if(neighbourDist == (nodeDist+w)){
                         Pair<String,Integer> parentPair = parentMap.get(neighbour);//contains parent and path length till neighbour by previous parent
@@ -224,17 +222,17 @@ public class Puzzle {
                         parentLengthPrev = parentLengthPrev == null ? 0 : parentLengthPrev;
                         Integer nodeLengthSrc = parentMap.get(node).getValue();
 
-                        if ( (parentLengthPrev) > (nodeLengthSrc+1) ) {
+                        if ( (parentLengthPrev) >= (nodeLengthSrc+1) ) {
                             heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
                             percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                             //do i need to put false everytime ?
-                            parentMap.put(neighbour, new Pair<>(node, nodeDist + w));//because node is the new parent of indice
+                            parentMap.put(neighbour, new Pair<>(node, nodeLengthSrc + 1 ));//because node is the new parent of indice
                         }
                         else{
                             heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
                             percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                             //do i need to put false everytime ?
-                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), nodeDist+w));//because node is the new parent of indice
+                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), parentLengthPrev ));//because node is the new parent of indice
                         }
                     }
                 }
