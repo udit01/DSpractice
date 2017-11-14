@@ -60,7 +60,7 @@ public class Puzzle {
                 //splice[0] contatins the start and other end
                 w = readerI.readLine().split(" ");
                 for (int k=0;k<8;k++){//weight[0] is actually weight of moving 1 to GAP
-                    weights[k]=Integer.parseInt(w[k]);//remember as we don't want 0 paths to trouble us and we will subtract after
+                    weights[k]=Integer.parseInt(w[k]);// + 1;//remember as we don't want 0 paths to trouble us and we will subtract after
                     //these are actually pseudo weights
                 }
 
@@ -78,7 +78,7 @@ public class Puzzle {
 
         }catch (Exception e) {
 
-            e.printStackTrace();
+//            e.printStackTrace();
 //            System.out.println("Incorrect file path or file format.");
         }
     }
@@ -141,7 +141,7 @@ public class Puzzle {
             }
 
             nodeDist = current.getKey();
-
+//            System.out.println(node+" L144");
             for (String neighbour:g.get(node)){//getting the neighbours of node from graphs
                 //dist of neighbour = dist of current + calculate cost(s,current)
                 w = calculateCost(node,neighbour);
@@ -184,10 +184,10 @@ public class Puzzle {
                     else if(neighbourDist == (nodeDist+w)){
                         Pair<String,Integer> parentPair = parentMap.get(neighbour);//contains parent and path length till neighbour by previous parent
                         Integer parentLengthPrev = parentPair.getValue();
-                        parentLengthPrev = parentLengthPrev == null ? 0 : parentLengthPrev;
+//                        parentLengthPrev = parentLengthPrev == null ? 0 : parentLengthPrev;
                         Integer nodeLengthSrc = parentMap.get(node).getValue();
 
-                        if ( (parentLengthPrev) >= (nodeLengthSrc+1) ) {
+                        if ( (parentLengthPrev) > (nodeLengthSrc+1) ) {//what if they are equal?
                             heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
                             percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                             //do i need to put false everytime ?
@@ -197,7 +197,8 @@ public class Puzzle {
                             heap.set(indiceMap.get(neighbour), new Pair<>(nodeDist + w, neighbour));
                             percolateUp(indiceMap.get(neighbour));//this value has decreased so required to be maintained
                             //do i need to put false everytime ?
-                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), parentLengthPrev ));//because node is the new parent of indice
+//                            parentMap.put(neighbour, new Pair<>(parentPair.getKey(), parentLengthPrev ));//because node is the new parent of indice
+                            parentMap.put(neighbour, parentPair);//because previous parent is better of indice
                         }
                     }
                 }
@@ -210,7 +211,6 @@ public class Puzzle {
         //some kind of ordered set where we have the parent indices of end --> start
         ArrayList<String> path = new ArrayList<String>();
         String curr= endN.getValue();
-        int cost = endN.getKey();//due to all the extra ones added
         //pray that it doesn't get stuck in an infinite loop
         while (!(curr.equals(start))){
             path.add(curr);
@@ -221,6 +221,7 @@ public class Puzzle {
         }
         path.add(start);//last cherry on the cake
         int pathLength = path.size() - 1;//the number of edges is = V-1
+        int cost = endN.getKey() ;//- pathLength ;//due to all the extra ones added
         oStream.write((pathLength+" "+cost+"\n").getBytes());
         for (int i=path.size()-1;i>0;i--){
             oStream.write((getMove(path.get(i),path.get(i-1))).getBytes());//this method by default includes space
