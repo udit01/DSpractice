@@ -40,7 +40,7 @@ def verify_path(start_str, end_str, moves):
         key, direction = int(move[0]), move[1]
         check_function = {'D': try_up, 'U': try_down, 'R': try_left, 'L': try_right}
         move_functions = {'D': move_up, 'U': move_down, 'R': move_left, 'L': move_right}
-        allowed_functions = { motion: move_functions[motion] for motion in 'ULDR' if check_function[motion] } 
+        allowed_functions = { motion: move_functions[motion] for motion in 'ULDR' if check_function[motion](grid) }
         state_string = build_state_string(grid)
 
         if direction not in allowed_functions:
